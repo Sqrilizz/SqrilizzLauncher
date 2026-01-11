@@ -1,0 +1,158 @@
+name: AstralRinth App build
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - prod
+      - release
+      - beta
+      - feature*
+    tags:
+      - release-*
+      - beta-*
+    paths:
+      - .github/workflows/astralrinth-build.yml
+      - 'apps/app/**'
+      - 'apps/app-frontend/**'
+      - 'packages/app-lib/**'
+      - 'packages/app-macros/**'
+      - 'packages/assets/**'
+      - 'packages/ui/**'
+      - 'packages/utils/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build
+    strategy:
+      fail-fast: false
+      matrix:
+        # platform: [macos-latest, windows-latest, ubuntu-latest]
+        platform: [windows-latest, ubuntu-latest]
+        include:
+          # - platform: macos-latest
+          #   artifact-target-name: universal-apple-darwin
+          - platform: windows-latest
+            artifact-target-name: x86_64-pc-windows-msvc
+          - platform: ubuntu-latest
+            artifact-target-name: x86_64-unknown-linux-gnu
+
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - name: 📥 Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: 🔍 Validate Git config does not introduce CRLF
+        shell: bash
+        run: |
+          echo "🔍 Checking Git config for CRLF settings..."
+
+          autocrlf=$(git config --get core.autocrlf || echo "unset")
+          eol_setting=$(git config --get core.eol || echo "unset")
+
+          echo "core.autocrlf = $autocrlf"
+          echo "core.eol = $eol_setting"
+
+          if [ "$autocrlf" = "true" ]; then
+            echo "⚠️ WARNING: core.autocrlf is set to 'true'. Consider setting it to 'input' or 'false'."
+          fi
+
+          if [ "$eol_setting" = "crlf" ]; then
+            echo "⚠️ WARNING: core.eol is set to 'crlf'. Consider unsetting it or setting to 'lf'."
+          fi
+
+      - name: 🔍 Check migration files line endings (LF only)
+        shell: bash
+        run: |
+          echo "🔍 Scanning migration SQL files for CR characters (\\r)..."
+          if grep -Iq $'\r' packages/app-lib/migrations/*.sql; then
+            echo "❌ ERROR: Some migration files contain CR (\\r) characters — expected only LF line endings."
+            exit 1
+          fi
+          echo "✅ All migration files use LF line endings"
+
+      - name: 🧰 Setup Rust toolchain
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          target: ${{ matrix.artifact-target-name }}
+
+      - name: 🧰 Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: 🧰 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: 🧰 Install Linux build dependencies
+        if: matrix.platform == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -yq \
+            libgtk-3-dev \
+            libwebkit2gtk-4.1-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev \
+            xdg-utils \
+            openjdk-17-jdk
+
+      - name: ⚙️ Set application environment
+        shell: bash
+        run: |
+          cp packages/app-lib/.env.prod packages/app-lib/.env
+
+      - name: 💨 Setup Turbo cache
+        uses: rharkor/caching-for-turbo@v1.8
+
+      - name: 🧰 Install dependencies
+        run: pnpm install
+
+      - name: ✍️ Set up Windows code signing (jsign)
+        if: matrix.platform == 'windows-latest' && env.SIGN_WINDOWS_BINARIES == 'true'
+        shell: bash
+        run: |
+          choco install jsign --ignore-dependencies
+
+      - name: 🗑️ Clean up cached bundles
+        shell: bash
+        run: |
+          rm -rf target/release/bundle
+          rm -rf target/*/release/bundle || true
+
+      # - name: 🔨 Build macOS app
+      #   if: matrix.platform == 'macos-latest'
+      #   run: pnpm --filter=@modrinth/app run tauri build --target universal-apple-darwin --config tauri-release.conf.json
+      #   env:
+      #     TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
+      #     TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
+
+      - name: 🔨 Build Linux app
+        if: matrix.platform == 'ubuntu-latest'
+        run: pnpm --filter=@modrinth/app run tauri build --config tauri-release.conf.json
+        env:
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
+
+      - name: 🔨 Build Windows app
+        if: matrix.platform == 'windows-latest'
+        shell: pwsh
+        run: |
+          $env:JAVA_HOME = "$env:JAVA_HOME_17_X64"
+          pnpm --filter=@modrinth/app run tauri build --config tauri-release.conf.json --verbose --bundles 'nsis'
+        env:
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
+
+      - name: 📤 Upload app bundles
+        uses: actions/upload-artifact@v3
+        with:
+          name: App bundle (${{ matrix.artifact-target-name }})
+          path: |
+            target/release/bundle/**
+            target/*/release/bundle/**

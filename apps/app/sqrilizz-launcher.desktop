@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Sqrilizz Launcher
+Comment=A modern Minecraft launcher
+Exec=sqrilizz-launcher %U
+Icon=sqrilizz-launcher
+Terminal=false
+Categories=Game;
+MimeType=application/x-modrinth-modpack+zip;x-scheme-handler/modrinth;
+Keywords=minecraft;launcher;modrinth;
+StartupWMClass=Sqrilizz Launcher

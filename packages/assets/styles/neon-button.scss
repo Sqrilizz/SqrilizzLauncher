@@ -1,0 +1,39 @@
+// [AR] Feature
+.neon-button.neon :deep(:is(button, a, .button-like)),
+.neon-button.neon :slotted(:is(button, a, .button-like)),
+.neon-button.neon :slotted(*) :is(button, a, .button-like) {
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid #3e8cde;
+  color: #3e8cde;
+  text-shadow:
+    0 0 4px rgba(79, 173, 255, 0.5),
+    0 0 8px rgba(14, 98, 204, 0.5),
+    0 0 12px rgba(122, 31, 199, 0.5);
+  transition:
+    color 0.25s ease,
+    box-shadow 0.3s ease,
+    transform 0.15s ease;
+  box-shadow: 0 0 4px rgba(79, 173, 255, 0.5);
+}
+
+.bordered {
+  border-radius: 12px;
+}
+
+/* Hover */
+.neon-button.neon
+  :deep(:is(button, a, .button-like):hover):not([disabled]):not(.disabled),
+.neon-button.neon
+  :slotted(:is(button, a, .button-like):hover):not([disabled]):not(.disabled),
+.neon-button.neon
+  :slotted(*) :is(button, a, .button-like):hover:not([disabled]):not(.disabled) {
+  color: #10fae5;
+  transform: scale(1.02);
+  box-shadow:
+    0 0 4px rgba(16, 250, 229, 0.3),
+    0 0 8px rgba(16, 250, 229, 0.2);
+  text-shadow:
+    0 0 2px rgba(16, 250, 229, 0.4),
+    0 0 4px rgba(16, 250, 229, 0.25);
+}

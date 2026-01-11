@@ -1,0 +1,9 @@
+Cargo.lock
+pnpm-lock.yaml
+.github/**/*.png
+*.png
+*.sh
+*.toml
+*.yml
+*.yaml
+*.md

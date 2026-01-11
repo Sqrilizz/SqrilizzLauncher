@@ -1,0 +1,1613 @@
+{
+  "action.cancel": {
+    "message": "취소"
+  },
+  "action.continue": {
+    "message": "계속"
+  },
+  "admin.billing.error.not-found": {
+    "message": "사용자를 찾을 수 없습니다"
+  },
+  "app-marketing.download.download-appimage": {
+    "message": "AppImage 다운로드"
+  },
+  "app-marketing.download.download-beta": {
+    "message": "베타 다운로드"
+  },
+  "app-marketing.download.download-deb": {
+    "message": "DEB 다운로드"
+  },
+  "app-marketing.download.download-rpm": {
+    "message": "RPM 다운로드"
+  },
+  "app-marketing.download.linux": {
+    "message": "Linux"
+  },
+  "app-marketing.download.mac": {
+    "message": "Mac"
+  },
+  "app-marketing.download.options-title": {
+    "message": "다운로드 옵션"
+  },
+  "app-marketing.download.terms": {
+    "message": "Modrinth App을 다운로드하면 <terms-link> 이용 약관</terms-link>과 <privacy-link>개인정보 처리방침</privacy-link>에 동의하는 것으로 간주합니다."
+  },
+  "app-marketing.download.third-party-packages": {
+    "message": "제3자 패키지"
+  },
+  "app-marketing.download.title": {
+    "message": "Modrinth App 다운로드 (베타)"
+  },
+  "app-marketing.download.windows": {
+    "message": "Windows"
+  },
+  "app-marketing.features.importing.description": {
+    "message": "이전에 사용하던 런처의 즐겨찾기 프로필을 불러와, Modrinth App에서 바로 시작해보세요!"
+  },
+  "app-marketing.features.importing.multimc-alt": {
+    "message": "MultiMC"
+  },
+  "app-marketing.features.mod-management.actions": {
+    "message": "활동"
+  },
+  "app-marketing.features.mod-management.name": {
+    "message": "이름"
+  },
+  "app-marketing.features.mod-management.search-mods": {
+    "message": "모드 검색"
+  },
+  "app-marketing.features.mod-management.title": {
+    "message": "모드 관리"
+  },
+  "app-marketing.features.mod-management.version": {
+    "message": "버전"
+  },
+  "app-marketing.features.offline.title": {
+    "message": "오프라인 모드"
+  },
+  "app-marketing.features.open-source.title": {
+    "message": "오픈 소스"
+  },
+  "app-marketing.features.performance.discord": {
+    "message": "Discord"
+  },
+  "app-marketing.features.performance.google-chrome": {
+    "message": "Google Chrome"
+  },
+  "app-marketing.features.performance.infinite-mb": {
+    "message": "∞ MB"
+  },
+  "app-marketing.features.performance.infinite-times-infinite-mb": {
+    "message": "∞ * ∞ MB"
+  },
+  "app-marketing.features.performance.less-than-150mb": {
+    "message": "< 150 MB"
+  },
+  "app-marketing.features.performance.modrinth-app": {
+    "message": "Modrinth App"
+  },
+  "app-marketing.features.performance.process-name": {
+    "message": "프로세스 이름"
+  },
+  "app-marketing.features.performance.ram": {
+    "message": "메모리"
+  },
+  "app-marketing.features.performance.small": {
+    "message": "적음"
+  },
+  "app-marketing.features.play.description": {
+    "message": "Modrinth App을 통해 여러분이 좋아하는 모드와 모드팩을 다운로드하고 바로 플레이하세요."
+  },
+  "app-marketing.features.sharing.modpack": {
+    "message": "모드팩"
+  },
+  "app-marketing.features.sharing.share-button": {
+    "message": "공유"
+  },
+  "app-marketing.features.sharing.title": {
+    "message": "모드팩 공유"
+  },
+  "app-marketing.features.website.title": {
+    "message": ""
+  },
+  "app-marketing.features.youve-used-before": {
+    "message": "이전에 사용"
+  },
+  "auth.authorize.action.authorize": {
+    "message": "승인"
+  },
+  "auth.authorize.action.decline": {
+    "message": "거부"
+  },
+  "auth.authorize.app-info": {
+    "message": "<strong>{appName}</strong>의 제작자 <creator-link>{creator}</creator-link>에게 다음 권한을 허용합니다:"
+  },
+  "auth.authorize.authorize-app-name": {
+    "message": "{appName} 승인"
+  },
+  "auth.authorize.error.no-redirect-url": {
+    "message": "응답에서 리다이렉트 위치를 찾을 수 없습니다"
+  },
+  "auth.authorize.redirect-url": {
+    "message": "<redirect-url>{url}</redirect-url>로 리다이렉트 됩니다"
+  },
+  "auth.reset-password.method-choice.action": {
+    "message": "복구 이메일 전송"
+  },
+  "auth.reset-password.method-choice.description": {
+    "message": "아래에 이메일을 입력하면 계정 복구 링크가 발송됩니다."
+  },
+  "auth.reset-password.method-choice.email-username.label": {
+    "message": "이메일 또는 사용자명"
+  },
+  "auth.reset-password.method-choice.email-username.placeholder": {
+    "message": "이메일"
+  },
+  "auth.reset-password.notification.email-sent.text": {
+    "message": "계정에 이메일이 저장되어 있다면, 지침이 담긴 이메일이 발송됩니다."
+  },
+  "auth.reset-password.notification.email-sent.title": {
+    "message": "이메일을 전송했습니다"
+  },
+  "auth.reset-password.notification.password-reset.text": {
+    "message": "이제 새 비밀번호로 계정에 로그인할 수 있습니다."
+  },
+  "auth.reset-password.notification.password-reset.title": {
+    "message": "비밀번호가 성공적으로 재설정되었습니다"
+  },
+  "auth.reset-password.post-challenge.action": {
+    "message": "비밀번호 재설정"
+  },
+  "auth.reset-password.post-challenge.confirm-password.label": {
+    "message": "비밀번호 확인"
+  },
+  "auth.reset-password.post-challenge.description": {
+    "message": "아래에 새 비밀번호를 입력하여 계정에 접속하세요."
+  },
+  "auth.reset-password.title": {
+    "message": "비밀번호 재설정"
+  },
+  "auth.reset-password.title.long": {
+    "message": "비밀번호 재설정"
+  },
+  "auth.sign-in.2fa.description": {
+    "message": "진행하려면 2단계 인증 코드를 입력해 주세요."
+  },
+  "auth.sign-in.2fa.label": {
+    "message": "2단계 인증 코드 입력"
+  },
+  "auth.sign-in.2fa.placeholder": {
+    "message": "코드 입력..."
+  },
+  "auth.sign-in.additional-options": {
+    "message": "<forgot-password-link>비밀번호를 잊으셨나요?</forgot-password-link> • <create-account-link>계정 만들기</create-account-link>"
+  },
+  "auth.sign-in.email-username.label": {
+    "message": "이메일 또는 사용자명"
+  },
+  "auth.sign-in.password.label": {
+    "message": "암호"
+  },
+  "auth.sign-in.sign-in-with": {
+    "message": "다음을 통해 로그인"
+  },
+  "auth.sign-in.title": {
+    "message": "로그인"
+  },
+  "auth.sign-in.use-password": {
+    "message": "또는 비밀번호 사용하기"
+  },
+  "auth.sign-up.action.create-account": {
+    "message": "계정 생성"
+  },
+  "auth.sign-up.confirm-password.label": {
+    "message": "암호 확인"
+  },
+  "auth.sign-up.email.label": {
+    "message": "이메일"
+  },
+  "auth.sign-up.label.username": {
+    "message": "사용자 이름"
+  },
+  "auth.sign-up.legal-dislaimer": {
+    "message": "계정을 생성함으로써, Modrinth의 <terms-link>이용 약관</terms-link> 및 <privacy-policy-link>개인정보 보호정책</privacy-policy-link>에 동의합니다."
+  },
+  "auth.sign-up.notification.password-mismatch.text": {
+    "message": "비밀번호가 일치하지 않습니다!"
+  },
+  "auth.sign-up.password.label": {
+    "message": "암호"
+  },
+  "auth.sign-up.sign-in-option.title": {
+    "message": "이미 계정이 있으신가요?"
+  },
+  "auth.sign-up.subscribe.label": {
+    "message": "Modrinth의 업데이트 소식 전달받기"
+  },
+  "auth.sign-up.title": {
+    "message": "회원 가입"
+  },
+  "auth.sign-up.title.create-account": {
+    "message": "또는 직접 계정을 만드세요"
+  },
+  "auth.sign-up.title.sign-up-with": {
+    "message": "다음 계정으로 가입"
+  },
+  "auth.verify-email.action.account-settings": {
+    "message": "계정 설정"
+  },
+  "auth.verify-email.action.sign-in": {
+    "message": "로그인"
+  },
+  "auth.verify-email.already-verified.description": {
+    "message": "이미 이메일이 인증되었습니다."
+  },
+  "auth.verify-email.already-verified.title": {
+    "message": "이메일이 이미 인증됨"
+  },
+  "auth.verify-email.failed-verification.action": {
+    "message": "인증 이메일 재전송"
+  },
+  "auth.verify-email.failed-verification.description": {
+    "message": "이메일을 인증할 수 없었습니다. 로그인 한 뒤 대시보드를 통해 인증 이메일을 다시 보내주세요."
+  },
+  "auth.verify-email.failed-verification.description.logged-in": {
+    "message": "이메일을 인증할 수 없습니다. 아래 버튼을 통해 인증 이메일을 다시 보내주세요."
+  },
+  "auth.verify-email.failed-verification.title": {
+    "message": "이메일 인증 실패"
+  },
+  "auth.verify-email.post-verification.description": {
+    "message": "이메일 주소가 성공적으로 인증되었습니다."
+  },
+  "auth.verify-email.post-verification.title": {
+    "message": "이메일 인증"
+  },
+  "auth.verify-email.title": {
+    "message": "이메일 인증"
+  },
+  "auth.welcome.checkbox.subscribe": {
+    "message": "Modrinth의 업데이트 소식 전달받기"
+  },
+  "auth.welcome.label.tos": {
+    "message": "계정을 생성함으로써, Modrinth의 <terms-link>이용 약관</terms-link> 및 <privacy-policy-link>개인정보 보호정책</privacy-policy-link>에 동의하게 됩니다."
+  },
+  "auth.welcome.long-title": {
+    "message": "Modrinth에 오신 걸 환영합니다!"
+  },
+  "auth.welcome.title": {
+    "message": "환영합니다"
+  },
+  "collection.button.delete-icon": {
+    "message": "아이콘 삭제"
+  },
+  "collection.button.edit-icon": {
+    "message": "아이콘 수정"
+  },
+  "collection.button.remove-project": {
+    "message": "프로젝트 삭제"
+  },
+  "collection.button.unfollow-project": {
+    "message": "프로젝트 팔로우 해제"
+  },
+  "collection.delete-modal.description": {
+    "message": "이 작업은 이 컬렉션을 영구적으로 제거합니다. 이 작업은 취소할 수 없습니다."
+  },
+  "collection.delete-modal.title": {
+    "message": "이 컬렉션을 삭제하시겠습니까?"
+  },
+  "collection.description": {
+    "message": "{description} - Modrinth에서 {username}이(가) 만든 컬렉션 {name} 보기"
+  },
+  "collection.description.following": {
+    "message": "팔로우하는 모든 프로젝트로 자동 생성된 컬렉션입니다."
+  },
+  "collection.error.not-found": {
+    "message": "컬렉션을 찾을 수 없습니다"
+  },
+  "collection.label.collection": {
+    "message": "컬렉션"
+  },
+  "collection.label.created-at": {
+    "message": "{ago} 전에 생성됨"
+  },
+  "collection.label.curated-by": {
+    "message": "전시자"
+  },
+  "collection.label.no-projects": {
+    "message": "이 컬렉션에는 프로젝트가 없습니다!"
+  },
+  "collection.label.no-projects-auth": {
+    "message": "아직 프로젝트가 없습니다.\n<create-link>새 프로젝트</create-link>를 생성하시겠습니까?"
+  },
+  "collection.label.owner": {
+    "message": "소유자"
+  },
+  "collection.label.projects-count": {
+    "message": "{count, plural, other {<stat>{count}</stat> 프로젝트}}"
+  },
+  "collection.label.updated-at": {
+    "message": "{ago} 전에 업데이트됨"
+  },
+  "collection.title": {
+    "message": "{name} - 컬렉션"
+  },
+  "create.collection.error-title": {
+    "message": "오류 발생"
+  },
+  "create.collection.summary-description": {
+    "message": "당신의 collection을 문장으로 설명해주세요."
+  },
+  "create.limit-alert.limit-reached": {
+    "message": ""
+  },
+  "create.limit-alert.limit-reached-description": {
+    "message": "{type} 한도 {max}에 도달했습니다. 한도를 늘리려면 고객 지원팀에 문의하세요."
+  },
+  "create.limit-alert.type-collection": {
+    "message": "컬렉션"
+  },
+  "create.limit-alert.type-organization": {
+    "message": "조직"
+  },
+  "create.limit-alert.type-plural-collection": {
+    "message": "컬렉션"
+  },
+  "create.limit-alert.type-plural-organization": {
+    "message": "조직"
+  },
+  "create.limit-alert.type-plural-project": {
+    "message": "프로젝트"
+  },
+  "create.limit-alert.type-project": {
+    "message": "프로젝트"
+  },
+  "create.organization.cancel": {
+    "message": "취소"
+  },
+  "create.organization.create-organization": {
+    "message": "조직 만들기"
+  },
+  "create.organization.error-title": {
+    "message": "오류 발생"
+  },
+  "create.organization.name-label": {
+    "message": "이름"
+  },
+  "create.organization.ownership-info": {
+    "message": "당신은 이 Organization의 관리자이며, 필요시 다른 멤버를 초대하거나 권한을 이전할 수 있습니다."
+  },
+  "create.organization.summary-label": {
+    "message": "개요"
+  },
+  "create.organization.url-label": {
+    "message": "URL"
+  },
+  "create.project.cancel": {
+    "message": "취소"
+  },
+  "create.project.create-project": {
+    "message": "프로젝트 만들기"
+  },
+  "create.project.name-label": {
+    "message": "이름"
+  },
+  "create.project.summary-label": {
+    "message": "개요"
+  },
+  "create.project.summary-placeholder": {
+    "message": "이 프로젝트는 ...을 추가합니다"
+  },
+  "create.project.title": {
+    "message": "프로젝트 생성"
+  },
+  "create.project.url-label": {
+    "message": "URL"
+  },
+  "create.project.visibility-description": {
+    "message": ""
+  },
+  "dashboard.collections.button.create-new": {
+    "message": "새로 만들기"
+  },
+  "dashboard.collections.label.projects-count": {
+    "message": "{count, plural, other {{count} 프로젝트}}"
+  },
+  "dashboard.collections.label.search-input": {
+    "message": "컬렉션 검색"
+  },
+  "dashboard.collections.long-title": {
+    "message": "내 컬렉션"
+  },
+  "error.collection.404.list_item.1": {
+    "message": "컬렉션 URL을 잘못 입력했을 수 있습니다."
+  },
+  "error.collection.404.list_item.2": {
+    "message": "컬렉션이 비공개일 수 있습니다."
+  },
+  "error.collection.404.list_item.3": {
+    "message": "컬렉션이 <tou-link>이용약관</tou-link>을 위반하여 Modrinth 관리 팀에서 삭제했을 수 있습니다."
+  },
+  "error.collection.404.list_title": {
+    "message": "다음 사항을 확인하십시오:"
+  },
+  "error.collection.404.title": {
+    "message": "컬렉션을 찾을 수 없습니다"
+  },
+  "error.generic.404.subtitle": {
+    "message": "요청하신 페이지가 존재하지 않는 것 같습니다."
+  },
+  "error.generic.404.title": {
+    "message": "페이지를 찾을 수 없습니다"
+  },
+  "error.generic.default.list_item.1": {
+    "message": "<status-link>서버 상태</status-link>에서 Modrinth 서버가 다운되었는지 확인해보세요."
+  },
+  "error.generic.default.list_item.2": {
+    "message": "계속 문제가 발생하는 경우, <discord-link>Discord 서버</discord-link>에 접속하여 Modrinth 팀과 연락할 수 있습니다."
+  },
+  "error.generic.default.list_title": {
+    "message": "몇 분 뒤에 다시 시도해 보세요."
+  },
+  "error.generic.default.subtitle": {
+    "message": "무언가 잘못되었습니다."
+  },
+  "error.generic.default.title": {
+    "message": "이런!"
+  },
+  "error.organization.404.list_item.1": {
+    "message": "조직 URL을 잘못 입력했을 수 있습니다."
+  },
+  "error.organization.404.list_item.2": {
+    "message": "조직 소유자가 URL을 변경했거나 삭제했을 수 있습니다."
+  },
+  "error.organization.404.list_item.3": {
+    "message": "조직이 <tou-link>이용약관</tou-link>을 위반하여 Modrinth 관리 팀에서 삭제했을 수 있습니다."
+  },
+  "error.organization.404.list_title": {
+    "message": "다음 사항을 확인하십시오:"
+  },
+  "error.organization.404.title": {
+    "message": "조직을 찾을 수 없음"
+  },
+  "error.project.404.list_item.1": {
+    "message": "프로젝트 URL을 잘못 입력했을 수 있습니다."
+  },
+  "error.project.404.list_item.2": {
+    "message": "프로젝트 소유자가 URL을 변경했거나, 비공개로 전환했거나, 삭제했을 수 있습니다."
+  },
+  "error.project.404.list_item.3": {
+    "message": "프로젝트가 <tou-link>이용약관</tou-link>을 위반하여 Modrinth 관리 팀에서 삭제했을 수 있습니다."
+  },
+  "error.project.404.list_title": {
+    "message": "다음 사항을 확인하십시오:"
+  },
+  "error.project.404.title": {
+    "message": "프로젝트를 찾을 수 없습니다"
+  },
+  "error.user.404.list_item.1": {
+    "message": "사용자명을 잘못 입력했을 수도 있습니다."
+  },
+  "error.user.404.list_item.2": {
+    "message": "해당 사용자가 이름을 변경했거나 계정을 삭제했을 수도 있습니다."
+  },
+  "error.user.404.list_item.3": {
+    "message": "해당 사용자의 계정이 Modrinth의 <tou-link>이용 약관</tou-link>을 위반하여 정지되었습니다."
+  },
+  "error.user.404.list_title": {
+    "message": "다음 사항을 확인하십시오:"
+  },
+  "error.user.404.title": {
+    "message": "사용자를 찾을 수 없습니다"
+  },
+  "frog": {
+    "message": "개구리가 되었습니다! 🐸"
+  },
+  "frog.altText": {
+    "message": "사진보다 더 사진 같은 개구리 미로 그림"
+  },
+  "frog.froggedPeople": {
+    "message": "다른 {count, plural, one {{count}명의 사람도} other {{count}명의 사람들도}} 개구리가 되었습니다!"
+  },
+  "frog.sinceOpened": {
+    "message": "이 페이지는 {ago} 전에 열렸습니다"
+  },
+  "frog.title": {
+    "message": "개구리"
+  },
+  "landing.button.discover-mods": {
+    "message": "모드 탐색"
+  },
+  "landing.button.go-to-dashboard": {
+    "message": "대시보드로 가기"
+  },
+  "landing.creator.feature.discovery.title": {
+    "message": "발견"
+  },
+  "landing.heading.the-place-for-minecraft.resource-packs": {
+    "message": "리소스 팩"
+  },
+  "landing.heading.the-place-for-minecraft.servers": {
+    "message": "서버"
+  },
+  "landing.heading.the-place-for-minecraft.shaders": {
+    "message": "셰이더"
+  },
+  "landing.launcher.modrinth-app-label": {
+    "message": "Modrinth App"
+  },
+  "landing.launcher.prism-launcher-label": {
+    "message": "Prism Launcher"
+  },
+  "landing.notifications.heading": {
+    "message": "알림"
+  },
+  "landing.search.label": {
+    "message": "검색"
+  },
+  "landing.search.placeholder": {
+    "message": "검색..."
+  },
+  "landing.section.for-creators.description": {
+    "message": ""
+  },
+  "layout.action.change-theme": {
+    "message": "테마 변경"
+  },
+  "layout.action.create-new": {
+    "message": "새로 만들기..."
+  },
+  "layout.action.new-collection": {
+    "message": "새 컬렉션"
+  },
+  "layout.action.new-organization": {
+    "message": "새 조직"
+  },
+  "layout.action.new-project": {
+    "message": "새 프로젝트"
+  },
+  "layout.action.reports": {
+    "message": "신고"
+  },
+  "layout.action.review-projects": {
+    "message": "프로젝트 리뷰"
+  },
+  "layout.avatar.alt": {
+    "message": "당신의 아바타"
+  },
+  "layout.banner.account-action": {
+    "message": "계정 작업 필요"
+  },
+  "layout.banner.add-email.button": {
+    "message": "계정 설정 방문"
+  },
+  "layout.banner.add-email.description": {
+    "message": "보안상의 이유로 Modrinth 계정에 이메일을 등록해야 합니다."
+  },
+  "layout.banner.subscription-payment-failed.button": {
+    "message": "결제 정보 갱신"
+  },
+  "layout.banner.subscription-payment-failed.description": {
+    "message": "하나 이상의 구독이 갱신되지 않았습니다. 액세스 권한을 잃지 않도록 결제 수단을 갱신해 주세요!"
+  },
+  "layout.banner.verify-email.action": {
+    "message": "인증 이메일 재전송"
+  },
+  "layout.banner.verify-email.description": {
+    "message": "보안상의 이유로 Modrinth 계정에 연결된 이메일 주소를 인증해야 합니다."
+  },
+  "layout.footer.about": {
+    "message": "소개"
+  },
+  "layout.footer.about.careers": {
+    "message": "채용"
+  },
+  "layout.footer.about.changelog": {
+    "message": "변경 사항"
+  },
+  "layout.footer.about.news": {
+    "message": "소식"
+  },
+  "layout.footer.about.rewards-program": {
+    "message": "보상 프로그램"
+  },
+  "layout.footer.about.status": {
+    "message": "상태"
+  },
+  "layout.footer.legal": {
+    "message": "법률 정보"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "공식 Minecraft 서비스가 아닙니다. Mojang 또는 Microsoft에 의해 승인되거나 연관되어 있지 않습니다."
+  },
+  "layout.footer.legal.copyright-policy": {
+    "message": "저작권 정책 및 DMCA"
+  },
+  "layout.footer.legal.privacy-policy": {
+    "message": "개인정보 처리방침"
+  },
+  "layout.footer.legal.rules": {
+    "message": "콘텐츠 규칙"
+  },
+  "layout.footer.legal.security-notice": {
+    "message": "보안 알림"
+  },
+  "layout.footer.legal.terms-of-use": {
+    "message": "이용 약관"
+  },
+  "layout.footer.open-source": {
+    "message": "Modrinth는 <github-link>오픈 소스</github-link>입니다."
+  },
+  "layout.footer.products": {
+    "message": "상품"
+  },
+  "layout.footer.products.app": {
+    "message": "Modrinth 앱"
+  },
+  "layout.footer.products.plus": {
+    "message": "Modrinth+"
+  },
+  "layout.footer.products.servers": {
+    "message": "Modrinth 서버"
+  },
+  "layout.footer.resources": {
+    "message": "정보"
+  },
+  "layout.footer.resources.api-docs": {
+    "message": "API 문서"
+  },
+  "layout.footer.resources.help-center": {
+    "message": "지원 센터"
+  },
+  "layout.footer.resources.report-issues": {
+    "message": "오류 신고"
+  },
+  "layout.footer.resources.translate": {
+    "message": "번역"
+  },
+  "layout.footer.social.bluesky": {
+    "message": "Bluesky"
+  },
+  "layout.footer.social.discord": {
+    "message": "Discord"
+  },
+  "layout.footer.social.github": {
+    "message": "GitHub"
+  },
+  "layout.footer.social.mastodon": {
+    "message": "Mastodon"
+  },
+  "layout.footer.social.x": {
+    "message": "X"
+  },
+  "layout.menu-toggle.action": {
+    "message": "메뉴 전환"
+  },
+  "layout.meta.description": {
+    "message": "Modrinth에서 Minecraft 모드, 플러그인, 데이터 팩, 셰이더, 리소스 팩, 그리고 모드팩을 다운로드하세요. 현대적이고 사용하기 쉬운 인터페이스 및 API를 통해 Modrinth에서 프로젝트를 탐색하고 게시하세요."
+  },
+  "layout.meta.og-description": {
+    "message": "Minecraft 콘텐츠를 탐색하고 게시하세요!"
+  },
+  "layout.nav.home": {
+    "message": "홈"
+  },
+  "layout.nav.search": {
+    "message": "검색"
+  },
+  "moderation.filter.by": {
+    "message": "필터링 기준"
+  },
+  "moderation.moderate": {
+    "message": "관리"
+  },
+  "moderation.page.projects": {
+    "message": "프로젝트"
+  },
+  "moderation.page.reports": {
+    "message": "신고"
+  },
+  "moderation.page.technicalReview": {
+    "message": "기술 검토"
+  },
+  "moderation.search.placeholder": {
+    "message": "검색..."
+  },
+  "moderation.sort.by": {
+    "message": "정렬 기준"
+  },
+  "moderation.technical.search.placeholder": {
+    "message": "기술 검토 검색..."
+  },
+  "profile.button.info": {
+    "message": "사용자 상세 정보 보기"
+  },
+  "profile.button.manage-projects": {
+    "message": "프로젝트 관리"
+  },
+  "profile.error.not-found": {
+    "message": "사용자를 찾을 수 없습니다"
+  },
+  "profile.label.badges": {
+    "message": "배지"
+  },
+  "profile.label.details": {
+    "message": "세부 사항"
+  },
+  "profile.label.no-collections": {
+    "message": "이 사용자는 컬렉션이 없습니다!"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "아직 컬렉션이 없습니다.\n<create-link>새 컬렉션</create-link>을 생성하시겠습니까?"
+  },
+  "profile.label.no-projects": {
+    "message": "이 사용자는 프로젝트가 없습니다!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "아직 프로젝트가 없습니다.\n<create-link>새 프로젝트</create-link>를 생성하시겠습니까?"
+  },
+  "profile.label.organizations": {
+    "message": "조직"
+  },
+  "profile.meta.description": {
+    "message": "Modrinth에서 {username}의 프로젝트 다운로드"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} - Modrinth에서 {username}의 프로젝트 다운로드"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, other {<stat>{count}</stat> 프로젝트 팔로워}}"
+  },
+  "profile.user-id": {
+    "message": "사용자 ID: {id}"
+  },
+  "project-member-header.accept": {
+    "message": "승인"
+  },
+  "project-member-header.decline": {
+    "message": "거부"
+  },
+  "project-member-header.error": {
+    "message": "오류"
+  },
+  "project-type.collection.plural": {
+    "message": "컬렉션"
+  },
+  "project-type.collection.singular": {
+    "message": "컬렉션"
+  },
+  "project-type.datapack.plural": {
+    "message": "데이터 팩"
+  },
+  "project-type.datapack.singular": {
+    "message": "데이터 팩"
+  },
+  "project-type.mod.plural": {
+    "message": "모드"
+  },
+  "project-type.mod.singular": {
+    "message": "모드"
+  },
+  "project-type.modpack.plural": {
+    "message": "모드팩"
+  },
+  "project-type.modpack.singular": {
+    "message": "모드팩"
+  },
+  "project-type.plugin.plural": {
+    "message": "플러그인"
+  },
+  "project-type.plugin.singular": {
+    "message": "플러그인"
+  },
+  "project-type.project.plural": {
+    "message": "프로젝트"
+  },
+  "project-type.project.singular": {
+    "message": "프로젝트"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "리소스 팩"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "리소스 팩"
+  },
+  "project-type.shader.plural": {
+    "message": "셰이더"
+  },
+  "project-type.shader.singular": {
+    "message": "셰이더"
+  },
+  "project.about.details.created": {
+    "message": "{date} 전에 생성됨"
+  },
+  "project.about.details.licensed": {
+    "message": "{license} 라이선스"
+  },
+  "project.about.details.published": {
+    "message": "{date} 전에 게시됨"
+  },
+  "project.about.details.submitted": {
+    "message": "{date} 전에 제출됨"
+  },
+  "project.about.details.title": {
+    "message": "세부 사항"
+  },
+  "project.about.details.updated": {
+    "message": "{date} 전에 업데이트됨"
+  },
+  "project.description.title": {
+    "message": "설명"
+  },
+  "project.download.platform": {
+    "message": "플랫폼: {platform}"
+  },
+  "project.download.platform-error": {
+    "message": "오류: 플랫폼을 찾을 수 없음"
+  },
+  "project.download.platform-tooltip": {
+    "message": "{title} 은(는) {platform} 에서만 사용할 수 있습니다"
+  },
+  "project.download.platform-unsupported-tooltip": {
+    "message": "{title} 은(는) {gameVersion} 용 {platform} 을(를) 지원하지 않습니다."
+  },
+  "project.download.search-game-versions": {
+    "message": "게임 버전 검색..."
+  },
+  "project.download.search-game-versions-label": {
+    "message": "게임 버전 검색..."
+  },
+  "project.download.select-game-version": {
+    "message": "게임 버전 선택"
+  },
+  "project.download.select-platform": {
+    "message": "플랫폼 선택"
+  },
+  "project.gallery.title": {
+    "message": "갤러리"
+  },
+  "project.license.error": {
+    "message": "이용 허가를 불러올 수 없습니다."
+  },
+  "project.license.loading": {
+    "message": "이용 하거를 불러오는 중..."
+  },
+  "project.license.title": {
+    "message": "이용 허가"
+  },
+  "project.moderation.title": {
+    "message": "관리"
+  },
+  "project.navigation.changelog": {
+    "message": "변경 사항"
+  },
+  "project.notification.icon-updated.message": {
+    "message": "프로젝트 아이콘을 변경했습니다."
+  },
+  "project.notification.icon-updated.title": {
+    "message": "프로젝트 아이콘이 변경됨"
+  },
+  "project.notification.updated.message": {
+    "message": "프로젝트를 수정했습니다."
+  },
+  "project.notification.updated.title": {
+    "message": "프로젝트 수정됨"
+  },
+  "project.settings.general.url.title": {
+    "message": "URL"
+  },
+  "project.settings.title": {
+    "message": "설정"
+  },
+  "project.settings.visit-dashboard": {
+    "message": "프로젝트 대시보드 방문"
+  },
+  "project.stats.downloads-label": {
+    "message": "다운로드{count, plural, other {}}"
+  },
+  "project.stats.followers-label": {
+    "message": "팔로워{count, plural, other {}}"
+  },
+  "project.status.archived.message": {
+    "message": "{title} 은(는) 보관되었습니다. 더 이상 업데이트가 제공되지 않습니다."
+  },
+  "project.version.all-versions": {
+    "message": "모든 버전"
+  },
+  "project.version.back-to-versions": {
+    "message": "버전 페이지로 돌아가기"
+  },
+  "project.versions.title": {
+    "message": "버전"
+  },
+  "report.already-reported": {
+    "message": "이미 {title} 을(를) 신고했습니다"
+  },
+  "report.already-reported-description": {
+    "message": "이 {item}에 대한 신고를 이미 제출했습니다. 제출한 신고에서 추가 정보를 덧붙일 수 있습니다."
+  },
+  "report.back-to-item": {
+    "message": "{item}(으)로 돌아가기"
+  },
+  "report.body.description": {
+    "message": "가능하면 링크와 이미지를 포함하고 관련성이 있다면 알려주세요. 비어 있거나 성의없는 신고는 무시됩니다."
+  },
+  "report.body.title": {
+    "message": "신고에 대한 추가 정황을 제공해 주세요"
+  },
+  "report.checking": {
+    "message": "{item} 확인 중..."
+  },
+  "report.could-not-find": {
+    "message": "{item}을(를) 찾을 수 없음"
+  },
+  "report.for.violation": {
+    "message": "Modrinth <rules-link>규칙</rules-link> 또는 <terms-link>이용 약관</terms-link>을 위반함"
+  },
+  "report.for.violation.description": {
+    "message": "악성 코드, 스팸, 사기, 불법적 콘텐츠, 폭력적 또는 오해의 소지가 있습니다."
+  },
+  "report.form-not-for": {
+    "message": "다음 경우에는 사용하지 마세요:"
+  },
+  "report.go-to-report": {
+    "message": "신고 페이지로 이동"
+  },
+  "report.not-for.bug-reports": {
+    "message": "오류 신고"
+  },
+  "report.not-for.bug-reports.description": {
+    "message": "<issues-link>이슈 트래커</issues-link>에서 오류를 신고할 수 있습니다."
+  },
+  "report.not-for.dmca": {
+    "message": "DMCA 삭제 통지"
+  },
+  "report.not-for.dmca.description": {
+    "message": "우리의 <policy-link>저작권 정책</policy-link>을 참조하세요."
+  },
+  "report.note.copyright.1": {
+    "message": "이것은 DMCA 삭제 요청이 아닌 재업로드된 콘텐츠에 대한 신고임을 유의해주시기 바랍니다."
+  },
+  "report.note.copyright.2": {
+    "message": "DMCA 삭제 요청(법적 조치)을 하려는 경우, 대신 저희의 <copyright-policy-link>저작권 정책</copyright-policy-link>을 참조해주시기 바랍니다."
+  },
+  "report.note.malicious.1": {
+    "message": "악성 또는 기만적인 콘텐츠에 대한 신고에는 코드 샘플과 같은 행위에 대한 실질적 증거가 포함되어야 합니다."
+  },
+  "report.note.malicious.2": {
+    "message": "Microsoft Defender, VirusTotal 또는 AI 멀웨어 탐지의 요약은 충분한 증거가 아니므로 허용되지 않습니다."
+  },
+  "report.please-report": {
+    "message": "해당 상황에서 신고하세요:"
+  },
+  "report.question.content-id": {
+    "message": "{item}의 ID가 무엇입니까?"
+  },
+  "report.question.content-type": {
+    "message": "신고하려는 콘텐츠의 유형이 무엇입니까?"
+  },
+  "report.question.report-reason": {
+    "message": "{item}이(가) 위반하고 있는 Modrinth의 규칙은 무엇입니까?"
+  },
+  "report.report-content": {
+    "message": "관리자에게 콘텐츠 신고"
+  },
+  "report.report-item": {
+    "message": "관리자에게 {title} 신고"
+  },
+  "report.submit": {
+    "message": "신고 제출"
+  },
+  "scopes.analytics.description": {
+    "message": "통계 접근"
+  },
+  "scopes.analytics.label": {
+    "message": "통계 읽기"
+  },
+  "scopes.collectionCreate.description": {
+    "message": "컬렉션 생성"
+  },
+  "scopes.collectionCreate.label": {
+    "message": "컬렉션 생성하기"
+  },
+  "scopes.collectionDelete.description": {
+    "message": "컬렉션 삭제"
+  },
+  "scopes.collectionDelete.label": {
+    "message": "컬렉션 삭제"
+  },
+  "scopes.collectionRead.description": {
+    "message": "컬렉션 읽기"
+  },
+  "scopes.collectionRead.label": {
+    "message": "컬렉션 읽기"
+  },
+  "scopes.collectionWrite.description": {
+    "message": "컬렉션 쓰기"
+  },
+  "scopes.collectionWrite.label": {
+    "message": "컬렉션 쓰기"
+  },
+  "scopes.notificationRead.description": {
+    "message": "알림 읽기"
+  },
+  "scopes.notificationRead.label": {
+    "message": "알림 읽기"
+  },
+  "scopes.notificationWrite.description": {
+    "message": "알림 보기/삭제"
+  },
+  "scopes.notificationWrite.label": {
+    "message": "알림 쓰기"
+  },
+  "scopes.organizationCreate.description": {
+    "message": "조직 생성하기"
+  },
+  "scopes.organizationCreate.label": {
+    "message": "조직 생성"
+  },
+  "scopes.organizationDelete.description": {
+    "message": "조직 삭제"
+  },
+  "scopes.organizationDelete.label": {
+    "message": "조직 삭제"
+  },
+  "scopes.organizationRead.description": {
+    "message": "조직 읽기"
+  },
+  "scopes.organizationRead.label": {
+    "message": "조직 읽기"
+  },
+  "scopes.organizationWrite.description": {
+    "message": "조직에 쓰기"
+  },
+  "scopes.organizationWrite.label": {
+    "message": "조직 쓰기"
+  },
+  "scopes.patCreate.description": {
+    "message": "개인 API 토큰 생성하기"
+  },
+  "scopes.patCreate.label": {
+    "message": "PAT 생성"
+  },
+  "scopes.patDelete.description": {
+    "message": "개인 API 토큰 삭제하기"
+  },
+  "scopes.patDelete.label": {
+    "message": "PAT 삭제"
+  },
+  "scopes.patRead.description": {
+    "message": "생성된 API 토큰 확인하기"
+  },
+  "scopes.patRead.label": {
+    "message": "PAT 읽기"
+  },
+  "scopes.patWrite.description": {
+    "message": "개인 API 토큰 편집하기"
+  },
+  "scopes.patWrite.label": {
+    "message": "PAT 쓰기"
+  },
+  "scopes.payoutsRead.label": {
+    "message": "지불 내역 읽기"
+  },
+  "scopes.payoutsWrite.label": {
+    "message": "지불 내역 쓰기"
+  },
+  "scopes.performAnalytics.label": {
+    "message": "분석 수행"
+  },
+  "scopes.projectCreate.description": {
+    "message": "새 프로젝트 생성"
+  },
+  "scopes.projectCreate.label": {
+    "message": "프로젝트 생성"
+  },
+  "scopes.projectDelete.description": {
+    "message": "프로젝트 삭제하기"
+  },
+  "scopes.projectDelete.label": {
+    "message": "프로젝트 삭제"
+  },
+  "scopes.projectRead.label": {
+    "message": "프로젝트 읽기"
+  },
+  "scopes.projectWrite.description": {
+    "message": "프로젝트 데이터에 쓰기"
+  },
+  "scopes.projectWrite.label": {
+    "message": "프로젝트 쓰기"
+  },
+  "scopes.reportCreate.description": {
+    "message": "신고 생성"
+  },
+  "scopes.reportCreate.label": {
+    "message": "신고 생성"
+  },
+  "scopes.reportDelete.description": {
+    "message": "신고 삭제"
+  },
+  "scopes.reportDelete.label": {
+    "message": "신고 삭제"
+  },
+  "scopes.reportRead.description": {
+    "message": "신고 읽기"
+  },
+  "scopes.reportRead.label": {
+    "message": "신고 읽기"
+  },
+  "scopes.reportWrite.description": {
+    "message": "신고 편집"
+  },
+  "scopes.reportWrite.label": {
+    "message": "신고 쓰기"
+  },
+  "scopes.sessionAccess.label": {
+    "message": "세션 접근"
+  },
+  "scopes.sessionDelete.description": {
+    "message": "세션 삭제"
+  },
+  "scopes.sessionDelete.label": {
+    "message": "세션 삭제"
+  },
+  "scopes.sessionRead.label": {
+    "message": "세션 읽기"
+  },
+  "scopes.threadRead.description": {
+    "message": "스레드 읽기"
+  },
+  "scopes.threadRead.label": {
+    "message": "스레드 읽기"
+  },
+  "scopes.threadWrite.description": {
+    "message": "스레드 쓰기"
+  },
+  "scopes.threadWrite.label": {
+    "message": "스레드 작성"
+  },
+  "scopes.userAuthWrite.description": {
+    "message": "로그인 정보 수정"
+  },
+  "scopes.userAuthWrite.label": {
+    "message": "인증 데이터 쓰기"
+  },
+  "scopes.userDelete.description": {
+    "message": "계정 삭제"
+  },
+  "scopes.userDelete.label": {
+    "message": "계정 삭제"
+  },
+  "scopes.userRead.description": {
+    "message": "공개 프로필 접근"
+  },
+  "scopes.userRead.label": {
+    "message": "사용자 데이터 읽기"
+  },
+  "scopes.userReadEmail.description": {
+    "message": "이메일 읽기"
+  },
+  "scopes.userReadEmail.label": {
+    "message": "사용자 이메일 읽기"
+  },
+  "scopes.userWrite.description": {
+    "message": "프로필 수정"
+  },
+  "scopes.userWrite.label": {
+    "message": "사용자 데이터 쓰기"
+  },
+  "scopes.versionCreate.description": {
+    "message": "새 버전 만들기"
+  },
+  "scopes.versionCreate.label": {
+    "message": "버전 생성"
+  },
+  "scopes.versionDelete.description": {
+    "message": "버전 삭제하기"
+  },
+  "scopes.versionDelete.label": {
+    "message": "버전 삭제"
+  },
+  "scopes.versionRead.label": {
+    "message": "버전 읽기"
+  },
+  "scopes.versionWrite.label": {
+    "message": "버전 쓰기"
+  },
+  "search.filter.locked.server": {
+    "message": "서버에 의해 제공됨"
+  },
+  "search.filter.locked.server-game-version.title": {
+    "message": "게임 버전이 서버에 의해 제공됩니다"
+  },
+  "search.filter.locked.server-loader.title": {
+    "message": "로더가 서버에 의해 제공됩니다"
+  },
+  "search.filter.locked.server.sync": {
+    "message": "서버와 동기화"
+  },
+  "servers.backups.item.creating-backup": {
+    "message": "백업 생성 중..."
+  },
+  "servers.backups.item.failed-to-create-backup": {
+    "message": "백업 생성에 실패했습니다"
+  },
+  "servers.backups.item.failed-to-restore-backup": {
+    "message": "백업을 복구하는데 실패했습니다"
+  },
+  "servers.backups.item.lock": {
+    "message": "잠금"
+  },
+  "servers.backups.item.locked": {
+    "message": "잠김"
+  },
+  "servers.backups.item.queued-for-backup": {
+    "message": "백업 대기열에 추가됨"
+  },
+  "servers.backups.item.rename": {
+    "message": "이름 변경"
+  },
+  "servers.backups.item.restore": {
+    "message": "복원"
+  },
+  "servers.backups.item.restoring-backup": {
+    "message": "백업을 통해 복원하는 중..."
+  },
+  "servers.backups.item.retry": {
+    "message": "재시도"
+  },
+  "servers.backups.item.unlock": {
+    "message": "잠금 해제"
+  },
+  "servers.notice.actions": {
+    "message": "활동"
+  },
+  "servers.notice.dismissable": {
+    "message": "무시 가능"
+  },
+  "servers.notice.expires": {
+    "message": "만료일"
+  },
+  "servers.notice.id": {
+    "message": "ID"
+  },
+  "servers.notice.level": {
+    "message": "단계"
+  },
+  "servers.notice.undismissable": {
+    "message": "무시 불가"
+  },
+  "servers.notices.create-notice": {
+    "message": "알림 생성"
+  },
+  "servers.notices.no-notices": {
+    "message": "알림 없음"
+  },
+  "servers.plan.large.description": {
+    "message": "15–25명의 플레이어, 모드팩 또는 무거운 모드에 적합합니다."
+  },
+  "servers.plan.large.name": {
+    "message": "대형"
+  },
+  "servers.plan.medium.description": {
+    "message": "6–15명의 플레이어와 여러개의 모드에 적합합니다."
+  },
+  "servers.plan.medium.name": {
+    "message": "중형"
+  },
+  "servers.plan.small.description": {
+    "message": "1–5명의 친구와 적은 수의 가벼운 모드에 적합합니다."
+  },
+  "servers.plan.small.name": {
+    "message": "소형"
+  },
+  "settings.billing.modal.cancel.action": {
+    "message": "구독 취소"
+  },
+  "settings.billing.modal.cancel.description": {
+    "message": "이렇게 하면 구독이 취소됩니다. 현재 청구 주기가 끝날 때까지 혜택이 유지됩니다."
+  },
+  "settings.billing.modal.cancel.title": {
+    "message": "정말로 구독을 취소하시겠습니까?"
+  },
+  "settings.billing.modal.delete.action": {
+    "message": "이 결제 수단 제거"
+  },
+  "settings.billing.modal.delete.description": {
+    "message": "결제수단이 영원히 제거됩니다 (정말 영원히)."
+  },
+  "settings.billing.modal.delete.title": {
+    "message": "정말 이 결제 수단을 제거하시겠습니까?"
+  },
+  "settings.billing.payment_method.action.add": {
+    "message": "결제 수단 추가"
+  },
+  "settings.billing.payment_method.action.primary": {
+    "message": "기본으로 설정"
+  },
+  "settings.billing.payment_method.card_display": {
+    "message": "{last_four}(으)로 끝나는 {card_brand}"
+  },
+  "settings.billing.payment_method.card_expiry": {
+    "message": "만료 기한 {year}/{month}"
+  },
+  "settings.billing.payment_method.none": {
+    "message": "아직 결제수단을 추가하지 않았습니다."
+  },
+  "settings.billing.payment_method.primary": {
+    "message": "기본"
+  },
+  "settings.billing.payment_method.title": {
+    "message": "결제 수단"
+  },
+  "settings.billing.payment_method_type.amazon_pay": {
+    "message": "Amazon Pay"
+  },
+  "settings.billing.payment_method_type.amex": {
+    "message": "American Express"
+  },
+  "settings.billing.payment_method_type.cashapp": {
+    "message": "Cash App"
+  },
+  "settings.billing.payment_method_type.diners": {
+    "message": "Diners Club"
+  },
+  "settings.billing.payment_method_type.discover": {
+    "message": "Discover"
+  },
+  "settings.billing.payment_method_type.eftpos": {
+    "message": "EFTPOS"
+  },
+  "settings.billing.payment_method_type.jcb": {
+    "message": "JCB"
+  },
+  "settings.billing.payment_method_type.mastercard": {
+    "message": "MasterCard"
+  },
+  "settings.billing.payment_method_type.paypal": {
+    "message": "PayPal"
+  },
+  "settings.billing.payment_method_type.unionpay": {
+    "message": "UnionPay"
+  },
+  "settings.billing.payment_method_type.unknown": {
+    "message": "알 수 없는 결제 수단"
+  },
+  "settings.billing.payment_method_type.visa": {
+    "message": "Visa"
+  },
+  "settings.billing.pyro_subscription.description": {
+    "message": "당신의 Modrinth 서버 구독을 관리하세요."
+  },
+  "settings.billing.pyro_subscription.title": {
+    "message": "Modrinth 서버 구독"
+  },
+  "settings.billing.subscription.description": {
+    "message": "당신의 Modrinth 구독을 관리하세요."
+  },
+  "settings.billing.subscription.title": {
+    "message": "구독"
+  },
+  "settings.display.banner.developer-mode.button": {
+    "message": "개발자 모드 비활성화"
+  },
+  "settings.display.banner.developer-mode.description": {
+    "message": "<strong>개발자 모드</strong>가 활성화되어 있습니다. 이를 통해 Modrinth API를 사용하는 개발자인 경우 도움이 될 수 있는 Modrinth 전체의 여러 내부 ID를 확인할 수 있습니다. 페이지 하단의 Modrinth 로고를 5번 클릭하여 개발자 모드를 전환합니다."
+  },
+  "settings.display.flags.description": {
+    "message": "이 장치에서 특정 기능을 사용하거나 사용하지 않도록 설정합니다."
+  },
+  "settings.display.flags.title": {
+    "message": "기능 전환"
+  },
+  "settings.display.project-list-layouts.datapack": {
+    "message": "데이터 팩 페이지"
+  },
+  "settings.display.project-list-layouts.description": {
+    "message": "이 장치에서 프로젝트 목록을 표시하는 각 페이지에 대해 원하는 레이아웃을 선택합니다."
+  },
+  "settings.display.project-list-layouts.mod": {
+    "message": "모드 페이지"
+  },
+  "settings.display.project-list-layouts.modpack": {
+    "message": "모드팩 페이지"
+  },
+  "settings.display.project-list-layouts.plugin": {
+    "message": "플러그인 페이지"
+  },
+  "settings.display.project-list-layouts.resourcepack": {
+    "message": "리소스 팩 페이지"
+  },
+  "settings.display.project-list-layouts.shader": {
+    "message": "셰이더 페이지"
+  },
+  "settings.display.project-list-layouts.title": {
+    "message": "프로젝트 목록 레이아웃"
+  },
+  "settings.display.project-list-layouts.user": {
+    "message": "사용자 프로필 페이지"
+  },
+  "settings.display.project-list.layouts.collection": {
+    "message": "컬렉션"
+  },
+  "settings.display.sidebar.advanced-rendering.description": {
+    "message": "하드웨어 가속 렌더링 없이 블러와 같이 성능 문제를 일으킬 수 있는 고급 렌더링 효과를 활성화합니다."
+  },
+  "settings.display.sidebar.advanced-rendering.title": {
+    "message": "고급 렌더링"
+  },
+  "settings.display.sidebar.external-links-new-tab.description": {
+    "message": "Modrinth 외부로 나가는 링크를 새 탭에서 엽니다. 이 설정에 상관없이 동일한 도메인과 마크다운 설명의 링크가 같은 탭에서 열리고 광고 및 편집 페이지의 링크가 새 탭에서 열립니다."
+  },
+  "settings.display.sidebar.external-links-new-tab.title": {
+    "message": "새 탭에서 외부 링크 열기"
+  },
+  "settings.display.sidebar.hide-app-promos.description": {
+    "message": "기본 네비게이선에서 \"Modrinth 앱 받기\" 버튼을 숨깁니다. Modrinth 앱 페이지는 여전히 시작 페이지 또는 하단에서 찾을 수 있습니다."
+  },
+  "settings.display.sidebar.hide-app-promos.title": {
+    "message": "Modrinth 앱 프로모션 숨기기"
+  },
+  "settings.display.sidebar.left-aligned-content-sidebar.title": {
+    "message": "콘텐츠 페이지에서 사이드바를 왼쪽으로 정렬"
+  },
+  "settings.display.sidebar.right-aligned-content-sidebar.description": {
+    "message": "사이드바를 페이지 콘텐츠의 왼쪽에 정렬합니다."
+  },
+  "settings.display.sidebar.right-aligned-filters-sidebar.description": {
+    "message": "필터 사이드바를 검색 결과 페이지의 오른쪽에 정렬합니다."
+  },
+  "settings.display.sidebar.right-aligned-filters-sidebar.title": {
+    "message": "검색 페이지에서 필터 사이트바를 오른쪽으로 정렬"
+  },
+  "settings.display.theme.description": {
+    "message": "이 디바이스에서 선호하는 Modrinth의 색상 테마를 선택합니다."
+  },
+  "settings.display.theme.title": {
+    "message": "색상 테마"
+  },
+  "settings.language.categories.auto": {
+    "message": "자동"
+  },
+  "settings.language.categories.default": {
+    "message": "기본 언어"
+  },
+  "settings.language.categories.experimental": {
+    "message": "실험 언어"
+  },
+  "settings.language.categories.fun": {
+    "message": "재미있는 언어"
+  },
+  "settings.language.categories.search-result": {
+    "message": "검색 결과"
+  },
+  "settings.language.description": {
+    "message": "사이트에서 사용할 언어를 선택해주세요. 번역은 자원 봉사자들이 <crowdin-link>Crowdin</crowdin-link>에서 기여합니다."
+  },
+  "settings.language.languages.automatic": {
+    "message": "시스템 언어와 동기화"
+  },
+  "settings.language.languages.language-label-applying": {
+    "message": "{label} 적용 중..."
+  },
+  "settings.language.languages.language-label-error": {
+    "message": "{label} 오류"
+  },
+  "settings.language.languages.load-failed": {
+    "message": "이 언어를 불러올 수 없습니다. 잠시 후에 다시 시도하세요."
+  },
+  "settings.language.languages.search-field.placeholder": {
+    "message": "언어 검색..."
+  },
+  "settings.language.languages.search-results-announcement": {
+    "message": "검색어와 일치하는 언어가 {matches, plural, =0 {없습니다} other {#개 있습니다}}."
+  },
+  "settings.language.languages.search.no-results": {
+    "message": "검색어와 일치하는 언어가 없습니다."
+  },
+  "settings.language.warning": {
+    "message": "사이트 언어를 변경할 시 번역이 제공되지 않는 경우 일부 콘텐츠가 영어로 표시될 수 있습니다. 사이트가 아직 완전히 번역되지 않았기 때문에 특정 언어에서는 일부 콘텐츠가 아직 영어로 남아 있을 수 있습니다. 저희는 현지화 시스템을 개선하기 위해 계속 작업 중이므로, 가끔 콘텐츠가 깨져 보일 수 있습니다."
+  },
+  "settings.pats.action.create": {
+    "message": "PAT 생성"
+  },
+  "settings.pats.description": {
+    "message": "PAT는 Modrinth API 접근에 사용됩니다. 자세한 내용 <doc-link>Modrinth API 문서</doc-link>를 확인하세요. 언제든지 생성 및 해지가 가능합니다."
+  },
+  "settings.pats.modal.create.action": {
+    "message": "PAT 생성"
+  },
+  "settings.pats.modal.create.expires.label": {
+    "message": "만료일"
+  },
+  "settings.pats.modal.create.name.label": {
+    "message": "이름"
+  },
+  "settings.pats.modal.create.name.placeholder": {
+    "message": "PAT 이름 입력..."
+  },
+  "settings.pats.modal.create.title": {
+    "message": "개인 액세스 토큰 생성"
+  },
+  "settings.pats.modal.delete.action": {
+    "message": "이 토큰 삭제"
+  },
+  "settings.pats.modal.delete.description": {
+    "message": "토큰이 영원히 삭제됩니다 (정말 영원히)."
+  },
+  "settings.pats.modal.delete.title": {
+    "message": "정말로 이 토큰을 삭제할까요?"
+  },
+  "settings.pats.modal.edit.title": {
+    "message": "개인 액세스 토큰 편집"
+  },
+  "settings.pats.token.action.edit": {
+    "message": "토큰 편집"
+  },
+  "settings.pats.token.action.revoke": {
+    "message": "토큰 해지"
+  },
+  "settings.pats.token.expired-ago": {
+    "message": "{ago} 전에 만료됨"
+  },
+  "settings.pats.token.expires-in": {
+    "message": "{inTime} 후에 만료"
+  },
+  "settings.pats.token.last-used": {
+    "message": "{ago} 전에 사용됨"
+  },
+  "settings.pats.token.never-used": {
+    "message": "사용된 적 없음"
+  },
+  "settings.profile.bio.description": {
+    "message": "모든 사람에게 당신에 대해 소개하는 간단한 설명입니다."
+  },
+  "settings.profile.bio.title": {
+    "message": "자기소개"
+  },
+  "settings.profile.description": {
+    "message": "당신의 프로필 정보는 Modrinth나 <docs-link>Modrinth API</docs-link>를 통해 공개될 수 있습니다."
+  },
+  "settings.profile.profile-info": {
+    "message": "프로필 정보"
+  },
+  "settings.profile.profile-picture.reset": {
+    "message": "초기화"
+  },
+  "settings.profile.profile-picture.title": {
+    "message": "프로필 사진"
+  },
+  "settings.profile.username.description": {
+    "message": "대소문자 구분 없이 프로필을 식별할 수 있는 이름."
+  },
+  "settings.profile.username.title": {
+    "message": "사용자명"
+  },
+  "settings.sessions.action.revoke-session": {
+    "message": "세션 해지"
+  },
+  "settings.sessions.created-ago": {
+    "message": "{ago} 전에 생성됨"
+  },
+  "settings.sessions.current-session": {
+    "message": "현재 세션"
+  },
+  "settings.sessions.description": {
+    "message": "현재 Modrinth 계정으로 로그인 중인 장치 목록입니다. 여기서 각 장치를 개별적으로 로그아웃시키실 수 있습니다.\n\n만약 확인되지 않는 장치가 있다면 장치를 로그아웃시키신 후 즉시 Modrinth 계정 비밀번호를 변경하세요."
+  },
+  "settings.sessions.last-accessed-ago": {
+    "message": "{ago} 전에 접근함"
+  },
+  "settings.sessions.unknown-os": {
+    "message": "알 수 없는 운영체제"
+  },
+  "settings.sessions.unknown-platform": {
+    "message": "알 수 없는 플랫폼"
+  },
+  "ui.latest-news-row.latest-news": {
+    "message": "Modrinth의 최신 뉴스"
+  },
+  "ui.latest-news-row.view-all": {
+    "message": "모든 뉴스 보기"
+  }
+}

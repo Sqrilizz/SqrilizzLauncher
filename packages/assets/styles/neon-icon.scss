@@ -1,0 +1,37 @@
+// [AR] Feature
+.neon-icon {
+  background-color: transparent;
+  color: #3e8cde;
+  text-shadow:
+    0 0 4px rgba(79, 173, 255, 0.5),
+    0 0 8px rgba(14, 98, 204, 0.5),
+    0 0 12px rgba(122, 31, 199, 0.5);
+  transition: transform 0.25s ease, color 0.25s ease, text-shadow 0.25s ease;
+  cursor: pointer;
+  display: inline-block;
+}
+
+/* Hover */
+.neon-icon:hover {
+  color: #10fae5;
+  transform: scale(1.05);
+  text-shadow:
+    0 0 2px rgba(16, 250, 229, 0.4),
+    0 0 4px rgba(16, 250, 229, 0.25);
+}
+
+.neon-icon.pulse {
+  position: relative;
+  animation: neon-pulse 1s ease-in-out infinite;
+  filter: drop-shadow(0 0 6px #10fae5);
+  box-shadow: none;
+}
+
+@keyframes neon-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 4px #10fae5);
+  }
+  50% {
+    filter: drop-shadow(0 0 12px #10fae5);
+  }
+}

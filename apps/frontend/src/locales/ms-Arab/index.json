@@ -1,0 +1,2960 @@
+{
+  "action.cancel": {
+    "message": "بطل"
+  },
+  "action.continue": {
+    "message": "تروسکن"
+  },
+  "admin.billing.error.not-found": {
+    "message": "ڤڠݢونا تيدق دجومڤاءي"
+  },
+  "app-marketing.download.description": {
+    "message": "اڤليکاسي ديسکتوڤ کامي ترسديا ڤد سموا ڤلتفوم⹁ ڤيليه ۏرسي يڠ اندا ايڠينکن."
+  },
+  "app-marketing.download.download-appimage": {
+    "message": "موات تورون AppImage"
+  },
+  "app-marketing.download.download-beta": {
+    "message": "موات تورون بيتا"
+  },
+  "app-marketing.download.download-deb": {
+    "message": "موات تورون DEB"
+  },
+  "app-marketing.download.download-rpm": {
+    "message": "موات تورون RPM"
+  },
+  "app-marketing.download.linux": {
+    "message": "Linux"
+  },
+  "app-marketing.download.linux-disclaimer": {
+    "message": "ۏرسي Linux Modrinth App <issues-link>دکتاهوءي ممڤوڽاءي ايسو</issues-link> ڤد سيستم دان کونفيݢوراسي ترتنتو. جک Modrinth App تيدق ستابيل ڤد سيستم اندا⹁ کامي مڠݢالقکن اندا منچوبا اڤليکاسي لاءين سڤرتي <prism-link>Prism Launcher</prism-link> اونتوق مماسڠ کاندوڠن Modrinth دڠن موده."
+  },
+  "app-marketing.download.mac": {
+    "message": "Mac"
+  },
+  "app-marketing.download.options-title": {
+    "message": "ڤيليهن موات تورون"
+  },
+  "app-marketing.download.terms": {
+    "message": "دڠن مموات تورون Modrinth App⹁ اندا برستوجو دڠن <terms-link>ترما</terms-link> دان <privacy-link>داسر ڤريۏاسي</privacy-link> کامي."
+  },
+  "app-marketing.download.third-party-packages": {
+    "message": "ڤاکيج ڤيهق کتيݢ"
+  },
+  "app-marketing.download.title": {
+    "message": "موات تورون Modrinth App (بيتا)"
+  },
+  "app-marketing.download.windows": {
+    "message": "Windows"
+  },
+  "app-marketing.features.follow.description": {
+    "message": "سيمڤن کاندوڠن يڠ اندا سوک دان تريما کمس کيني دڠن سکالي کليک."
+  },
+  "app-marketing.features.follow.title": {
+    "message": "ايکوتي ڤروجيک"
+  },
+  "app-marketing.features.importing.description": {
+    "message": "ايمڤورت سموا ڤروفيل کݢمرن اندا درڤد ڤلنچر يڠ اندا ݢوناکن سبلوم اين⹁ دان مولا ݢوناکن Modrinth App دالم ببراڤ ساعت!"
+  },
+  "app-marketing.features.importing.gdlauncher-alt": {
+    "message": "GDLauncher"
+  },
+  "app-marketing.features.importing.multimc-alt": {
+    "message": "MultiMC"
+  },
+  "app-marketing.features.importing.title": {
+    "message": "ڤڠيمڤورتن ڤروفيل"
+  },
+  "app-marketing.features.mod-management.actions": {
+    "message": "تيندقن"
+  },
+  "app-marketing.features.mod-management.byAuthor": {
+    "message": "اوليه {author}"
+  },
+  "app-marketing.features.mod-management.description": {
+    "message": "Modrinth منجاديکن ڤڠوروسن سموا مود اندا ڤد ساتو تمڤت موده. اندا بوليه مماسڠ⹁ مڽهڤاسڠ دان مڠمس کيني مود دڠن سکالي کليک."
+  },
+  "app-marketing.features.mod-management.installed-mods": {
+    "message": "مود يڠ دڤاسڠ"
+  },
+  "app-marketing.features.mod-management.name": {
+    "message": "نام"
+  },
+  "app-marketing.features.mod-management.search-mods": {
+    "message": "چاري مود"
+  },
+  "app-marketing.features.mod-management.title": {
+    "message": "ڤڠوروسن مود"
+  },
+  "app-marketing.features.mod-management.version": {
+    "message": "ۏرسي"
+  },
+  "app-marketing.features.offline.description": {
+    "message": "ماءينکن مود اندا⹁ سام اد اندا دسامبوڠکن کأينترنيت اتاو تيدق."
+  },
+  "app-marketing.features.offline.title": {
+    "message": "مود لوار تالين"
+  },
+  "app-marketing.features.open-source.description": {
+    "message": "ڤلنچر Modrinth اداله سومبر تربوک سڤنوهڽ. اندا بوليه مليهت کود سومبر ڤد لامن <github-link>GitHub</github-link> کامي!"
+  },
+  "app-marketing.features.open-source.title": {
+    "message": "سومبر تربوک"
+  },
+  "app-marketing.features.performance.activity-monitor": {
+    "message": "ڤمنتاو اکتيۏيتي"
+  },
+  "app-marketing.features.performance.cpu-percent": {
+    "message": "% CPU"
+  },
+  "app-marketing.features.performance.description": {
+    "message": "Modrinth App برڤريستاسي لبيه باءيق درڤد کباڽقن ڤڠوروس مود ترکموک⹁ مڠݢوناکن هاڽ 150mb RAM!"
+  },
+  "app-marketing.features.performance.discord": {
+    "message": "ديسکورد"
+  },
+  "app-marketing.features.performance.good-performance": {
+    "message": "ڤريستاسي يڠ باءيق"
+  },
+  "app-marketing.features.performance.google-chrome": {
+    "message": "Google Chrome"
+  },
+  "app-marketing.features.performance.infinite-mb": {
+    "message": "∞ MB"
+  },
+  "app-marketing.features.performance.infinite-times-infinite-mb": {
+    "message": "∞ * ∞ MB"
+  },
+  "app-marketing.features.performance.less-than-150mb": {
+    "message": "< 150 MB"
+  },
+  "app-marketing.features.performance.modrinth-app": {
+    "message": "Modrinth App"
+  },
+  "app-marketing.features.performance.one-billion-percent": {
+    "message": "1 بيليون %"
+  },
+  "app-marketing.features.performance.process-name": {
+    "message": "نام ڤروسيس"
+  },
+  "app-marketing.features.performance.ram": {
+    "message": "RAM"
+  },
+  "app-marketing.features.performance.small": {
+    "message": "کچيل"
+  },
+  "app-marketing.features.performance.title": {
+    "message": "چکڤ"
+  },
+  "app-marketing.features.play.description": {
+    "message": "ݢوناکن Modrinth App اونتوق مموات تورون دان مماءينکن مود دان ڤيک مود کݢمرن اندا."
+  },
+  "app-marketing.features.play.title": {
+    "message": "ماءينکن مود کݢمرن اندا"
+  },
+  "app-marketing.features.sharing.description": {
+    "message": "بينا⹁ کوڠسي دان ماءينکن ڤيک مود دڠن مان٢ ڤيليهن درڤد بريبو-ريبو مود دان ڤيک مود يڠ دهوسکن دسيني دModrinth."
+  },
+  "app-marketing.features.sharing.modpack": {
+    "message": "ڤيک مود"
+  },
+  "app-marketing.features.sharing.share-button": {
+    "message": "کوڠسي"
+  },
+  "app-marketing.features.sharing.title": {
+    "message": "کوڠسي ڤيک مود"
+  },
+  "app-marketing.features.unlike-any-launcher": {
+    "message": "تيدق سڤرتي ڤلنچر يڠ"
+  },
+  "app-marketing.features.website.description": {
+    "message": "Modrinth App دسڤادوکن سڤنوهڽ دڠن لامن سساوڠ⹁ جادي اندا بوليه مڠکسيس سموا ڤروجيک کݢمرن اندا دري دالم اڤليکاسي!"
+  },
+  "app-marketing.features.website.title": {
+    "message": "ڤڽڤادوان لامن سساوڠ"
+  },
+  "app-marketing.features.youve-used-before": {
+    "message": "اندا ݢوناکن سبلوم اين"
+  },
+  "app-marketing.hero.app-screenshot-alt": {
+    "message": "ڤتيقن سکرين Modrinth App دڠن ڤماسڠن Cobblemon يڠ دبوک کهلامن 'کاندوڠن'."
+  },
+  "app-marketing.hero.description": {
+    "message": "Modrinth App اياله سبواه ڤلنچر سومبر تربوک اونيک يڠ ممبوليهکن اندا مماءينکن مود کݢمرن اندا دان ممستيکنڽ دکمس کيني⹁ سمواڽ دالم ساتو ڤاکيج کچيل يڠ کمس."
+  },
+  "app-marketing.hero.download-button": {
+    "message": "موات تورون Modrinth App"
+  },
+  "app-marketing.hero.download-modrinth-app": {
+    "message": "موات تورون Modrinth App"
+  },
+  "app-marketing.hero.download-modrinth-app-for-os": {
+    "message": "موات تورون Modrinth App اونتوق {os}"
+  },
+  "app-marketing.hero.minecraft-screenshot-alt": {
+    "message": "ڤتيقن سکرين مينو اوتام ڤماسڠن Cobblemon."
+  },
+  "app-marketing.hero.more-download-options": {
+    "message": "لبيه باڽق ڤيليهن موات تورون"
+  },
+  "auth.authorize.action.authorize": {
+    "message": "صحکن"
+  },
+  "auth.authorize.action.decline": {
+    "message": "تولق"
+  },
+  "auth.authorize.app-info": {
+    "message": "<strong>{appName}</strong> اوليه <creator-link>{creator}</creator-link> اکن داڤت:"
+  },
+  "auth.authorize.authorize-app-name": {
+    "message": "صحکن {appName}"
+  },
+  "auth.authorize.error.no-redirect-url": {
+    "message": "تياد لوکاسي اوبه هالا دجومڤاءي سباݢاي ريسڤون‌س"
+  },
+  "auth.authorize.redirect-url": {
+    "message": "اندا اکن دأوبه هالا ک<redirect-url>{url}</redirect-url>"
+  },
+  "auth.reset-password.method-choice.action": {
+    "message": "هانتر إي-ميل ڤموليهن"
+  },
+  "auth.reset-password.method-choice.description": {
+    "message": "ماسوقکن إي-ميل اندا دباوه دان کامي اکن مڠهانتر ڤاءوتن ڤموليهن اونتوق ممبوليهکن اندا مموليهکن اکاءون اندا."
+  },
+  "auth.reset-password.method-choice.email-username.label": {
+    "message": "إي-ميل اتاو نام ڤڠݢونا"
+  },
+  "auth.reset-password.method-choice.email-username.placeholder": {
+    "message": "إي-ميل"
+  },
+  "auth.reset-password.notification.email-sent.text": {
+    "message": "إي-ميل دڠن ارهن تله دهانتر کڤد اندا جک إي-ميل ترسبوت تله دسيمڤن ڤد اکاءون اندا سبلوم اين."
+  },
+  "auth.reset-password.notification.email-sent.title": {
+    "message": "إي-ميل تله دهانتر"
+  },
+  "auth.reset-password.notification.password-reset.text": {
+    "message": "اندا کيني بوليه لوݢ ماسوق کاکاءون اندا دڠن کات لالوان بهارو اندا."
+  },
+  "auth.reset-password.notification.password-reset.title": {
+    "message": "کات لالوان برجاي دتتقکن سمولا"
+  },
+  "auth.reset-password.post-challenge.action": {
+    "message": "تتڤ سمولا کات لالوان"
+  },
+  "auth.reset-password.post-challenge.confirm-password.label": {
+    "message": "صحکن کات لالوان"
+  },
+  "auth.reset-password.post-challenge.description": {
+    "message": "ماسوقکن کات لالوان بهارو اندا دباوه اونتوق منداڤتکن اکسيس کاکاءون اندا."
+  },
+  "auth.reset-password.title": {
+    "message": "تتڤ سمولا کات لالوان"
+  },
+  "auth.reset-password.title.long": {
+    "message": "تتڤ سمولا کات لالوان اندا"
+  },
+  "auth.sign-in.2fa.description": {
+    "message": "سيلا ماسوقکن کود دوا فکتور اونتوق منروسکن."
+  },
+  "auth.sign-in.2fa.label": {
+    "message": "ماسوقکن کود دوا فکتور"
+  },
+  "auth.sign-in.2fa.placeholder": {
+    "message": "ماسوقکن کود..."
+  },
+  "auth.sign-in.additional-options": {
+    "message": "<forgot-password-link>لوڤا کات لالوان؟</forgot-password-link> • <create-account-link>چيڤتا اکاءون</create-account-link>"
+  },
+  "auth.sign-in.email-username.label": {
+    "message": "إي-ميل اتاو نام ڤڠݢونا"
+  },
+  "auth.sign-in.password.label": {
+    "message": "کات لالوان"
+  },
+  "auth.sign-in.sign-in-with": {
+    "message": "دفتر ماسوق دڠن"
+  },
+  "auth.sign-in.title": {
+    "message": "دفتر ماسوق"
+  },
+  "auth.sign-in.use-password": {
+    "message": "اتاو ݢوناکن کات لالوان"
+  },
+  "auth.sign-up.action.create-account": {
+    "message": "چيڤتا اکاءون"
+  },
+  "auth.sign-up.confirm-password.label": {
+    "message": "صحکن کات لالوان"
+  },
+  "auth.sign-up.email.label": {
+    "message": "إي-ميل"
+  },
+  "auth.sign-up.label.username": {
+    "message": "نام ڤڠݢونا"
+  },
+  "auth.sign-up.legal-dislaimer": {
+    "message": "دڠن منچيڤتا اکاءون⹁ اندا برستوجو دڠن <terms-link>ترما</terms-link> دان <privacy-policy-link>داسر ڤريۏاسي</privacy-policy-link> Modrinth."
+  },
+  "auth.sign-up.notification.password-mismatch.text": {
+    "message": "کات لالوان تيدق سڤادن!"
+  },
+  "auth.sign-up.password.label": {
+    "message": "کات لالوان"
+  },
+  "auth.sign-up.sign-in-option.title": {
+    "message": "سوده ممڤوڽاءي اکاءون؟"
+  },
+  "auth.sign-up.subscribe.label": {
+    "message": "لڠݢن کڤد کمس کيني تنتڠ Modrinth"
+  },
+  "auth.sign-up.title": {
+    "message": "دفتر"
+  },
+  "auth.sign-up.title.create-account": {
+    "message": "اتاو چيڤتا اکاءون اندا سنديري"
+  },
+  "auth.sign-up.title.sign-up-with": {
+    "message": "دفتر دڠن"
+  },
+  "auth.verify-email.action.account-settings": {
+    "message": "تتڤن اکاءون"
+  },
+  "auth.verify-email.action.sign-in": {
+    "message": "دفتر ماسوق"
+  },
+  "auth.verify-email.already-verified.description": {
+    "message": "أي-ميل اندا سوده ڤون دصحکن!"
+  },
+  "auth.verify-email.already-verified.title": {
+    "message": "إي-ميل سوده ڤون دصحکن"
+  },
+  "auth.verify-email.failed-verification.action": {
+    "message": "هانتر سمولا إي-ميل ڤڠصحن"
+  },
+  "auth.verify-email.failed-verification.description": {
+    "message": "کامي تيدق داڤت مڠصحکن إي-ميل اندا. چوبا هانتر سمولا ي-ميل ڤڠصحن ملالوءي ڤاڤن ڤموک اندا دڠن مندفتر ماسوق."
+  },
+  "auth.verify-email.failed-verification.description.logged-in": {
+    "message": "کامي تيدق داڤت مڠصحکن إي-ميل اندا. چوبا هانتر سمولا إي-ميل ڤڠصحن ملالوءي بوتڠ دباوه."
+  },
+  "auth.verify-email.failed-verification.title": {
+    "message": "ڤڠصحن إي-ميل ݢاݢل"
+  },
+  "auth.verify-email.post-verification.description": {
+    "message": "علامت إي-ميل اندا تله برجاي دصحکن!"
+  },
+  "auth.verify-email.post-verification.title": {
+    "message": "ڤڠصحن إي-ميل"
+  },
+  "auth.verify-email.title": {
+    "message": "صحکن إي-ميل"
+  },
+  "auth.welcome.checkbox.subscribe": {
+    "message": "لڠݢن کڤد کمس کيني تنتڠ Modrinth"
+  },
+  "auth.welcome.description": {
+    "message": "اندا کيني سبهاݢين درڤد کومونيتي هيبت ڤنچيڤتا & ڤنروک يڠ سوده ممبينا⹁ مموات تورون دان سنتياس مڠيکوتي ڤرکمبڠن ترکيني مڠناءي مود يڠ منعجوبکن."
+  },
+  "auth.welcome.label.tos": {
+    "message": "دڠن منچيڤتا اکاءون⹁ اندا تله برستوجو دڠن <terms-link>ترما</terms-link> دان <privacy-policy-link>داسر ڤريۏاسي</privacy-policy-link> Modrinth."
+  },
+  "auth.welcome.long-title": {
+    "message": "سلامت داتڠ کModrinth!"
+  },
+  "auth.welcome.title": {
+    "message": "سلامت داتڠ"
+  },
+  "collection.button.delete-icon": {
+    "message": "ڤادم ايکون"
+  },
+  "collection.button.edit-icon": {
+    "message": "سونتيڠ ايکون"
+  },
+  "collection.button.remove-project": {
+    "message": "اليه کلوار ڤروجيک"
+  },
+  "collection.button.unfollow-project": {
+    "message": "ڽهأيکوت ڤروجيک"
+  },
+  "collection.delete-modal.description": {
+    "message": "اين اکن مڠاليه کلوار کوليکسي اين سلاما-لاماڽ. تيندقن اين تيدق بوليه دبوات اصل."
+  },
+  "collection.delete-modal.title": {
+    "message": "اداکه اندا ڤستي ماهو ممادمکن کوليکسي اين؟"
+  },
+  "collection.description": {
+    "message": "{description} - ليهت کوليکسي {name} اوليه {username} دModrinth"
+  },
+  "collection.description.following": {
+    "message": "کوليکسي سموا ڤروجيک يڠ اندا ايکوتي يڠ دجان سچارا اءوتوماتيک."
+  },
+  "collection.error.not-found": {
+    "message": "کوليکسي تيدق دجومڤاءي"
+  },
+  "collection.label.collection": {
+    "message": "کوليکسي"
+  },
+  "collection.label.created-at": {
+    "message": "دچيڤتا {ago}"
+  },
+  "collection.label.curated-by": {
+    "message": "دأوروس اوليه"
+  },
+  "collection.label.no-projects": {
+    "message": "کوليکسي اين تيدق مميليقي سبارڠ ڤروجيک!"
+  },
+  "collection.label.no-projects-auth": {
+    "message": "اندا تيدق مميليقي سبارڠ ڤروجيک.\nاداکه اندا ماهو <create-link>منمبه سبواه ڤروجيک</create-link>؟"
+  },
+  "collection.label.owner": {
+    "message": "ڤميليق"
+  },
+  "collection.label.projects-count": {
+    "message": "{count, plural, other {<stat>{count}</stat> ڤروجيک}}"
+  },
+  "collection.label.updated-at": {
+    "message": "دکمس کيني {ago}"
+  },
+  "collection.title": {
+    "message": "{name} - کوليکسي"
+  },
+  "common.no": {
+    "message": "تيدق"
+  },
+  "common.yes": {
+    "message": "يا"
+  },
+  "create.collection.cancel": {
+    "message": "بطل"
+  },
+  "create.collection.collection-info": {
+    "message": "کوليکسي بهارو اندا اکن دبوات سباݢاي کوليکسي عوام دڠن {count, plural, =0 {0 ڤروجيک} other {# ڤروجيک}}."
+  },
+  "create.collection.create-collection": {
+    "message": "چيڤتا کوليکسي"
+  },
+  "create.collection.error-title": {
+    "message": "سبواه رالت تله برلاکو"
+  },
+  "create.collection.name-label": {
+    "message": "نام"
+  },
+  "create.collection.name-placeholder": {
+    "message": "ماسوقکن نام کوليکسي..."
+  },
+  "create.collection.summary-description": {
+    "message": "ساتو اتاو دوا ايات يڠ منرڠکن کوليکسي اندا."
+  },
+  "create.collection.summary-label": {
+    "message": "ريڠکسن"
+  },
+  "create.collection.summary-placeholder": {
+    "message": "اين اداله سبواه کوليکسي..."
+  },
+  "create.collection.title": {
+    "message": "منچيڤتا سبواه کوليکسي"
+  },
+  "create.limit-alert.approaching-limit": {
+    "message": "مڠهمڤيري حد {type} ({current}/{max})"
+  },
+  "create.limit-alert.approaching-limit-description": {
+    "message": "اندا اکن منچاڤاي حد {type}⹁ سيلا هوبوڠي سوکوڠن جک اندا ممرلوکن لبيه درڤد {max} {typePlural}."
+  },
+  "create.limit-alert.contact-support": {
+    "message": "هوبوڠي سوکوڠن"
+  },
+  "create.limit-alert.limit-reached": {
+    "message": "حد {type} دچاڤاي"
+  },
+  "create.limit-alert.limit-reached-description": {
+    "message": "اندا تله منچاڤاي حد {type} اندا ياءيت سباڽق {max}. سيلا هوبوڠي سوکوڠن اونتوق منيڠکتکن حد اندا."
+  },
+  "create.limit-alert.type-collection": {
+    "message": "کوليکسي"
+  },
+  "create.limit-alert.type-organization": {
+    "message": "اورݢانيساسي"
+  },
+  "create.limit-alert.type-plural-collection": {
+    "message": "کوليکسي"
+  },
+  "create.limit-alert.type-plural-organization": {
+    "message": "اورݢانيساسي"
+  },
+  "create.limit-alert.type-plural-project": {
+    "message": "ڤروجيک"
+  },
+  "create.limit-alert.type-project": {
+    "message": "ڤروجيک"
+  },
+  "create.organization.cancel": {
+    "message": "بطل"
+  },
+  "create.organization.create-organization": {
+    "message": "چيڤتا اورݢانيساسي"
+  },
+  "create.organization.error-title": {
+    "message": "سبواه رالت تله برلاکو"
+  },
+  "create.organization.name-label": {
+    "message": "نام"
+  },
+  "create.organization.name-placeholder": {
+    "message": "ماسوقکن نام اورݢانيساسي..."
+  },
+  "create.organization.ownership-info": {
+    "message": "اندا اکن منجادي ڤميليق اورݢانيساسي اين⹁ تتاڤي اندا بوليه منجمڤوت اهلي لاءين دان مميندهکن ڤميليقن ڤد بيلا‌٢ ماس."
+  },
+  "create.organization.summary-description": {
+    "message": "ساتو اتاو دوا ايات يڠ منرڠکن اورݢانيساسي اندا."
+  },
+  "create.organization.summary-label": {
+    "message": "ريڠکسن"
+  },
+  "create.organization.summary-placeholder": {
+    "message": "سبواه اورݢانيساسي اونتوق..."
+  },
+  "create.organization.title": {
+    "message": "منچيڤتا سبواه اورݢانيساسي"
+  },
+  "create.organization.url-label": {
+    "message": "URL"
+  },
+  "create.project.cancel": {
+    "message": "بطل"
+  },
+  "create.project.create-project": {
+    "message": "چيڤتا ڤروجيک"
+  },
+  "create.project.error-title": {
+    "message": "سبواه رالت تله برلاکو"
+  },
+  "create.project.name-label": {
+    "message": "نام"
+  },
+  "create.project.name-placeholder": {
+    "message": "ماسوقکن نام ڤروجيک..."
+  },
+  "create.project.summary-description": {
+    "message": "ساتو اتاو دوا ايات يڠ منرڠکن ڤروجيک اندا."
+  },
+  "create.project.summary-label": {
+    "message": "ريڠکسن"
+  },
+  "create.project.summary-placeholder": {
+    "message": "ڤروجيک اين منمبه..."
+  },
+  "create.project.title": {
+    "message": "منچيڤتا سبواه ڤروجيک"
+  },
+  "create.project.url-label": {
+    "message": "URL"
+  },
+  "create.project.visibility-description": {
+    "message": "کترليهتن ڤروجيک اندا سلڤس اي دلولوسکن."
+  },
+  "create.project.visibility-label": {
+    "message": "کترليهتن"
+  },
+  "create.project.visibility-private": {
+    "message": "ڤريبادي"
+  },
+  "create.project.visibility-public": {
+    "message": "عوام"
+  },
+  "create.project.visibility-unlisted": {
+    "message": "تيدق دسنارايکن"
+  },
+  "dashboard.affiliate-links.create.button": {
+    "message": "Cipta pautan afiliasi"
+  },
+  "dashboard.affiliate-links.error.title": {
+    "message": "Ralat semasa memuatkan pautan afiliasi"
+  },
+  "dashboard.affiliate-links.header": {
+    "message": "Pautan afiliasi anda"
+  },
+  "dashboard.affiliate-links.revoke-confirm.body": {
+    "message": "Ini akan membatalkan kod afiliasi `{id}` secara kekal dan sebarang pautan sedia ada dengan kod ini yang telah dikongsi tidak lagi sah."
+  },
+  "dashboard.affiliate-links.revoke-confirm.button": {
+    "message": "Batalkan"
+  },
+  "dashboard.affiliate-links.revoke-confirm.title": {
+    "message": "Adakah anda pasti mahu membatalkan pautan afiliasi anda yang bernama ''{title}''?"
+  },
+  "dashboard.affiliate-links.search": {
+    "message": "Cari pautan afiliasi..."
+  },
+  "dashboard.collections.button.create-new": {
+    "message": "چيڤتا بهارو"
+  },
+  "dashboard.collections.label.projects-count": {
+    "message": "{count, plural, other {{count} ڤروجيک}}"
+  },
+  "dashboard.collections.label.search-input": {
+    "message": "چاري کوليکسي اندا"
+  },
+  "dashboard.collections.long-title": {
+    "message": "کوليکسي اندا"
+  },
+  "dashboard.creator-tax-form-modal.confirmation.download-button": {
+    "message": "موات تورون {formType}"
+  },
+  "dashboard.creator-tax-form-modal.confirmation.success": {
+    "message": "بورڠ چوکاي {formType} اندا تله برجاي دهانتر!"
+  },
+  "dashboard.creator-tax-form-modal.confirmation.support-text": {
+    "message": "اندا بوليه مڠلوارکن واڠ دڠن بيبس سکارڠ. جک اندا ممڤوڽاءي سوءالن اتاو ڤرلو مڠمس کيني بوتيرن اندا <support-link>هوبوڠي سوکوڠن</support-link>."
+  },
+  "dashboard.creator-tax-form-modal.confirmation.title": {
+    "message": "سلساي! 🎉"
+  },
+  "dashboard.creator-tax-form-modal.entity.description": {
+    "message": "اينتيتي اسيڠ برمقصود اينتيتي ڤرنياݢاءن يڠ دأنجورکن دلوار اميريکا شريکت (سڤرتي ڤربادنن⹁ ڤرکوڠسين اتاو LLC بوکن ا.س.)."
+  },
+  "dashboard.creator-tax-form-modal.entity.foreign-entity": {
+    "message": "اينتيتي اسيڠ"
+  },
+  "dashboard.creator-tax-form-modal.entity.private-individual": {
+    "message": "ايديۏيدو ڤرسنديرين"
+  },
+  "dashboard.creator-tax-form-modal.entity.question": {
+    "message": "اداکه اندا ايديۏيدو ڤرسنديرين اتاو سبهاݢين درڤد اينتيتي اسيڠ؟"
+  },
+  "dashboard.creator-tax-form-modal.header": {
+    "message": "بورڠ چوکاي"
+  },
+  "dashboard.creator-tax-form-modal.security.description": {
+    "message": "Modrinth مڠݢوناکن ڤڽديا ڤيهق کتيݢ Track1099 اونتوق مڠومڤول دان مڽيمڤن بورڠ چوکاي اندا دڠن سلامت. <security-link>کتاهوءي لبيه لنجوت دسيني.</security-link>"
+  },
+  "dashboard.creator-tax-form-modal.security.header": {
+    "message": "عملن کسلامتن"
+  },
+  "dashboard.creator-tax-form-modal.us-citizen.question": {
+    "message": "اداکه اندا ورݢانݢارا اميريکا شريکت؟"
+  },
+  "dashboard.creator-withdraw-modal.complete-tax-form": {
+    "message": "Lengkapkan borang cukai"
+  },
+  "dashboard.creator-withdraw-modal.continue-with-limit": {
+    "message": "Teruskan dengan had"
+  },
+  "dashboard.creator-withdraw-modal.details-label": {
+    "message": "Butiran"
+  },
+  "dashboard.creator-withdraw-modal.fee-breakdown-amount": {
+    "message": "Amaun"
+  },
+  "dashboard.creator-withdraw-modal.fee-breakdown-exchange-rate": {
+    "message": "Kadar FX"
+  },
+  "dashboard.creator-withdraw-modal.fee-breakdown-fee": {
+    "message": "Yuran"
+  },
+  "dashboard.creator-withdraw-modal.fee-breakdown-net-amount": {
+    "message": "Amaun bersih"
+  },
+  "dashboard.creator-withdraw-modal.kyc.business-entity": {
+    "message": "Entiti bisnes"
+  },
+  "dashboard.creator-withdraw-modal.kyc.entity-description": {
+    "message": "Entiti bisnes merujuk kepada organisasi terdaftar seperti perbadanan, perkongsian atau LLC."
+  },
+  "dashboard.creator-withdraw-modal.kyc.entity-question": {
+    "message": "Adakah anda sedang mengeluarkan wang sebagai seorang individu atau sebuah perniagaan?"
+  },
+  "dashboard.creator-withdraw-modal.kyc.private-individual": {
+    "message": "Individu persendirian"
+  },
+  "dashboard.creator-withdraw-modal.method-selection.country-placeholder": {
+    "message": "Pilih negara anda"
+  },
+  "dashboard.creator-withdraw-modal.method-selection.country-search-placeholder": {
+    "message": "Cari negara..."
+  },
+  "dashboard.creator-withdraw-modal.method-selection.error-text": {
+    "message": "Tidak dapat mengambil kaedah pembayaran yang tersedia. Sila cuba lagi kemudian."
+  },
+  "dashboard.creator-withdraw-modal.method-selection.error-title": {
+    "message": "Gagal memuatkan kaedah pembayaran"
+  },
+  "dashboard.creator-withdraw-modal.method-selection.region": {
+    "message": "Rantau"
+  },
+  "dashboard.creator-withdraw-modal.method-selection.region-tooltip": {
+    "message": "Sesetengah kaedah pembayaran tidak tersedia di rantau tertentu."
+  },
+  "dashboard.creator-withdraw-modal.method-selection.select-method": {
+    "message": "Pilih kaedah pengeluaran"
+  },
+  "dashboard.creator-withdraw-modal.method-selection.tax-limit-warning": {
+    "message": "Had pengeluaran anda ialah <b>{amount}</b>, <tax-link>lengkapkan borang cukai</tax-link> untuk mengeluarkan lebih banyak wang."
+  },
+  "dashboard.creator-withdraw-modal.muralpay-details.account-owner": {
+    "message": "Pemilik akaun"
+  },
+  "dashboard.creator-withdraw-modal.muralpay-details.coin": {
+    "message": "Syiling"
+  },
+  "dashboard.creator-withdraw-modal.muralpay-details.crypto-warning-header": {
+    "message": "Sahkan alamat dompet anda"
+  },
+  "dashboard.creator-withdraw-modal.muralpay-details.document-number-national-id": {
+    "message": "Nombor ID kebangsaan"
+  },
+  "dashboard.creator-withdraw-modal.muralpay-details.document-number-national-id-placeholder": {
+    "message": "Masukkan nombor ID kebangsaan"
+  },
+  "dashboard.creator-withdraw-modal.muralpay-details.document-number-passport": {
+    "message": "Nombor pasport"
+  },
+  "dashboard.creator-withdraw-modal.muralpay-details.document-number-passport-placeholder": {
+    "message": "Masukkan nombor pasport"
+  },
+  "dashboard.creator-withdraw-modal.muralpay-details.document-number-resident-id": {
+    "message": "Masukkan nombor ID penduduk"
+  },
+  "dashboard.creator-withdraw-modal.muralpay-details.document-number-resident-id-placeholder": {
+    "message": "Masukkan nombor ID penduduk"
+  },
+  "dashboard.creator-withdraw-modal.muralpay-details.document-number-ruc": {
+    "message": "Nombor RUC"
+  },
+  "dashboard.creator-withdraw-modal.muralpay-details.document-number-ruc-placeholder": {
+    "message": "Masukkan nombor RUC"
+  },
+  "dashboard.creator-withdraw-modal.muralpay-details.document-number-tax-id": {
+    "message": "Nombor ID cukai"
+  },
+  "dashboard.creator-withdraw-modal.muralpay-details.document-number-tax-id-placeholder": {
+    "message": "Masukkan nombor ID cukai"
+  },
+  "dashboard.creator-withdraw-modal.muralpay-details.network": {
+    "message": "Rangkaian"
+  },
+  "dashboard.creator-withdraw-modal.nearing-threshold": {
+    "message": "Anda hampir mencapai ambang pengeluaran. Anda boleh mengeluarkan <b>{amountRemaining}</b> sekarang, tetapi borang cukai diperlukan untuk mengeluarkan lebih banyak wang."
+  },
+  "dashboard.creator-withdraw-modal.paypal-details.account": {
+    "message": "Akaun"
+  },
+  "dashboard.creator-withdraw-modal.paypal-details.disconnect-account": {
+    "message": "Putuskan sambungan akaun"
+  },
+  "dashboard.creator-withdraw-modal.paypal-details.payment-method": {
+    "message": "Kaedah pembayaran"
+  },
+  "dashboard.creator-withdraw-modal.paypal-details.paypal-account": {
+    "message": "Akaun PayPal"
+  },
+  "dashboard.creator-withdraw-modal.paypal-details.paypal-auth-description": {
+    "message": "Sambungkan akaun PayPal anda untuk menerima pembayaran secara langsung."
+  },
+  "dashboard.creator-withdraw-modal.paypal-details.save-button": {
+    "message": "Simpan"
+  },
+  "dashboard.creator-withdraw-modal.paypal-details.save-success": {
+    "message": "Nama pemegang Venmo berjaya disimpan!"
+  },
+  "dashboard.creator-withdraw-modal.paypal-details.saved-button": {
+    "message": "Disimpan"
+  },
+  "dashboard.creator-withdraw-modal.paypal-details.sign-in-with-paypal": {
+    "message": "Daftar masuk dengan PayPal"
+  },
+  "dashboard.creator-withdraw-modal.paypal-details.venmo-description": {
+    "message": "Masukkan nama pemegang Venmo anda untuk menerima pembayaran."
+  },
+  "dashboard.creator-withdraw-modal.paypal-details.venmo-handle": {
+    "message": "Nama pemegang Venmo"
+  },
+  "dashboard.creator-withdraw-modal.paypal-details.venmo-handle-placeholder": {
+    "message": "@nama-pengguna"
+  },
+  "dashboard.creator-withdraw-modal.stage.method-selection": {
+    "message": "Kaedah"
+  },
+  "dashboard.creator-withdraw-modal.stage.muralpay-details": {
+    "message": "Butiran Akaun"
+  },
+  "dashboard.creator-withdraw-modal.stage.muralpay-kyc": {
+    "message": "Pengesahan"
+  },
+  "dashboard.creator-withdraw-modal.stage.tax-form": {
+    "message": "Borang cukai"
+  },
+  "dashboard.creator-withdraw-modal.stage.tremendous-details": {
+    "message": "Butiran"
+  },
+  "dashboard.creator-withdraw-modal.tax-form-required.body": {
+    "message": "Untuk mengeluarkan baki penuh anda yang tersedia sebanyak <b>{available}</b>, sila lengkapkan borang di bawah. Ia diperlukan untuk pelaporan cukai dan hanya perlu dilakukan sekali sahaja."
+  },
+  "dashboard.creator-withdraw-modal.tax-form-required.body-with-limit": {
+    "message": "Anda mesti melengkapkan borang W-9 atau W-8 untuk rekod cukai Modrinth supaya kami kekal mematuhi peraturan cukai."
+  },
+  "dashboard.creator-withdraw-modal.tax-form-required.header": {
+    "message": "Borang cukai diperlukan"
+  },
+  "dashboard.creator-withdraw-modal.tremendous-details.payment-method": {
+    "message": "Kaedah pembayaran"
+  },
+  "dashboard.creator-withdraw-modal.tremendous-details.reward": {
+    "message": "Ganjaran"
+  },
+  "dashboard.creator-withdraw-modal.tremendous-details.reward-placeholder": {
+    "message": "Pilih ganjaran"
+  },
+  "dashboard.creator-withdraw-modal.tremendous-details.reward-plural": {
+    "message": "Ganjaran"
+  },
+  "dashboard.creator-withdraw-modal.tremendous-details.unverified-email-header": {
+    "message": "E-mel yang belum disahkan"
+  },
+  "dashboard.creator-withdraw-modal.tremendous-details.unverified-email-message": {
+    "message": "E-mel penghantaran yang anda masukkan tidak dikaitkan dengan akaun Modrinth anda. Modrinth tidak dapat mendapatkan semula ganjaran yang dihantar ke alamat e-mel yang salah."
+  },
+  "dashboard.creator-withdraw-modal.tremendous-details.usd-paypal-warning-header": {
+    "message": "Yuran lebih rendah tersedia"
+  },
+  "dashboard.creator-withdraw-modal.tremendous-details.usd-paypal-warning-message": {
+    "message": "Anda memilih USD untuk PayPal Antarabangsa. <direct-paypal-link>Tukar kepada PayPal langsung</direct-paypal-link> untuk yuran yang lebih baik (≈2% dan bukannya ≈6%)."
+  },
+  "dashboard.creator-withdraw-modal.withdraw-button": {
+    "message": "Keluarkan"
+  },
+  "dashboard.creator-withdraw-modal.withdraw-limit": {
+    "message": "Had pengeluaran wang"
+  },
+  "dashboard.creator-withdraw-modal.withdraw-limit-used": {
+    "message": "Anda telah menggunakan had pengeluaran anda sebanyak <b>{withdrawLimit}</b>. Anda mesti melengkapkan borang cukai untuk mengeluarkan lebih banyak wang."
+  },
+  "dashboard.revenue.available-now": {
+    "message": "Tersedia sekarang"
+  },
+  "dashboard.revenue.balance": {
+    "message": "Baki"
+  },
+  "dashboard.revenue.estimated-tooltip.msg1": {
+    "message": "Anggaran hasil pendapatan mungkin tertakluk kepada perubahan sehingga ia tersedia."
+  },
+  "dashboard.revenue.estimated-tooltip.msg2": {
+    "message": "Klik untuk membaca tentang cara Modrinth mengendalikan pendapatan anda."
+  },
+  "dashboard.revenue.estimated-with-date": {
+    "message": "Anggaran {date}"
+  },
+  "dashboard.revenue.processing": {
+    "message": "Memproses"
+  },
+  "dashboard.revenue.processing.tooltip": {
+    "message": "Hasil pendapatan kekal dalam pemprosesan sehingga akhir bulan, dan kemudian akan tersedia 60 hari kemudian."
+  },
+  "dashboard.revenue.stats.received": {
+    "message": "Diterima"
+  },
+  "dashboard.revenue.stats.transactions": {
+    "message": "Transaksi"
+  },
+  "dashboard.revenue.stats.withdrawn": {
+    "message": "Telah dikeluarkan"
+  },
+  "dashboard.revenue.tos": {
+    "message": "Dengan memuat naik projek ke Modrinth dan mengeluarkan wang daripada akaun anda, anda bersetuju dengan <terms-link>Terma Program Ganjaran</terms-link> kami. Ketahui lebih lanjut tentang <info-link>Program Ganjaran</info-link> ini."
+  },
+  "dashboard.revenue.transactions.btn.download-csv": {
+    "message": "Muat turun sebagai CSV"
+  },
+  "dashboard.revenue.transactions.header": {
+    "message": "Transaksi"
+  },
+  "dashboard.revenue.transactions.none": {
+    "message": "Tiada transaksi"
+  },
+  "dashboard.revenue.transactions.none.desc": {
+    "message": "Pembayaran dan pengeluaran anda akan dipaparkan di sini."
+  },
+  "dashboard.revenue.transactions.see-all": {
+    "message": "Lihat semua"
+  },
+  "dashboard.revenue.withdraw.blocked-tin-mismatch": {
+    "message": "Pengeluaran anda telah dikunci buat sementara waktu kerana TIN atau SSN anda tidak sepadan dengan rekod IRS. Sila hubungi sokongan untuk menetapkan semula dan menghantar semula borang cukai anda."
+  },
+  "dashboard.revenue.withdraw.card.description": {
+    "message": "Keluarkan wang daripada baki yang tersedia kepada mana-mana kaedah pembayaran."
+  },
+  "dashboard.revenue.withdraw.card.title": {
+    "message": "Pengeluaran"
+  },
+  "dashboard.revenue.withdraw.header": {
+    "message": "Pengeluaran"
+  },
+  "dashboard.withdraw.completion.account": {
+    "message": "Akaun"
+  },
+  "dashboard.withdraw.completion.amount": {
+    "message": "Amaun"
+  },
+  "dashboard.withdraw.completion.close-button": {
+    "message": "Tutup"
+  },
+  "dashboard.withdraw.completion.date": {
+    "message": "Tarikh"
+  },
+  "dashboard.withdraw.completion.email-confirmation": {
+    "message": "Anda akan menerima e-mel di <b>{email}</b> dengan arahan untuk menebus pengeluaran anda."
+  },
+  "dashboard.withdraw.completion.exchange-rate": {
+    "message": "Kadar pertukaran"
+  },
+  "dashboard.withdraw.completion.fee": {
+    "message": "Yuran"
+  },
+  "dashboard.withdraw.completion.method": {
+    "message": "Kaedah"
+  },
+  "dashboard.withdraw.completion.net-amount": {
+    "message": "Amaun bersih"
+  },
+  "dashboard.withdraw.completion.recipient": {
+    "message": "Penerima"
+  },
+  "dashboard.withdraw.completion.title": {
+    "message": "Pengeluaran selesai"
+  },
+  "dashboard.withdraw.completion.transactions-button": {
+    "message": "Transaksi"
+  },
+  "dashboard.withdraw.completion.wallet": {
+    "message": "Dompet"
+  },
+  "dashboard.withdraw.error.generic.text": {
+    "message": "Kami tidak dapat menghantar permintaan pengeluaran anda, sila semak butiran anda atau hubungi sokongan."
+  },
+  "dashboard.withdraw.error.generic.title": {
+    "message": "Tidak dapat mengeluarkan wang"
+  },
+  "dashboard.withdraw.error.invalid-address.text": {
+    "message": "Alamat yang anda berikan tidak dapat disahkan. Sila semak butiran alamat anda."
+  },
+  "dashboard.withdraw.error.invalid-address.title": {
+    "message": "Pengesahan alamat gagal"
+  },
+  "dashboard.withdraw.error.invalid-bank.text": {
+    "message": "Butiran akaun bank yang anda berikan tidak sah. Sila sahkan maklumat anda."
+  },
+  "dashboard.withdraw.error.invalid-bank.title": {
+    "message": "Butiran bank tidak sah"
+  },
+  "dashboard.withdraw.error.invalid-wallet.text": {
+    "message": "Alamat dompet kripto yang anda berikan tidak sah. Sila semak semula dan cuba lagi."
+  },
+  "dashboard.withdraw.error.invalid-wallet.title": {
+    "message": "Alamat dompet tidak sah"
+  },
+  "dashboard.withdraw.error.minimum-not-met.text": {
+    "message": "Amaun pengeluaran (selepas yuran) tidak memenuhi keperluan minimum. Sila tingkatkan amaun pengeluaran anda."
+  },
+  "dashboard.withdraw.error.minimum-not-met.title": {
+    "message": "Amaun terlalu rendah"
+  },
+  "dashboard.withdraw.error.tax-form.text": {
+    "message": "Anda mesti melengkapkan borang cukai untuk menyerahkan permintaan pengeluaran anda."
+  },
+  "dashboard.withdraw.error.tax-form.title": {
+    "message": "Sila lengkapkan borang cukai"
+  },
+  "error.collection.404.list_item.1": {
+    "message": "اندا موڠکين ترساله تاءيڤ URL کوليکسي."
+  },
+  "error.collection.404.list_item.2": {
+    "message": "کوليکسي اين موڠکين سبواه کوليکسي ڤريبادي."
+  },
+  "error.collection.404.list_item.3": {
+    "message": "کوليکسي ايت موڠکين تله دأليه کلوار اوليه ڤاسوقن ڤڽدرهان Modrinth کران ملڠݢر <tou-link>ترما ڤڠݢوناءن</tou-link> کامي."
+  },
+  "error.collection.404.list_title": {
+    "message": "کناڤ؟"
+  },
+  "error.collection.404.title": {
+    "message": "کوليکسي تيدق دجومڤاءي"
+  },
+  "error.generic.404.subtitle": {
+    "message": "هلامن يڠ اندا چاري نمڤقڽ تيدق وجود."
+  },
+  "error.generic.404.title": {
+    "message": "هلامن تيدق دجومڤاءي"
+  },
+  "error.generic.451.subtitle": {
+    "message": "هلامن اين تله دسکت اتس سبب اوندڠ‌٢⹁ سڤرتي ڤناڤيسن کراجاءن اتاو ڤروسيديڠ اوندڠ‌٢ يڠ برتروسن."
+  },
+  "error.generic.451.title": {
+    "message": "کاندوڠن تيدق ترسديا اتس سبب اوندڠ‌٢"
+  },
+  "error.generic.default.list_item.1": {
+    "message": "سمق سام اد Modrinth تيدق برفوڠسي ڤد <status-link>هلامن ستاتوس</status-link> کامي."
+  },
+  "error.generic.default.list_item.2": {
+    "message": "جک رالت اين تروس برلاکو⹁ اندا موڠکين ايڠين ممبريتاهو ڤاسوقن Modrinth دڠن مڽرتاءي <discord-link>ڤلاين ديسکورد</discord-link> کامي."
+  },
+  "error.generic.default.list_title": {
+    "message": "سيلا چوبا لاݢي دالم ببراڤ مينيت."
+  },
+  "error.generic.default.subtitle": {
+    "message": "سسواتو تله برلاکو."
+  },
+  "error.generic.default.title": {
+    "message": "الامق!"
+  },
+  "error.organization.404.list_item.1": {
+    "message": "اندا موڠکين ترساله تاءيڤ URL اورݢانيساسي."
+  },
+  "error.organization.404.list_item.2": {
+    "message": "ڤميليق اورݢانيساسي موڠکين تله منوکر URL اتاو ممادمکنڽ."
+  },
+  "error.organization.404.list_item.3": {
+    "message": "اورݢانيساسي ايت موڠکين تله دأليه کلوار اوليه ڤاسوقن ڤڽدرهان Modrinth کران ملڠݢر <tou-link>ترما ڤڠݢوناءن</tou-link> کامي."
+  },
+  "error.organization.404.list_title": {
+    "message": "کناڤ؟"
+  },
+  "error.organization.404.title": {
+    "message": "اورݢانيساسي تيدق دجومڤاءي"
+  },
+  "error.project.404.list_item.1": {
+    "message": "اندا موڠکين ترساله تاءيڤ URL ڤروجيک."
+  },
+  "error.project.404.list_item.2": {
+    "message": "ڤميليق ڤروجيک موڠکين تله منوکر URL⹁ ممڤريباديکن ڤروجيک اتاو ممادمکنڽ."
+  },
+  "error.project.404.list_item.3": {
+    "message": "ڤروجيک ايت موڠکين تله دأليه کلوار اوليه ڤاسوقن ڤڽدرهان Modrinth کران ملڠݢر <tou-link>ترما ڤڠݢوناءن</tou-link> کامي."
+  },
+  "error.project.404.list_title": {
+    "message": "کناڤ؟"
+  },
+  "error.project.404.title": {
+    "message": "ڤروجيک تيدق دجومڤاءي"
+  },
+  "error.user.404.list_item.1": {
+    "message": "اندا موڠکين ترساله تاءيڤ نام ڤڠݢونا ترسبوت."
+  },
+  "error.user.404.list_item.2": {
+    "message": "ڤڠݢونا موڠکين تله منوکر نام ڤڠݢونا اتاو ممادمکن اکاءون مريک."
+  },
+  "error.user.404.list_item.3": {
+    "message": "اکاءون ڤڠݢونا ايت موڠکين تله دأليه کلوار کران ملڠݢر <tou-link>ترما ڤڠݢوناءن</tou-link> کامي."
+  },
+  "error.user.404.list_title": {
+    "message": "کناڤ؟"
+  },
+  "error.user.404.title": {
+    "message": "ڤڠݢونا تيدق دجومڤاءي"
+  },
+  "frog": {
+    "message": "اندا تله دکاتق! 🐸"
+  },
+  "frog.altText": {
+    "message": "سبواه لوکيسن فوتورياليستيک لابيرين کاتق"
+  },
+  "frog.froggedPeople": {
+    "message": "ترداڤت {count, plural, other {{count} لاݢي اورڠ}} يڠ توروت دکاتق جوݢ!"
+  },
+  "frog.sinceOpened": {
+    "message": "هلامن اين تله دبوک {ago}"
+  },
+  "frog.title": {
+    "message": "کاتق"
+  },
+  "landing.button.discover-mods": {
+    "message": "تموءي مود"
+  },
+  "landing.button.go-to-dashboard": {
+    "message": "ڤرݢي کڤاڤن ڤموک"
+  },
+  "landing.creator.feature.constantly-evolving.description": {
+    "message": "داڤتکن ڤڠالمن ڤڠوبهسواين ترباءيق يڠ موڠکين دڠن کمس کيني برتروسن درڤد ڤاسوقن Modrinth"
+  },
+  "landing.creator.feature.constantly-evolving.title": {
+    "message": "سنتياس برکمبڠ"
+  },
+  "landing.creator.feature.data-statistics.description": {
+    "message": "داڤتکن لاڤورن ترڤرينچي تنتڠ ڤاڤرن هلامن⹁ کيراءن موات تورون دان حاصيل ڤنداڤتن"
+  },
+  "landing.creator.feature.data-statistics.title": {
+    "message": "داتا دان ستاتيستيک"
+  },
+  "landing.creator.feature.discovery.description": {
+    "message": "سرلهکن ڤروجيک اندا کڤد بريبو-ريبو ڤڠݢونا ملالوءي چارين⹁ هلامن اوتام کامي⹁ ڤلاين ديسکورد دان لبيه باڽق چارا يڠ اکن داتڠ ڤد ماس هادڤن!"
+  },
+  "landing.creator.feature.discovery.title": {
+    "message": "ڤنموان"
+  },
+  "landing.creator.feature.diverse-ecosystem.description": {
+    "message": "سڤادوکن دڠن التن بيناءن اندا ملالوءي Minotaur اونتوق موات ناءيق اءوتوماتيک سباءيق سهاج اندا منربيتکن ۏرسي بهارو"
+  },
+  "landing.creator.feature.diverse-ecosystem.title": {
+    "message": "ايکوسيستم يڠ ڤلباݢاي"
+  },
+  "landing.creator.feature.monetization.description": {
+    "message": "داڤتکن حاصيل ڤنداڤتن اعلان برباير درڤد هلامن ڤروجيک اندا دان کلوارکن دانا اندا ڤد بيلا‌٢ ماس"
+  },
+  "landing.creator.feature.monetization.title": {
+    "message": "ڤڠواڠن"
+  },
+  "landing.creator.feature.team-management.description": {
+    "message": "جمڤوت راکن سڤاسوقن اندا دان اوروسکن ڤرانن سرتا کبنرن دڠن موده"
+  },
+  "landing.creator.feature.team-management.title": {
+    "message": "ڤڠوروسن ڤاسوقن"
+  },
+  "landing.error.failedToLoadRandomProjects": {
+    "message": "ݢاݢل ممواتکن ڤروجيک٢ راوق :("
+  },
+  "landing.feature.follow.description": {
+    "message": "داڤتکن معلومن ستياڤ کالي ڤروجيک کݢمرن اندا دکمس کيني دان ايلقکن درڤد کتيڠݢلن."
+  },
+  "landing.feature.follow.heading": {
+    "message": "ايکوتي ڤروجيک يڠ اندا سوکاي"
+  },
+  "landing.feature.launcher.description": {
+    "message": "API سومبر تربوک Modrinth ممبوليهکن ڤلنچر منمبه ڤڽڤادوان يڠ مندالم دڠن Modrinth. اندا بوليه مڠݢوناکن Modrinth ملالوءي <link>اڤليکاسي کامي سنديري</link> دان ببراڤ ڤلنچر ڤاليڠ ڤوڤولر سڤرتي ATLauncher⹁ MultiMC دان Prism Launcher."
+  },
+  "landing.feature.launcher.heading": {
+    "message": "ماءينکن دڠن ڤلنچر کݢمرن اندا"
+  },
+  "landing.feature.search.description": {
+    "message": "چارين سڤانتس کيلت دان ڤناڤيس برکواس اوليه Modrinth ممبوليهکن اندا منچاري ڤرکارا يڠ اندا ايڠينکن سماس اندا مناءيڤ."
+  },
+  "landing.feature.search.heading": {
+    "message": "چاري اڤ يڠ اندا ماهو⹁ دڠن چڤت دان موده"
+  },
+  "landing.heading.the-place-for-minecraft": {
+    "message": "تمڤت اونتوق {content} ماءينکرف‌ت"
+  },
+  "landing.heading.the-place-for-minecraft.data-packs": {
+    "message": "ڤيک داتا"
+  },
+  "landing.heading.the-place-for-minecraft.modpacks": {
+    "message": "ڤيک مود"
+  },
+  "landing.heading.the-place-for-minecraft.mods": {
+    "message": "مود"
+  },
+  "landing.heading.the-place-for-minecraft.plugins": {
+    "message": "ڤمالم"
+  },
+  "landing.heading.the-place-for-minecraft.resource-packs": {
+    "message": "ڤيک سومبر"
+  },
+  "landing.heading.the-place-for-minecraft.servers": {
+    "message": "ڤلاين"
+  },
+  "landing.heading.the-place-for-minecraft.shaders": {
+    "message": "ڤمبايڠ"
+  },
+  "landing.launcher.atlauncher-label": {
+    "message": "ATLauncher"
+  },
+  "landing.launcher.graphic-alt": {
+    "message": "ڤرواکيلن ريڠکس تتيڠکڤ ماءينکرف‌ت⹁ دڠن لوݢو Mojang Studios دالم ورنا هيجاو Modrinth."
+  },
+  "landing.launcher.modrinth-app-label": {
+    "message": "Modrinth App"
+  },
+  "landing.launcher.prism-launcher-label": {
+    "message": "Prism Launcher"
+  },
+  "landing.notifications.has-been-updated": {
+    "message": "{title} تله دکمس کيني!"
+  },
+  "landing.notifications.heading": {
+    "message": "ڤمبريتاهوان"
+  },
+  "landing.notifications.received-time": {
+    "message": "دتريما {time}"
+  },
+  "landing.notifications.version-released": {
+    "message": "ۏرسي {version} تله دتربيتکن اونتوق {gameVersion}"
+  },
+  "landing.search.label": {
+    "message": "چاري"
+  },
+  "landing.search.placeholder": {
+    "message": "چاري..."
+  },
+  "landing.search.sort-by.label": {
+    "message": "ايسيه مڠيکوت"
+  },
+  "landing.section.for-creators.description": {
+    "message": "برايکن تمڤت تيڠݢل دالم تالين اونتوق چيڤتاءن اندا دان جاڠکاو خلايق راماي ڤنوه دڠن ڤماءين يڠ برديديکاسي."
+  },
+  "landing.section.for-creators.label": {
+    "message": "اونتوق ڤنچيڤتا"
+  },
+  "landing.section.for-creators.tagline": {
+    "message": "کوڠسي کاندوڠن اندا دڠن دنيا"
+  },
+  "landing.section.for-players.description": {
+    "message": "درڤد بيوم عجاءيب هيڠݢ ڤنجارا باوه تانه يڠ ترکوتوق⹁ اندا ڤستي اکن منموکن کاندوڠن اونتوق ممباوا ڤرماءينن اندا کتاهڤ يڠ ستروسڽ."
+  },
+  "landing.section.for-players.label": {
+    "message": "اونتوق ڤماءين"
+  },
+  "landing.section.for-players.tagline": {
+    "message": "تموءي لبيه درڤد {count} چيڤتاءن"
+  },
+  "landing.subheading": {
+    "message": "تموءي⹁ ماءين دان کوڠسي کاندوڠن ماءينکرف‌ت ملالوءي ڤلتفوم سومبر تربوک کامي يڠ دبينا اونتوق کومونيتي."
+  },
+  "layout.action.change-theme": {
+    "message": "توکر تيما"
+  },
+  "layout.action.create-new": {
+    "message": "چيڤتا بهارو..."
+  },
+  "layout.action.file-lookup": {
+    "message": "چارين فاءيل"
+  },
+  "layout.action.lookup-by-email": {
+    "message": "چاري ملالوءي إي-ميل"
+  },
+  "layout.action.manage-affiliates": {
+    "message": "Urus pautan afiliasi"
+  },
+  "layout.action.manage-server-notices": {
+    "message": "اوروس نوتيس ڤلاين"
+  },
+  "layout.action.new-collection": {
+    "message": "کوليکسي بهارو"
+  },
+  "layout.action.new-organization": {
+    "message": "اورݢانيساسي بهارو"
+  },
+  "layout.action.new-project": {
+    "message": "ڤروجيک بهارو"
+  },
+  "layout.action.reports": {
+    "message": "لاڤورن"
+  },
+  "layout.action.review-projects": {
+    "message": "سيمق ڤروجيک"
+  },
+  "layout.avatar.alt": {
+    "message": "اۏاتر اندا"
+  },
+  "layout.banner.account-action": {
+    "message": "تيندقن اکاءون دڤرلوکن"
+  },
+  "layout.banner.add-email.button": {
+    "message": "لاوت تتڤن اکاءون"
+  },
+  "layout.banner.add-email.description": {
+    "message": "اتس سبب کسلامتن⹁ Modrinth ممرلوکن اندا مندفترکن علامت إي-ميل ک اکاءون اندا."
+  },
+  "layout.banner.build-fail.description": {
+    "message": "ڤڠݢوناءن بهاݢين هادڤن Modrinth اين ݢاݢل منجان کأداءن درڤد API. اين موڠکين دسببکن اوليه ݢڠݢوان اتاو رالت دالم کونفيݢوراسي. بينا سمولا اڤابيلا API ترسديا. کود رالت: {errors}⁏ URL API سماس اياله: {url}"
+  },
+  "layout.banner.build-fail.title": {
+    "message": "رالت منجان کأداءن درڤد API سماس ممبينا."
+  },
+  "layout.banner.staging.description": {
+    "message": "ڤرسکيترن ڤمنتسن اداله براسيڠن درڤد ڤڠکلن داتا ڤرودوکسي Modrinth. اين دݢوناکن اونتوق توجوان اوجين دان ڤڽهڤڤيجتن⹁ دان موڠکين منجالنکن ۏرسي دالم ڤمباڠونن بهاݢين بلاکڠ اتاو هادڤن Modrinth يڠ لبيه بهارو درڤد ڤرسکيترن ڤڠلوارن."
+  },
+  "layout.banner.staging.title": {
+    "message": "اندا سدڠ مليهت ڤرسکيترن ڤمنتسن Modrinth"
+  },
+  "layout.banner.subscription-payment-failed.button": {
+    "message": "کمس کيني معلومت ڤڠبيلن"
+  },
+  "layout.banner.subscription-payment-failed.description": {
+    "message": "ساتو اتاو لبيه لڠݢنن ݢاݢل دڤربهاروءي. سيلا کمس کيني قاعده ڤمبايرن اندا اونتوق مڠيلقکن کهيلڠن اکسيس!"
+  },
+  "layout.banner.subscription-payment-failed.title": {
+    "message": "تيندقن ڤڠبيلن دڤرلوکن."
+  },
+  "layout.banner.tax.action": {
+    "message": "لڠکڤکن بورڠ چوکاي"
+  },
+  "layout.banner.tax.description": {
+    "message": "اندا تله مڠلوارکن لبيه $600 درڤد Modrinth تاهون اين. اونتوق مماتوهي ڤراتورن چوکاي⹁ اندا ڤرلو ملڠکڤکن بورڠ چوکاي. ڤڠلوارن اندا دجيدا سهيڠݢ بورڠ اين دسرهکن."
+  },
+  "layout.banner.tax.title": {
+    "message": "بورڠ چوکاي دڤرلوکن"
+  },
+  "layout.banner.tin-mismatch.action": {
+    "message": "هوبوڠي سوکوڠن"
+  },
+  "layout.banner.tin-mismatch.description": {
+    "message": "ڤڠلوارن اندا تله دکونچي بوات سمنتارا وقتو کران TIN اتاو SSN اندا تيدق سڤادن دڠن ريکود IRS. سيلا هوبوڠي سوکوڠن اونتوق منتڤکن سمولا دان مڠهانتر سمولا بورڠ چوکاي اندا."
+  },
+  "layout.banner.tin-mismatch.title": {
+    "message": "بورڠ چوکاي ݢاݢل"
+  },
+  "layout.banner.verify-email.action": {
+    "message": "هانتر سمولا إي-ميل ڤڠصحن"
+  },
+  "layout.banner.verify-email.description": {
+    "message": "اتس سبب کسلامتن⹁ Modrinth ممرلوکن اندا مڠصحکن علامت إي-ميل يڠ دکاءيتکن دڠن اکاءون اندا."
+  },
+  "layout.footer.about": {
+    "message": "تنتڠ"
+  },
+  "layout.footer.about.careers": {
+    "message": "کرجاي"
+  },
+  "layout.footer.about.changelog": {
+    "message": "لوݢ ڤروبهن"
+  },
+  "layout.footer.about.news": {
+    "message": "بريتا"
+  },
+  "layout.footer.about.rewards-program": {
+    "message": "ڤروݢرم ݢنجرن"
+  },
+  "layout.footer.about.status": {
+    "message": "ستاتوس"
+  },
+  "layout.footer.copyright": {
+    "message": "© {year} Rinth, Inc."
+  },
+  "layout.footer.legal": {
+    "message": "اوندڠ‌٢"
+  },
+  "layout.footer.legal-disclaimer": {
+    "message": "بوکن ڤرخدمتن راسمي ماءينکرف‌ت. تيدق دلولوسکن اتاو برکاءيتن دڠن Mojang اتاو Microsoft."
+  },
+  "layout.footer.legal.copyright-policy": {
+    "message": "داسر حق چيڤتا دان DMCA"
+  },
+  "layout.footer.legal.privacy-policy": {
+    "message": "داسر ڤريۏاسي"
+  },
+  "layout.footer.legal.rules": {
+    "message": "ڤراتورن کاندوڠن"
+  },
+  "layout.footer.legal.security-notice": {
+    "message": "نوتيس کسلامتن"
+  },
+  "layout.footer.legal.terms-of-use": {
+    "message": "ترما ڤڠݢوناءن"
+  },
+  "layout.footer.modrinth-information": {
+    "message": "معلومت Modrinth"
+  },
+  "layout.footer.open-source": {
+    "message": "<github-link>سومبر Modrinth اداله تربوک</github-link>."
+  },
+  "layout.footer.products": {
+    "message": "ڤرودوک"
+  },
+  "layout.footer.products.app": {
+    "message": "Modrinth App"
+  },
+  "layout.footer.products.plus": {
+    "message": "Modrinth+"
+  },
+  "layout.footer.products.servers": {
+    "message": "Modrinth Servers"
+  },
+  "layout.footer.resources": {
+    "message": "سومبر"
+  },
+  "layout.footer.resources.api-docs": {
+    "message": "دوکومنتاسي API"
+  },
+  "layout.footer.resources.help-center": {
+    "message": "ڤوست بنتوان"
+  },
+  "layout.footer.resources.report-issues": {
+    "message": "لاڤورکن ايسو"
+  },
+  "layout.footer.resources.translate": {
+    "message": "ترجمه"
+  },
+  "layout.footer.social.bluesky": {
+    "message": "Bluesky"
+  },
+  "layout.footer.social.discord": {
+    "message": "ديسکورد"
+  },
+  "layout.footer.social.github": {
+    "message": "GitHub"
+  },
+  "layout.footer.social.mastodon": {
+    "message": "Mastodon"
+  },
+  "layout.footer.social.x": {
+    "message": "X"
+  },
+  "layout.menu-toggle.action": {
+    "message": "توݢول مينو"
+  },
+  "layout.meta.description": {
+    "message": "موات تورون مود⹁ ڤمالم⹁ ڤيک داتا⹁ ڤيک ڤمبايڠ⹁ ڤيک سومبر دان ڤيک مود ماءينکرف‌ت دModrinth. تموءي دان تربيتکن ڤروجيک دModrinth دڠن انتارا موک دان API يڠ مودن دان موده دݢوناکن."
+  },
+  "layout.meta.og-description": {
+    "message": "تموءي دان تربيتکن کاندوڠن ماءينکرف‌ت!"
+  },
+  "layout.mobile.close-menu": {
+    "message": "Tutup menu"
+  },
+  "layout.mobile.open-menu": {
+    "message": "Buka menu"
+  },
+  "layout.nav.active-reports": {
+    "message": "Laporan yang aktif"
+  },
+  "layout.nav.analytics": {
+    "message": "اناليتيک"
+  },
+  "layout.nav.discover": {
+    "message": "تموءي"
+  },
+  "layout.nav.discover-content": {
+    "message": "تموءي کاندوڠن"
+  },
+  "layout.nav.feature-flags": {
+    "message": "ڤنتڤن چيري"
+  },
+  "layout.nav.get-modrinth-app": {
+    "message": "داڤتکن Modrinth App"
+  },
+  "layout.nav.home": {
+    "message": "لامن اوتام"
+  },
+  "layout.nav.host-a-server": {
+    "message": "هوس سبواه ڤلاين"
+  },
+  "layout.nav.modrinth-app": {
+    "message": "Modrinth App"
+  },
+  "layout.nav.modrinth-home-page": {
+    "message": "لامن اوتام Modrinth"
+  },
+  "layout.nav.my-servers": {
+    "message": "Pelayan saya"
+  },
+  "layout.nav.organizations": {
+    "message": "اورݢانيساسي"
+  },
+  "layout.nav.profile": {
+    "message": "ڤروفيل"
+  },
+  "layout.nav.projects": {
+    "message": "ڤروجيک"
+  },
+  "layout.nav.revenue": {
+    "message": "ڤنداڤتن"
+  },
+  "layout.nav.saved-projects": {
+    "message": "ڤروجيک يڠ دسيمڤن"
+  },
+  "layout.nav.search": {
+    "message": "چاري"
+  },
+  "layout.nav.upgrade-to-modrinth-plus": {
+    "message": "ناءيق طرف کModrinth+"
+  },
+  "moderation.filter.by": {
+    "message": "تاڤيس مڠيکوت"
+  },
+  "moderation.moderate": {
+    "message": "سدرهانکن"
+  },
+  "moderation.page.projects": {
+    "message": "ڤروجيک"
+  },
+  "moderation.page.reports": {
+    "message": "لاڤورن"
+  },
+  "moderation.page.technicalReview": {
+    "message": "ڤنيلاين تيکنيکل"
+  },
+  "moderation.search.placeholder": {
+    "message": "چاري..."
+  },
+  "moderation.sort.by": {
+    "message": "ايسيه مڠيکوت"
+  },
+  "moderation.technical.search.placeholder": {
+    "message": "چاري ڤنيلاين تيکنيکل..."
+  },
+  "muralpay.account-type.checking": {
+    "message": "Cek"
+  },
+  "muralpay.account-type.savings": {
+    "message": "Simpanan"
+  },
+  "muralpay.country.at": {
+    "message": "Austria"
+  },
+  "muralpay.country.be": {
+    "message": "Belgium"
+  },
+  "muralpay.country.cy": {
+    "message": "Cyprus"
+  },
+  "muralpay.country.de": {
+    "message": "Jerman"
+  },
+  "muralpay.country.ee": {
+    "message": "Estonia"
+  },
+  "muralpay.country.es": {
+    "message": "Sepanyol"
+  },
+  "muralpay.country.fi": {
+    "message": "Finland"
+  },
+  "muralpay.country.fr": {
+    "message": "Perancis"
+  },
+  "muralpay.country.gr": {
+    "message": "Yunani"
+  },
+  "muralpay.country.ie": {
+    "message": "Ireland"
+  },
+  "muralpay.country.it": {
+    "message": "Itali"
+  },
+  "muralpay.country.lt": {
+    "message": "Lithuania"
+  },
+  "muralpay.country.lu": {
+    "message": "Luxembourg"
+  },
+  "muralpay.country.lv": {
+    "message": "Latvia"
+  },
+  "muralpay.country.mt": {
+    "message": "Malta"
+  },
+  "muralpay.country.nl": {
+    "message": "Belanda"
+  },
+  "muralpay.country.pt": {
+    "message": "Portugal"
+  },
+  "muralpay.country.sk": {
+    "message": "Slovakia"
+  },
+  "muralpay.document-type.national-id": {
+    "message": "ID Kebangsaan"
+  },
+  "muralpay.document-type.passport": {
+    "message": "Pasport"
+  },
+  "muralpay.document-type.resident-id": {
+    "message": "ID Penduduk"
+  },
+  "muralpay.document-type.ruc": {
+    "message": "RUC"
+  },
+  "muralpay.document-type.tax-id": {
+    "message": "ID cukai"
+  },
+  "muralpay.field.account-number": {
+    "message": "Nombor akaun"
+  },
+  "muralpay.field.account-number-cbu-cvu": {
+    "message": "Nombor akaun (CBU/CVU)"
+  },
+  "muralpay.field.account-number-cci": {
+    "message": "Nombor akaun (CCI)"
+  },
+  "muralpay.field.account-number-type": {
+    "message": "Jenis nombor akaun"
+  },
+  "muralpay.field.account-type": {
+    "message": "Jenis akaun"
+  },
+  "muralpay.field.bank-account-number": {
+    "message": "Nombor akaun"
+  },
+  "muralpay.field.branch-code": {
+    "message": "Kod cawangan"
+  },
+  "muralpay.field.clabe": {
+    "message": "CLABE"
+  },
+  "muralpay.field.country": {
+    "message": "Negara"
+  },
+  "muralpay.field.cpf-cnpj": {
+    "message": "CPF/CNPJ"
+  },
+  "muralpay.field.cuit-cuil": {
+    "message": "CUIT/CUIL"
+  },
+  "muralpay.field.document-type": {
+    "message": "Jenis dokumen"
+  },
+  "muralpay.field.iban": {
+    "message": "IBAN"
+  },
+  "muralpay.field.phone-number": {
+    "message": "Nombor telefon"
+  },
+  "muralpay.field.pix-email": {
+    "message": "E-mel PIX"
+  },
+  "muralpay.field.pix-key-type": {
+    "message": "Jenis kunci PIX"
+  },
+  "muralpay.field.pix-phone": {
+    "message": "Telefon PIX"
+  },
+  "muralpay.field.routing-number": {
+    "message": "Nombor penghalaan"
+  },
+  "muralpay.field.swift-bic": {
+    "message": "SWIFT/BIC"
+  },
+  "muralpay.field.wallet-address": {
+    "message": "Alamat dompet"
+  },
+  "muralpay.help.cbu-cvu": {
+    "message": "Clave Bancaria Uniforme atau Clave Virtual Uniforme"
+  },
+  "muralpay.help.cci": {
+    "message": "Código de Cuenta Interbancaria"
+  },
+  "muralpay.help.clabe": {
+    "message": "Clave Bancaria Estandarizada (Nombor akaun bank Mexico)"
+  },
+  "muralpay.help.cpf-cnpj": {
+    "message": "Nombor pengenalan cukai Brazil"
+  },
+  "muralpay.help.cuit-cuil": {
+    "message": "ID cukai Argentina"
+  },
+  "muralpay.help.iban": {
+    "message": "Nombor Akaun Bank Antarabangsa (IBAN)"
+  },
+  "muralpay.help.swift-bic": {
+    "message": "Kod Pengenalpastian Bank (BIC)"
+  },
+  "muralpay.pix-type.bank-account": {
+    "message": "Akaun bank"
+  },
+  "muralpay.pix-type.document": {
+    "message": "CPF/CNPJ"
+  },
+  "muralpay.pix-type.email": {
+    "message": "E-mel"
+  },
+  "muralpay.pix-type.phone": {
+    "message": "Nombor telefon"
+  },
+  "muralpay.placeholder.account-number": {
+    "message": "Masukkan nombor akaun"
+  },
+  "muralpay.placeholder.cbu-cvu": {
+    "message": "Masukkan CBU atau CVU"
+  },
+  "muralpay.placeholder.cbu-cvu-type": {
+    "message": "CBU atau CVU"
+  },
+  "muralpay.placeholder.cci": {
+    "message": "Masukkan CCI 20 digit"
+  },
+  "muralpay.placeholder.cuit-cuil": {
+    "message": "Masukkan CUIT atau CUIL"
+  },
+  "muralpay.placeholder.enter-account-number": {
+    "message": "Masukkan nombor akaun"
+  },
+  "muralpay.placeholder.enter-branch-code": {
+    "message": "Masukkan kod cawangan"
+  },
+  "muralpay.placeholder.enter-clabe": {
+    "message": "Masukkan CLABE 18 digit"
+  },
+  "muralpay.placeholder.enter-cpf-cnpj": {
+    "message": "Masukkan CPF atau CNPJ"
+  },
+  "muralpay.placeholder.enter-iban": {
+    "message": "Masukkan IBAN"
+  },
+  "muralpay.placeholder.enter-pix-email": {
+    "message": "Masukkan e-mel PIX"
+  },
+  "muralpay.placeholder.enter-routing-number": {
+    "message": "Masukkan nombor penghalaan 9 digit"
+  },
+  "muralpay.placeholder.enter-swift-bic": {
+    "message": "Masukkan kod SWIFT/BIC"
+  },
+  "muralpay.placeholder.iban-crc": {
+    "message": "Masukkan IBAN Costa Rica"
+  },
+  "muralpay.placeholder.phone-cop": {
+    "message": "+57..."
+  },
+  "muralpay.placeholder.pix-phone": {
+    "message": "+55..."
+  },
+  "muralpay.placeholder.wallet-address-eth": {
+    "message": "0x..."
+  },
+  "muralpay.rail.fiat-ars.name": {
+    "message": "Pindahan Bank (ARS)"
+  },
+  "muralpay.rail.fiat-brl.name": {
+    "message": "Pindahan PIX (BRL)"
+  },
+  "muralpay.rail.fiat-clp.name": {
+    "message": "Pindahan Bank (CLP)"
+  },
+  "muralpay.rail.fiat-cop.name": {
+    "message": "Pindahan Bank (COP)"
+  },
+  "muralpay.rail.fiat-crc.name": {
+    "message": "Pindahan Bank (CRC)"
+  },
+  "muralpay.rail.fiat-eur.name": {
+    "message": "Pindahan Bank (EUR)"
+  },
+  "muralpay.rail.fiat-mxn.name": {
+    "message": "Pindahan Bank (MXN)"
+  },
+  "muralpay.rail.fiat-pen.name": {
+    "message": "Pindahan Bank (PEN)"
+  },
+  "muralpay.rail.fiat-usd-peru.name": {
+    "message": "Pindahan Bank (USD - Peru)"
+  },
+  "muralpay.rail.fiat-usd.name": {
+    "message": "Pindahan Bank (USD)"
+  },
+  "muralpay.rail.fiat-zar.name": {
+    "message": "Pindahan Bank (ZAR)"
+  },
+  "muralpay.rail.usdc-base.name": {
+    "message": "USDC (Base)"
+  },
+  "muralpay.rail.usdc-celo.name": {
+    "message": "USDC (Celo)"
+  },
+  "muralpay.rail.usdc-ethereum.name": {
+    "message": "USDC (Ethereum)"
+  },
+  "muralpay.rail.usdc-polygon.name": {
+    "message": "Kripto (USDC)"
+  },
+  "muralpay.warning.wallet-address": {
+    "message": "Semak semula alamat dompet anda. Dana yang dihantar ke alamat yang salah tidak boleh dipulihkan."
+  },
+  "profile.bio.fallback.creator": {
+    "message": "سأورڠ ڤنچيڤتا Modrinth."
+  },
+  "profile.bio.fallback.user": {
+    "message": "سأورڠ ڤڠݢونا Modrinth."
+  },
+  "profile.button.billing": {
+    "message": "اوروس ڤڠبيلن ڤڠݢونا"
+  },
+  "profile.button.edit-role": {
+    "message": "سونتيڠ ڤرانن"
+  },
+  "profile.button.info": {
+    "message": "ليهت بوتيرن ڤڠݢونا"
+  },
+  "profile.button.manage-projects": {
+    "message": "اوروس ڤروجيک"
+  },
+  "profile.button.remove-affiliate": {
+    "message": "Alih keluar rakan afiliasi"
+  },
+  "profile.button.set-affiliate": {
+    "message": "Tetapkan sebagai rakan afiliasi"
+  },
+  "profile.details.label.auth-providers": {
+    "message": "ڤڽديا ڤڠصحن"
+  },
+  "profile.details.label.email": {
+    "message": "إي-ميل"
+  },
+  "profile.details.label.has-password": {
+    "message": "ممڤوڽاءي کات لالوان"
+  },
+  "profile.details.label.has-totp": {
+    "message": "ممڤوڽاءي TOTP"
+  },
+  "profile.details.label.payment-methods": {
+    "message": "قاعده ڤمبايرن"
+  },
+  "profile.details.tooltip.email-not-verified": {
+    "message": "إي-ميل تيدق دصحکن"
+  },
+  "profile.details.tooltip.email-verified": {
+    "message": "إي-ميل دصحکن"
+  },
+  "profile.error.not-found": {
+    "message": "ڤڠݢونا تيدق دجومڤاءي"
+  },
+  "profile.label.affiliate": {
+    "message": "Afiliasi"
+  },
+  "profile.label.badges": {
+    "message": "لنچان"
+  },
+  "profile.label.collection": {
+    "message": "کوليکسي"
+  },
+  "profile.label.details": {
+    "message": "بوتيرن"
+  },
+  "profile.label.downloads": {
+    "message": "{count} {count, plural, other {موات تورون}}"
+  },
+  "profile.label.joined": {
+    "message": "تله مڽرتاءي ڤد"
+  },
+  "profile.label.no": {
+    "message": "تيدق"
+  },
+  "profile.label.no-collections": {
+    "message": "ڤڠݢونا اين تيدق مميليقي سبارڠ کوليکسي!"
+  },
+  "profile.label.no-collections-auth": {
+    "message": "اندا تيدق مميليقي سبارڠ کوليکسي.\nاداکه اندا ماهو <create-link>منچيڤتا سبواه کوليکسي</create-link>؟"
+  },
+  "profile.label.no-projects": {
+    "message": "ڤڠݢونا اين تيدق مميليقي سبارڠ ڤروجيک!"
+  },
+  "profile.label.no-projects-auth": {
+    "message": "اندا تيدق مميليقي سبارڠ ڤروجيک.\nاداکه اندا ماهو <create-link>منچيڤتا سبواه ڤروجيک</create-link>؟"
+  },
+  "profile.label.organizations": {
+    "message": "اورݢانيساسي"
+  },
+  "profile.label.projects": {
+    "message": "{count} {count, plural, other {ڤروجيک}}"
+  },
+  "profile.label.saving": {
+    "message": "سدڠ مڽيمڤن..."
+  },
+  "profile.label.yes": {
+    "message": "يا"
+  },
+  "profile.meta.description": {
+    "message": "موات تورون ڤروجيک ميليق {username} دModrinth"
+  },
+  "profile.meta.description-with-bio": {
+    "message": "{bio} - موات تورون ڤروجيک ميليق {username} دModrinth"
+  },
+  "profile.stats.projects-followers": {
+    "message": "{count, plural, other {<stat>{count}</stat> ڤڠيکوت ڤروجيک}}"
+  },
+  "profile.user-id": {
+    "message": "ID ڤڠݢونا: {id}"
+  },
+  "project-member-header.accept": {
+    "message": "تريما"
+  },
+  "project-member-header.decline": {
+    "message": "تولق"
+  },
+  "project-member-header.error": {
+    "message": "رالت"
+  },
+  "project-member-header.error-decline": {
+    "message": "ݢاݢل منولق جمڤوتن ڤاسوقن"
+  },
+  "project-member-header.error-join": {
+    "message": "ݢاݢل منريما جمڤوتن ڤاسوقن"
+  },
+  "project-member-header.invitation-no-role": {
+    "message": "اندا تله دجمڤوت اونتوق مڽرتاءي ڤروجيک اين. سيلا تريما اتاو تولق جمڤوتن."
+  },
+  "project-member-header.invitation-title": {
+    "message": "جمڤوتن اونتوق مڽرتاءي ڤروجيک"
+  },
+  "project-member-header.invitation-with-role": {
+    "message": "اندا تله دجمڤوت اونتوق منجادي اهلي ڤروجيک اين دڠن ڤرانن '{role}''."
+  },
+  "project-member-header.success": {
+    "message": "برجاي"
+  },
+  "project-member-header.success-decline": {
+    "message": "اندا تله منولق جمڤوتن ڤاسوقن"
+  },
+  "project-member-header.success-join": {
+    "message": "اندا تله مڽرتاءي ڤاسوقن ڤروجيک"
+  },
+  "project-moderation-nags.publishing-checklist": {
+    "message": "سناراي سيمق ڤنربيتن"
+  },
+  "project-moderation-nags.required": {
+    "message": "دڤرلوکن"
+  },
+  "project-moderation-nags.resubmit-for-review": {
+    "message": "سره سمولا اونتوق ڤنيلاين"
+  },
+  "project-moderation-nags.resubmit-for-review-desc": {
+    "message": "Projek anda telah {status, select, rejected {ditolak} withheld {ditahan} other {{status}}} oleh staf Modrinth. Dalam kebanyakan kes, anda boleh menyerahkan semula untuk semakan selepas menangani masalah yang dikemukakan dalam mesej kakitangan."
+  },
+  "project-moderation-nags.submit-checklist-tooltip": {
+    "message": "اندا مستي ملڠکڤکن لڠکه٢ يڠ دڤرلوکن دالم سناراي سيمق ڤنربيتن!"
+  },
+  "project-moderation-nags.submit-for-review": {
+    "message": "سره اونتوق ڤنيلاين"
+  },
+  "project-moderation-nags.submit-for-review-button": {
+    "message": "سره اونتوق ڤنيلاين"
+  },
+  "project-moderation-nags.submit-for-review-desc": {
+    "message": "ڤروجيک اندا هاڽ بوليه دليهت اوليه اهلي ڤروجيک. اي مستي دنيلاي اوليه ڤڽدرهان اونتوق دتربيتکن."
+  },
+  "project-moderation-nags.suggestion": {
+    "message": "چادڠن"
+  },
+  "project-moderation-nags.visit-moderation-page": {
+    "message": "لاوت لامن ڤڽدرهاناءن"
+  },
+  "project-moderation-nags.warning": {
+    "message": "امرن"
+  },
+  "project-type.collection.plural": {
+    "message": "کوليکسي"
+  },
+  "project-type.collection.singular": {
+    "message": "کوليکسي"
+  },
+  "project-type.datapack.plural": {
+    "message": "ڤيک داتا"
+  },
+  "project-type.datapack.singular": {
+    "message": "ڤيک داتا"
+  },
+  "project-type.mod.plural": {
+    "message": "مود"
+  },
+  "project-type.mod.singular": {
+    "message": "مود"
+  },
+  "project-type.modpack.plural": {
+    "message": "ڤيک مود"
+  },
+  "project-type.modpack.singular": {
+    "message": "ڤيک مود"
+  },
+  "project-type.plugin.plural": {
+    "message": "ڤمالم"
+  },
+  "project-type.plugin.singular": {
+    "message": "ڤمالم"
+  },
+  "project-type.project.plural": {
+    "message": "ڤروجيک"
+  },
+  "project-type.project.singular": {
+    "message": "ڤروجيک"
+  },
+  "project-type.resourcepack.plural": {
+    "message": "ڤيک سومبر"
+  },
+  "project-type.resourcepack.singular": {
+    "message": "ڤيک سومبر"
+  },
+  "project-type.shader.plural": {
+    "message": "ڤمبايڠ"
+  },
+  "project-type.shader.singular": {
+    "message": "ڤمبايڠ"
+  },
+  "project.about.details.created": {
+    "message": "دچيڤتا {date}"
+  },
+  "project.about.details.licensed": {
+    "message": "برليسين {license}"
+  },
+  "project.about.details.published": {
+    "message": "دتربيتکن {date}"
+  },
+  "project.about.details.submitted": {
+    "message": "دسرهکن {date}"
+  },
+  "project.about.details.title": {
+    "message": "بوتيرن"
+  },
+  "project.about.details.updated": {
+    "message": "دکمس کيني {date}"
+  },
+  "project.actions.create-server": {
+    "message": "چيڤتا ڤلاين"
+  },
+  "project.actions.create-server-tooltip": {
+    "message": "چيڤتا سبواه ڤلاين"
+  },
+  "project.actions.dont-show-again": {
+    "message": "جاڠن تونجوقکن لاݢي"
+  },
+  "project.actions.review-project": {
+    "message": "سيمق ڤروجيک"
+  },
+  "project.actions.servers-promo.description": {
+    "message": "Modrinth Servers اياله چارا ڤاليڠ موده اونتوق برماءين دڠن راکن اندا تنڤا ڤرلو برسوسه ڤايه!"
+  },
+  "project.actions.servers-promo.pricing": {
+    "message": "برمولا ڤد هرݢ {price}<small> / بولن</small>"
+  },
+  "project.actions.servers-promo.title": {
+    "message": "چيڤتا سبواه ڤلاين"
+  },
+  "project.collections.create-new": {
+    "message": "چيڤتا کوليکسي بهارو"
+  },
+  "project.collections.none-found": {
+    "message": "تياد کوليکسي دجومڤاءي."
+  },
+  "project.description.title": {
+    "message": "کترڠن"
+  },
+  "project.details.licensed": {
+    "message": "برليسين"
+  },
+  "project.download.game-version": {
+    "message": "ۏرسي ڤرماءينن: {version}"
+  },
+  "project.download.game-version-error": {
+    "message": "رالت: تياد ۏرسي ڤرماءينن دجومڤاءي"
+  },
+  "project.download.game-version-tooltip": {
+    "message": "{title} هاڽ ترسديا اونتوق {version}"
+  },
+  "project.download.game-version-unsupported-tooltip": {
+    "message": "{title} تيدق مڽوکوڠ {gameVersion} اونتوق {platform}"
+  },
+  "project.download.install-with-app": {
+    "message": "ڤاسڠ دڠن Modrinth App"
+  },
+  "project.download.no-app": {
+    "message": "تيدق اد Modrinth App؟"
+  },
+  "project.download.no-versions-available": {
+    "message": "تياد ۏرسي ترسديا اونتوق {gameVersion} دان {platform}."
+  },
+  "project.download.platform": {
+    "message": "ڤلتفوم: {platform}"
+  },
+  "project.download.platform-error": {
+    "message": "رالت: تياد ڤلتفوم دجومڤاءي"
+  },
+  "project.download.platform-tooltip": {
+    "message": "{title} هاڽ ترسديا اونتوق {platform}"
+  },
+  "project.download.platform-unsupported-tooltip": {
+    "message": "{title} تيدق مڽوکوڠ {platform} اونتوق {gameVersion}"
+  },
+  "project.download.search-game-versions": {
+    "message": "چاري ۏرسي ڤرماءينن..."
+  },
+  "project.download.search-game-versions-label": {
+    "message": "چاري ۏرسي ڤرماءينن..."
+  },
+  "project.download.select-game-version": {
+    "message": "ڤيليه ۏرسي ڤرماءينن"
+  },
+  "project.download.select-platform": {
+    "message": "ڤيليه ڤلتفوم"
+  },
+  "project.download.show-all-versions": {
+    "message": "تونجوقکن سموا ۏرسي"
+  },
+  "project.download.title": {
+    "message": "موات تورون {title}"
+  },
+  "project.environment.migration-no-permission.message": {
+    "message": "کامي بارو سهاج مرومبق سيستم ڤرسکيترن ڤد Modrinth دان ڤيليهن بهارو کيني ترسديا. اندا تيدق ممڤوڽاءي کبنرن اونتوق مڠوبه سواي تتڤن اين⹁ تتاڤي سيلا معلومکن اهلي ڤروجيک يڠ لاءين بهاوا ميتاداتا ڤرسکيترن ڤرلو دصحکن."
+  },
+  "project.environment.migration-no-permission.title": {
+    "message": "ميتاداتا ڤرسکيترن ڤرلو دسيمق"
+  },
+  "project.environment.migration.learn-more": {
+    "message": "کتاهوءي لبيه لنجوت تنتڠ ڤروبهن اين"
+  },
+  "project.environment.migration.message": {
+    "message": "کامي بارو سهاج مرومبق سيستم ڤرسکيترن ڤد Modrinth دان ڤيليهن بهارو کيني ترسديا. سيلا لاوتي تتڤن ڤروجيک اندا دان صحکن بهاوا ميتاداتا اداله بتول."
+  },
+  "project.environment.migration.review-button": {
+    "message": "سيمق تتڤن ڤرسکيترن"
+  },
+  "project.environment.migration.title": {
+    "message": "سيلا سيمق ميتاداتا ڤرسکيترن"
+  },
+  "project.error.loading": {
+    "message": "رالت ممواتکن داتا ڤروجيک{message}"
+  },
+  "project.error.page-not-found": {
+    "message": "هلامن تيدق داڤت دجومڤاءي"
+  },
+  "project.error.project-not-found": {
+    "message": "ڤروجيک تيدق دجومڤاءي"
+  },
+  "project.gallery.title": {
+    "message": "ݢالري"
+  },
+  "project.license.error": {
+    "message": "تيک‌س ليسين تيدق داڤت دأمبيل."
+  },
+  "project.license.loading": {
+    "message": "سدڠ ممواتکن تيک‌س ليسين..."
+  },
+  "project.license.title": {
+    "message": "ليسين"
+  },
+  "project.moderation.title": {
+    "message": "ڤڽدرهاناءن"
+  },
+  "project.navigation.changelog": {
+    "message": "لوݢ ڤروبهن"
+  },
+  "project.notification.icon-updated.message": {
+    "message": "ايکون ڤروجيک اندا تله دکمس کيني."
+  },
+  "project.notification.icon-updated.title": {
+    "message": "ايکون ڤروجيک دکمس کيني"
+  },
+  "project.notification.updated.message": {
+    "message": "ڤروجيک اندا تله دکمس کيني."
+  },
+  "project.notification.updated.title": {
+    "message": "ڤروجيک دکمس کيني"
+  },
+  "project.settings.environment.notice.missing-env.description": {
+    "message": "ڤروجيک اندا تيدق اد ميتاداتا ڤرسکيترن⹁ سيلا ڤيليه ڤيليهن يڠ سسواي دباوه."
+  },
+  "project.settings.environment.notice.missing-env.title": {
+    "message": "سيلا ڤيليه ڤرسکيترن اونتوق ڤروجيک اندا"
+  },
+  "project.settings.environment.notice.multiple-environments.description": {
+    "message": "ۏرسي بربيذا ڤروجيک اندا ممڤوڽاءي ڤرسکيترن بربيذا يڠ دڤيليه⹁ جادي اندا تيدق بوليه مڽونتيڠڽ سچارا ݢلوبل ڤد ماس اين."
+  },
+  "project.settings.environment.notice.multiple-environments.title": {
+    "message": "ڤروجيک اندا ممڤوڽاءي بربيلڠ ڤرسکيترن"
+  },
+  "project.settings.environment.notice.review-options.description": {
+    "message": "کامي بارو سهاج مرومبق سيستم ڤرسکيترن ڤد Modrinth دان ڤيليهن بهارو کيني ترسديا. سيلا ڤستيکن ڤيليهن يڠ بتول دڤيليه دباوه دان کمودين کليک 'صحکن' اڤابيلا اندا سلساي!"
+  },
+  "project.settings.environment.notice.review-options.title": {
+    "message": "سيلا سيمق ڤيليهن دباوه"
+  },
+  "project.settings.environment.notice.wrong-project-type.description": {
+    "message": "هاڽ ڤروجيک مود اتاو ڤيک مود بوليه ممڤوڽاءي ميتاداتا ڤرسکيترن."
+  },
+  "project.settings.environment.notice.wrong-project-type.title": {
+    "message": "جنيس ڤروجيک اين تيدق مڽوکوڠ ميتاداتا ڤرسکيترن"
+  },
+  "project.settings.environment.verification.verify-button": {
+    "message": "صحکن"
+  },
+  "project.settings.environment.verification.verify-text": {
+    "message": "صحکن بهاوا ڤرسکيترن ڤروجيک اين دتتقکن دڠن بتول."
+  },
+  "project.settings.general.name.description": {
+    "message": "ايلقکن اولن⹁ اخيرن⹁ کوروڠن اتاو ڤريحالن تمبهن—هاڽ نام سبنر ڤروجيک."
+  },
+  "project.settings.general.name.placeholder.1": {
+    "message": "چونتوه: Nether Overhaul 2"
+  },
+  "project.settings.general.name.placeholder.2": {
+    "message": "چونتوه: Construction Equipment"
+  },
+  "project.settings.general.name.placeholder.3": {
+    "message": "چونتوه: Better than Caving"
+  },
+  "project.settings.general.name.placeholder.4": {
+    "message": "چونتوه: Enhanced Portals"
+  },
+  "project.settings.general.name.placeholder.5": {
+    "message": "چونتوه: Dangerous Mobs"
+  },
+  "project.settings.general.name.title": {
+    "message": "نام"
+  },
+  "project.settings.general.tagline.description": {
+    "message": "ريڠکسکن ڤروجيک اندا دالم تيدق لبيه درڤد ساتو ايات."
+  },
+  "project.settings.general.tagline.placeholder.1": {
+    "message": "چونتوه: ممباءيق ڤوليه ڤرکمبڠن ڤرماءينن اونتوق سنتياس برکاءيت راڤت دڠن نيذر."
+  },
+  "project.settings.general.tagline.placeholder.2": {
+    "message": "چونتوه: منمبه ڤرالتن ڤمبيناءن يڠ بوليه دڤاکاي."
+  },
+  "project.settings.general.tagline.placeholder.3": {
+    "message": "چونتوه: منمبهکن ميکانيک بيناءن ݢوا ڤرلومبوڠن يڠ رياليستيک."
+  },
+  "project.settings.general.tagline.placeholder.4": {
+    "message": "چونتوه: ممڤرباءيق چارا ݢربڠ نيذر مماءوت انتارا ساتو سام لاءين."
+  },
+  "project.settings.general.tagline.placeholder.5": {
+    "message": "چونتوه: منمبهکن ۏرسي بوس يڠ برکواس باݢي مخلوق بياسا اونتوق دجومڤاءي ڤد وقتو مالم."
+  },
+  "project.settings.general.tagline.title": {
+    "message": "سلوݢن"
+  },
+  "project.settings.general.url.title": {
+    "message": "URL"
+  },
+  "project.settings.title": {
+    "message": "تتڤن"
+  },
+  "project.settings.visit-dashboard": {
+    "message": "لاوت ڤاڤن ڤموک ڤروجيک"
+  },
+  "project.stats.downloads-label": {
+    "message": "موات تورون{count, plural, other {}}"
+  },
+  "project.stats.followers-label": {
+    "message": "ڤڠيکوت{count, plural, other {}}"
+  },
+  "project.status.archived.message": {
+    "message": "{title} تله دارکيبکن. {title} تيدق اکن منريما سبارڠ کمس کيني لنجوت ملاءينکن ڤڠارڠ مموتوسکن اونتوق مڽهأرکيبکن ڤروجيک."
+  },
+  "project.version.all-versions": {
+    "message": "سموا ۏرسي"
+  },
+  "project.version.back-to-versions": {
+    "message": "کمبالي کۏرسي"
+  },
+  "project.versions.title": {
+    "message": "ۏرسي"
+  },
+  "report.already-reported": {
+    "message": "اندا تله ملاڤورکن {title}"
+  },
+  "report.already-reported-description": {
+    "message": "اندا سوده ممڤوڽاءي لاڤورن تربوک اونتوق {item} اين. اندا بوليه منمبه لبيه باڽق بوتيرن ڤد لاڤورن اندا جک اندا ممڤوڽاءي لبيه باڽق معلومت اونتوق دتمبهکن."
+  },
+  "report.back-to-item": {
+    "message": "کمبالي ک{item}"
+  },
+  "report.body.description": {
+    "message": "سرتاکن ڤاءوتن دان ݢمبر جک بوليه دان اداله برکاءيتن. لاڤورن کوسوڠ اتاو تيدق منچوکوڤي اکن دتوتوڤ دان دأبايکن."
+  },
+  "report.body.title": {
+    "message": "سيلا برايکن کونتيک‌س تمبهن تنتڠ لاڤورن اندا"
+  },
+  "report.checking": {
+    "message": "سدڠ مڽيمق {item}..."
+  },
+  "report.could-not-find": {
+    "message": "{item} تيدق داڤت دجومڤاءي"
+  },
+  "report.for.violation": {
+    "message": "ڤلڠݢرن <rules-link>ڤراتورن</rules-link> اتاو <terms-link>ترما ڤڠݢوناءن</terms-link> Modrinth"
+  },
+  "report.for.violation.description": {
+    "message": "چونتوهڽ ترماسوق کاندوڠن برنية جاهت⹁ سڤام⹁ مڽيڠݢوڠ ڤراساءن⹁ ممڤرداي⹁ مڠليروکن دان مڽالهي اوندڠ‌٢."
+  },
+  "report.form-not-for": {
+    "message": "بورڠ اين بوکن اونتوق:"
+  },
+  "report.go-to-report": {
+    "message": "ڤرݢي ملاڤورکن"
+  },
+  "report.not-for.bug-reports": {
+    "message": "لاڤورن ڤڤيجت"
+  },
+  "report.not-for.bug-reports.description": {
+    "message": "اندا بوليه ملاڤورکن ڤڤيجت کڤد <issues-link>ڤنججق ايسو</issues-link> مريک."
+  },
+  "report.not-for.dmca": {
+    "message": "ڤرمينتاءن اليه کلوار DMCA"
+  },
+  "report.not-for.dmca.description": {
+    "message": "ليهت <policy-link>داسر حق چيڤتا</policy-link> کامي."
+  },
+  "report.note.copyright.1": {
+    "message": "سيلا امبيل ڤرهاتين بهاوا اندا *بوکن* مڽرهکن ڤرمينتاءن اليه کلوار DMCA⹁ سباليقڽ لاڤورن کاندوڠن يڠ دموات ناءيق سمولا."
+  },
+  "report.note.copyright.2": {
+    "message": "جک اندا برنية اونتوق ممفاءيلکن ڤرمينتاءن اليه کلوار DMCA (يڠ مروڤاکن تيندقن اوندڠ‌٢)⹁ سيلا ليهت <copyright-policy-link>داسر حق چيڤتا</copyright-policy-link> کامي."
+  },
+  "report.note.malicious.1": {
+    "message": "لاڤورن اونتوق کاندوڠن برنية جاهت اتاو مڠليروکن مستي مڠاندوڠي بوقتي بسر تنتڠ تيڠکه لاکو ايت⹁ سڤرتي سامڤل کود."
+  },
+  "report.note.malicious.2": {
+    "message": "ريڠکسن درڤد Microsoft Defender⹁ VirusTotal اتاو ڤڠسنن ڤرايسين حسد AI بوکنله بنتوق بوقتي يڠ منچوکوڤي دان تيدق اکن دتريما."
+  },
+  "report.please-report": {
+    "message": "تولوڠ لاڤورکن:"
+  },
+  "report.question.content-id": {
+    "message": "اڤاکه ID {item}؟"
+  },
+  "report.question.content-type": {
+    "message": "اڤاکه جنيس کاندوڠن يڠ اندا هندق لاڤورکن؟"
+  },
+  "report.question.report-reason": {
+    "message": "مانکه انتارا ڤراتورن Modrinth يڠ دلڠݢر {item} اين؟"
+  },
+  "report.report-content": {
+    "message": "لاڤورکن کاندوڠن کڤد ڤڽدرهان"
+  },
+  "report.report-item": {
+    "message": "لاڤورکن {title} کڤد ڤڽدرهان"
+  },
+  "report.submit": {
+    "message": "سيرهکن لاڤورن"
+  },
+  "scopes.analytics.description": {
+    "message": "مڠکسيس داتا اناليتيس اندا"
+  },
+  "scopes.analytics.label": {
+    "message": "باچ اناليتيک"
+  },
+  "scopes.collectionCreate.description": {
+    "message": "منچيڤتا کوليکسي"
+  },
+  "scopes.collectionCreate.label": {
+    "message": "چيڤتا کوليکسي"
+  },
+  "scopes.collectionDelete.description": {
+    "message": "ممادمکن کوليکسي"
+  },
+  "scopes.collectionDelete.label": {
+    "message": "ڤادم کوليکسي"
+  },
+  "scopes.collectionRead.description": {
+    "message": "ممباچ کوليکسي"
+  },
+  "scopes.collectionRead.label": {
+    "message": "باچ کوليکسي"
+  },
+  "scopes.collectionWrite.description": {
+    "message": "منوليس کدالم کوليکسي"
+  },
+  "scopes.collectionWrite.label": {
+    "message": "توليس کوليکسي"
+  },
+  "scopes.notificationRead.description": {
+    "message": "ممباچ ڤمبريتاهوان اندا"
+  },
+  "scopes.notificationRead.label": {
+    "message": "باچ ڤمبريتاهوان"
+  },
+  "scopes.notificationWrite.description": {
+    "message": "ممادمکن/مليهت ڤمبريتاهوان اندا"
+  },
+  "scopes.notificationWrite.label": {
+    "message": "توليس ڤمبريتاهوان"
+  },
+  "scopes.organizationCreate.description": {
+    "message": "منچيڤتا اورݢانيساسي"
+  },
+  "scopes.organizationCreate.label": {
+    "message": "چيڤتا اورݢانيساسي"
+  },
+  "scopes.organizationDelete.description": {
+    "message": "ممادمکن اورݢانيساسي"
+  },
+  "scopes.organizationDelete.label": {
+    "message": "ڤادم اورݢانيساسي"
+  },
+  "scopes.organizationRead.description": {
+    "message": "ممباچ اورݢانيساسي"
+  },
+  "scopes.organizationRead.label": {
+    "message": "باچ اورݢانيساسي"
+  },
+  "scopes.organizationWrite.description": {
+    "message": "منوليس کدالم اورݢانيساسي"
+  },
+  "scopes.organizationWrite.label": {
+    "message": "توليس اورݢانيساسي"
+  },
+  "scopes.patCreate.description": {
+    "message": "چيڤتا توکن API ڤريبادي"
+  },
+  "scopes.patCreate.label": {
+    "message": "چيڤتا توکن اکسيس ڤريبادي"
+  },
+  "scopes.patDelete.description": {
+    "message": "ممادمکن توکن API ڤريبادي اندا"
+  },
+  "scopes.patDelete.label": {
+    "message": "ڤادم توکن اکسيس ڤريبادي"
+  },
+  "scopes.patRead.description": {
+    "message": "مليهت توکن API يڠ دچيڤتا"
+  },
+  "scopes.patRead.label": {
+    "message": "باچ توکن اکسيس ڤريبادي"
+  },
+  "scopes.patWrite.description": {
+    "message": "مڽونتيڠ توکن API ڤريبادي"
+  },
+  "scopes.patWrite.label": {
+    "message": "توليس توکن اکسيس ڤريبادي"
+  },
+  "scopes.payoutsRead.description": {
+    "message": "ممباچ داتا ڤمبايرن اندا"
+  },
+  "scopes.payoutsRead.label": {
+    "message": "باچ ڤمبايرن"
+  },
+  "scopes.payoutsWrite.description": {
+    "message": "مڠلوارکن واڠ"
+  },
+  "scopes.payoutsWrite.label": {
+    "message": "توليس ڤمبايرن"
+  },
+  "scopes.performAnalytics.description": {
+    "message": "ملاکوکن تيندقن اناليتيک"
+  },
+  "scopes.performAnalytics.label": {
+    "message": "لاکوکن اناليتيک"
+  },
+  "scopes.projectCreate.description": {
+    "message": "منچيڤتا ڤروجيک بهارو"
+  },
+  "scopes.projectCreate.label": {
+    "message": "چيڤتا ڤروجيک"
+  },
+  "scopes.projectDelete.description": {
+    "message": "ممادمکن ڤروجيک اندا"
+  },
+  "scopes.projectDelete.label": {
+    "message": "ڤادم ڤروجيک"
+  },
+  "scopes.projectRead.description": {
+    "message": "ممباچ سموا ڤروجيک اندا"
+  },
+  "scopes.projectRead.label": {
+    "message": "باچ ڤروجيک"
+  },
+  "scopes.projectWrite.description": {
+    "message": "منوليس کدالم داتا ڤروجيک"
+  },
+  "scopes.projectWrite.label": {
+    "message": "توليس ڤروجيک"
+  },
+  "scopes.reportCreate.description": {
+    "message": "منچيڤتا لاڤورن"
+  },
+  "scopes.reportCreate.label": {
+    "message": "چيڤتا لاڤورن"
+  },
+  "scopes.reportDelete.description": {
+    "message": "ممادمکن لاڤورن"
+  },
+  "scopes.reportDelete.label": {
+    "message": "ڤادم لاڤورن"
+  },
+  "scopes.reportRead.description": {
+    "message": "ممباچ لاڤورن"
+  },
+  "scopes.reportRead.label": {
+    "message": "باچ لاڤورن"
+  },
+  "scopes.reportWrite.description": {
+    "message": "مڽونتيڠ لاڤورن"
+  },
+  "scopes.reportWrite.label": {
+    "message": "توليس لاڤورن"
+  },
+  "scopes.sessionAccess.description": {
+    "message": "مڠکسيس سيسي کلوارن Modrinth"
+  },
+  "scopes.sessionAccess.label": {
+    "message": "اکسيس سيسي"
+  },
+  "scopes.sessionDelete.description": {
+    "message": "ممادمکن سيسي"
+  },
+  "scopes.sessionDelete.label": {
+    "message": "ڤادم سيسي"
+  },
+  "scopes.sessionRead.description": {
+    "message": "ممباچ سيسي اکتيف"
+  },
+  "scopes.sessionRead.label": {
+    "message": "باچ سيسي"
+  },
+  "scopes.threadRead.description": {
+    "message": "ممباچ ببنڠ"
+  },
+  "scopes.threadRead.label": {
+    "message": "باچ ببنڠ"
+  },
+  "scopes.threadWrite.description": {
+    "message": "منوليس کدالم ببنڠ"
+  },
+  "scopes.threadWrite.label": {
+    "message": "توليس ببنڠ"
+  },
+  "scopes.userAuthWrite.description": {
+    "message": "مڠوبه سواي داتا ڤڠصحن اندا"
+  },
+  "scopes.userAuthWrite.label": {
+    "message": "توليس داتا ڤڠصحن"
+  },
+  "scopes.userDelete.description": {
+    "message": "ممادمکن اکاءون اندا"
+  },
+  "scopes.userDelete.label": {
+    "message": "ڤادم اکاءون اندا"
+  },
+  "scopes.userRead.description": {
+    "message": "مڠکسيس معلومت ڤروفيل عوام اندا"
+  },
+  "scopes.userRead.label": {
+    "message": "باچ داتا ڤڠݢونا"
+  },
+  "scopes.userReadEmail.description": {
+    "message": "ممباچ إي-ميل اندا"
+  },
+  "scopes.userReadEmail.label": {
+    "message": "باچ إي-ميل ڤڠݢونا"
+  },
+  "scopes.userWrite.description": {
+    "message": "منوليس کدالم ڤروفيل اندا"
+  },
+  "scopes.userWrite.label": {
+    "message": "توليس داتا ڤڠݢونا"
+  },
+  "scopes.versionCreate.description": {
+    "message": "منچيڤتا ۏرسي بهارو"
+  },
+  "scopes.versionCreate.label": {
+    "message": "چيڤتا ۏرسي"
+  },
+  "scopes.versionDelete.description": {
+    "message": "ممادمکن سبواه ۏرسي"
+  },
+  "scopes.versionDelete.label": {
+    "message": "ڤادم ۏرسي"
+  },
+  "scopes.versionRead.description": {
+    "message": "ممباچ سموا ۏرسي"
+  },
+  "scopes.versionRead.label": {
+    "message": "باچ ۏرسي"
+  },
+  "scopes.versionWrite.description": {
+    "message": "منوليس کدالم داتا ۏرسي"
+  },
+  "scopes.versionWrite.label": {
+    "message": "توليس ۏرسي"
+  },
+  "search.filter.locked.server": {
+    "message": "دسدياکن اوليه ڤلاين اين"
+  },
+  "search.filter.locked.server-game-version.title": {
+    "message": "ۏرسي ڤرماءينن اداله دسدياکن اوليه ڤلاين اين"
+  },
+  "search.filter.locked.server-loader.title": {
+    "message": "ڤموات اداله دسدياکن اوليه ڤلاين اين"
+  },
+  "search.filter.locked.server.sync": {
+    "message": "سلارسکن دڠن ڤلاين"
+  },
+  "servers.backup.create.in-progress.tooltip": {
+    "message": "ڤنچيڤتاءن ساندرن سدڠ دجالنکن"
+  },
+  "servers.backup.restore.in-progress.tooltip": {
+    "message": "ڤموليهن ساندرن سدڠ دجالنکن"
+  },
+  "servers.backups.item.automated": {
+    "message": "داءوتوماتيککن"
+  },
+  "servers.backups.item.creating-backup": {
+    "message": "سدڠ منچيڤتا ساندرن..."
+  },
+  "servers.backups.item.failed-to-create-backup": {
+    "message": "ݢاݢل منچيڤتا ساندرن"
+  },
+  "servers.backups.item.failed-to-restore-backup": {
+    "message": "ݢاݢل مموليهکن درڤد ساندرن"
+  },
+  "servers.backups.item.lock": {
+    "message": "کونچي"
+  },
+  "servers.backups.item.locked": {
+    "message": "دکونچي"
+  },
+  "servers.backups.item.queued-for-backup": {
+    "message": "دالم باريسن اونتوق دساندر"
+  },
+  "servers.backups.item.rename": {
+    "message": "نامکن سمولا"
+  },
+  "servers.backups.item.restore": {
+    "message": "ڤوليهکن"
+  },
+  "servers.backups.item.restoring-backup": {
+    "message": "سدڠ مموليهکن درڤد ساندرن..."
+  },
+  "servers.backups.item.retry": {
+    "message": "چوبا سمولا"
+  },
+  "servers.backups.item.unlock": {
+    "message": "بوک کونچي"
+  },
+  "servers.notice.actions": {
+    "message": "تيندقن"
+  },
+  "servers.notice.begins": {
+    "message": "برمولا"
+  },
+  "servers.notice.dismissable": {
+    "message": "بوليه دکتڤيکن"
+  },
+  "servers.notice.expires": {
+    "message": "تمت تيمڤوه"
+  },
+  "servers.notice.id": {
+    "message": "ID"
+  },
+  "servers.notice.level": {
+    "message": "تاهڤ"
+  },
+  "servers.notice.undismissable": {
+    "message": "تيدق بوليه دکتڤيکن"
+  },
+  "servers.notices.create-notice": {
+    "message": "نوتيس ڤنچيڤتاءن"
+  },
+  "servers.notices.no-notices": {
+    "message": "تياد نوتيس"
+  },
+  "servers.plan.large.description": {
+    "message": "سسواي اونتوق 15–25 ڤماءين⹁ ڤيک مود اتاو ڤڠوبهسواين يڠ برت."
+  },
+  "servers.plan.large.name": {
+    "message": "بسر"
+  },
+  "servers.plan.medium.description": {
+    "message": "باݢوس اونتوق 6–15 ڤماءين دان بربيلڠ مود."
+  },
+  "servers.plan.medium.name": {
+    "message": "سدرهان"
+  },
+  "servers.plan.small.description": {
+    "message": "سسواي اونتوق 1–5 راکن دڠن ببراڤ مود ريڠن."
+  },
+  "servers.plan.small.name": {
+    "message": "کچيل"
+  },
+  "settings.billing.modal.cancel.action": {
+    "message": "بطلکن لڠݢنن"
+  },
+  "settings.billing.modal.cancel.description": {
+    "message": "اين اکن ممبطلکن لڠݢنن اندا. اندا اکن مڠکلکن فاءيده اندا سهيڠݢ ڤڠهوجوڠ کيترن ڤڠبيلن سماس."
+  },
+  "settings.billing.modal.cancel.title": {
+    "message": "اداکه اندا ڤستي ماهو ممبطلکن لڠݢنن اندا؟"
+  },
+  "settings.billing.modal.delete.action": {
+    "message": "اليه کلوار قاعده ڤمبايرن اين"
+  },
+  "settings.billing.modal.delete.description": {
+    "message": "اين اکن مڠاليه کلوار قاعده ڤمبايرن اين سلاما-لاماڽ (يڠ بنر٢ سلاماڽ)."
+  },
+  "settings.billing.modal.delete.title": {
+    "message": "اداکه اندا ڤستي ماهو مڠاليه کلوار قاعده ڤمبايرن اين؟"
+  },
+  "settings.billing.payment_method.action.add": {
+    "message": "تمبه قاعده ڤمبايرن"
+  },
+  "settings.billing.payment_method.action.history": {
+    "message": "ليهت چج سبلوم اين"
+  },
+  "settings.billing.payment_method.action.primary": {
+    "message": "جاديکن اوتام"
+  },
+  "settings.billing.payment_method.card_display": {
+    "message": "{card_brand} دڠن ديݢيت تراخير {last_four}"
+  },
+  "settings.billing.payment_method.card_expiry": {
+    "message": "لوڤوت {month}/{year}"
+  },
+  "settings.billing.payment_method.none": {
+    "message": "اندا بلوم منمبه سبارڠ قاعده ڤمبايرن."
+  },
+  "settings.billing.payment_method.primary": {
+    "message": "اوتام"
+  },
+  "settings.billing.payment_method.title": {
+    "message": "قاعده ڤمبايرن"
+  },
+  "settings.billing.payment_method_type.amazon_pay": {
+    "message": "Amazon Pay"
+  },
+  "settings.billing.payment_method_type.amex": {
+    "message": "American Express"
+  },
+  "settings.billing.payment_method_type.cashapp": {
+    "message": "Cash App"
+  },
+  "settings.billing.payment_method_type.diners": {
+    "message": "Diners Club"
+  },
+  "settings.billing.payment_method_type.discover": {
+    "message": "Discover"
+  },
+  "settings.billing.payment_method_type.eftpos": {
+    "message": "EFTPOS"
+  },
+  "settings.billing.payment_method_type.jcb": {
+    "message": "JCB"
+  },
+  "settings.billing.payment_method_type.mastercard": {
+    "message": "MasterCard"
+  },
+  "settings.billing.payment_method_type.paypal": {
+    "message": "PayPal"
+  },
+  "settings.billing.payment_method_type.unionpay": {
+    "message": "UnionPay"
+  },
+  "settings.billing.payment_method_type.unknown": {
+    "message": "قاعده ڤمبايرن يڠ تيدق دکتاهوءي"
+  },
+  "settings.billing.payment_method_type.visa": {
+    "message": "Visa"
+  },
+  "settings.billing.pyro_subscription.description": {
+    "message": "اوروس لڠݢنن Modrinth Servers اندا."
+  },
+  "settings.billing.pyro_subscription.title": {
+    "message": "لڠݢنن Modrinth Servers"
+  },
+  "settings.billing.subscription.description": {
+    "message": "اوروس لڠݢنن Modrinth اندا."
+  },
+  "settings.billing.subscription.title": {
+    "message": "لڠݢنن"
+  },
+  "settings.display.banner.developer-mode.button": {
+    "message": "ڽهأکتيفکن مود ڤمباڠون"
+  },
+  "settings.display.banner.developer-mode.description": {
+    "message": "<strong>مود ڤمباڠون</strong> کيني اکتيف. اين اکن ممبوليهکن اندا مليهت ID \nدالمن ڤلباݢاي ڤرکارا دسلوروه Modrinth يڠ موڠکين برݢونا جک اندا سأورڠ ڤمباڠون يڠ مڠݢوناکن API Modrinth. کليک ڤد لوݢو Modrinth دبهاݢين باوه هلامن سباڽق 5 کالي اونتوق منوݢول مود ڤمباڠون."
+  },
+  "settings.display.flags.description": {
+    "message": "داياکن اتاو ڽهداياکن چيري ترتنتو ڤد ڤرنتي اين."
+  },
+  "settings.display.flags.title": {
+    "message": "توݢول چيري٢"
+  },
+  "settings.display.project-list-layouts.datapack": {
+    "message": "هلامن ڤيک داتا"
+  },
+  "settings.display.project-list-layouts.description": {
+    "message": "ڤيليه سوسون اتور ڤيليهن اندا اونتوق ستياڤ هلامن يڠ مماڤرکن سناراي ڤروجيک ڤد ڤرنتي اين."
+  },
+  "settings.display.project-list-layouts.mod": {
+    "message": "هلامن مود"
+  },
+  "settings.display.project-list-layouts.modpack": {
+    "message": "هلامن ڤيک مود"
+  },
+  "settings.display.project-list-layouts.plugin": {
+    "message": "هلامن ڤمالم"
+  },
+  "settings.display.project-list-layouts.resourcepack": {
+    "message": "هلامن ڤيک سومبر"
+  },
+  "settings.display.project-list-layouts.shader": {
+    "message": "هلامن ڤمبايڠ"
+  },
+  "settings.display.project-list-layouts.title": {
+    "message": "سوسون اتور سناراي ڤروجيک"
+  },
+  "settings.display.project-list-layouts.user": {
+    "message": "هلامن ڤروفيل ڤڠݢونا"
+  },
+  "settings.display.project-list.layouts.collection": {
+    "message": "کوليکسي"
+  },
+  "settings.display.sidebar.advanced-rendering.description": {
+    "message": "منداياکن ڤماڤرن لنجوتن سڤرتي کسن کابور يڠ بوليه مڽببکن مسئله ڤريستاسي تنڤا ڤماڤرن دڤرچڤتکن ڤرکاکسن."
+  },
+  "settings.display.sidebar.advanced-rendering.title": {
+    "message": "ڤماڤرن لنجوتن"
+  },
+  "settings.display.sidebar.external-links-new-tab.description": {
+    "message": "بوک ڤاءوتن يڠ ممباوا اندا کلوار Modrinth دالم تب بهارو. تيدق کيرا تتڤن اين⹁ ڤاءوتن ڤد دوماءين يڠ سام دان دالم کترڠن برفورمت Markdown اکن دبوک دالم تب يڠ سام دان ڤاءوتن ڤد اعلان دان هلامن سونتيڠ اکن دبوک دالم تب بهارو."
+  },
+  "settings.display.sidebar.external-links-new-tab.title": {
+    "message": "بوک ڤاءوتن لوارن دالم تب بهارو"
+  },
+  "settings.display.sidebar.hide-app-promos.description": {
+    "message": "مڽمبوڽيکن بوتڠ \"داڤتکن Modrinth App\" درڤد ناۏيݢاسي اوتام. هلامن Modrinth App ماسيه بوليه دجومڤاءي ڤد هلامن ڤندارتن اتاو دالم ڤڠاکي."
+  },
+  "settings.display.sidebar.hide-app-promos.title": {
+    "message": "سمبوڽيکن ڤروموسي Modrinth App"
+  },
+  "settings.display.sidebar.left-aligned-content-sidebar.title": {
+    "message": "بر سيسي چارين دجاجر کيري ڤد هلامن کاندوڠن"
+  },
+  "settings.display.sidebar.right-aligned-content-sidebar.description": {
+    "message": "منجاجرکن بر سيسي بوتيرن ڤروجيک کسبله کيري کاندوڠن هلامن."
+  },
+  "settings.display.sidebar.right-aligned-filters-sidebar.description": {
+    "message": "منجاجرکن بر سيسي ڤناڤيس کسبله کانن حاصيل چارين."
+  },
+  "settings.display.sidebar.right-aligned-filters-sidebar.title": {
+    "message": "بر سيسي ڤناڤيس دجاجر کانن ڤد هلامن چارين"
+  },
+  "settings.display.theme.description": {
+    "message": "ڤيليه تيما ورنا ڤيليهن اندا اونتوق Modrinth ڤد ڤرنتي اين."
+  },
+  "settings.display.theme.title": {
+    "message": "تيما ورنا"
+  },
+  "settings.language.categories.auto": {
+    "message": "اءوتوماتيک"
+  },
+  "settings.language.categories.default": {
+    "message": "بهاس ستندرد"
+  },
+  "settings.language.categories.experimental": {
+    "message": "بهاس اوجي کاجي"
+  },
+  "settings.language.categories.fun": {
+    "message": "بهاس مڽرونوقکن"
+  },
+  "settings.language.categories.search-result": {
+    "message": "حاصيل چارين"
+  },
+  "settings.language.description": {
+    "message": "ڤيليه بهاس ڤيليهن اندا اونتوق لامن اين. ترجمهن تله دسومبڠکن اوليه سوکاريلاون <crowdin-link>دکراءودين</crowdin-link>."
+  },
+  "settings.language.languages.automatic": {
+    "message": "سلارسکن دڠن بهاس سيستم"
+  },
+  "settings.language.languages.language-label-applying": {
+    "message": "{label}. سدڠ منرڤکن..."
+  },
+  "settings.language.languages.language-label-error": {
+    "message": "{label}. رالت"
+  },
+  "settings.language.languages.load-failed": {
+    "message": "تيدق داڤت مموات بهاس اين. سيلا چوبا لاݢي ننتي."
+  },
+  "settings.language.languages.search-field.description": {
+    "message": "سره اونتوق فوکوسکن حاصيل چارين ڤرتام"
+  },
+  "settings.language.languages.search-field.placeholder": {
+    "message": "چاري بهاس..."
+  },
+  "settings.language.languages.search-results-announcement": {
+    "message": "{matches, plural, =0 {تياد بهاس يڠ سڤادن} other {ترداڤت # بهاس يڠ سڤادن}} دڠن چارين اندا."
+  },
+  "settings.language.languages.search.no-results": {
+    "message": "تياد بهاس يڠ سڤادن دڠن چارين اندا."
+  },
+  "settings.language.warning": {
+    "message": "منوکر بهاس لامن موڠکين مڽببکن ببراڤ کاندوڠن مونچول دالم بهاس ايڠݢريس کران ترجمهن بلوم ترسديا⹁ اتاو تيک‌س بلوم لاݢي بوليه دترجمهکن. کامي ماسيه براوسها اونتوق منمبه باءيق سيستم ڤڽتمڤتن کامي⹁ جادي کادڠکالا کاندوڠن موڠکين کليهتن روسق."
+  },
+  "settings.pats.action.create": {
+    "message": "چيڤتا توکن اکسيس ڤريبادي"
+  },
+  "settings.pats.description": {
+    "message": "توکن اکسيس ڤريبادي بوليه دݢوناکن اونتوق مڠکسيس API Modrinth. اونتوق منداڤتکن معلومت لنجوت⹁ ليهت <doc-link>دوکومنتاسي API Modrinth</doc-link>. اي بوليه دبوات دان دتاريق باليق ڤد بيلا‌٢ ماس."
+  },
+  "settings.pats.modal.create.action": {
+    "message": "چيڤتا توکن اکسيس ڤريبادي"
+  },
+  "settings.pats.modal.create.expires.label": {
+    "message": "لوڤوت"
+  },
+  "settings.pats.modal.create.name.label": {
+    "message": "نام"
+  },
+  "settings.pats.modal.create.name.placeholder": {
+    "message": "ماسوقکن نام توکن اکسيس ڤريبادي..."
+  },
+  "settings.pats.modal.create.title": {
+    "message": "چيڤتا توکن اکسيس ڤريبادي"
+  },
+  "settings.pats.modal.delete.action": {
+    "message": "ڤادم توکن اين"
+  },
+  "settings.pats.modal.delete.description": {
+    "message": "اين اکن مڠاليه کلوار توکن اين سلاما-لاماڽ (يڠ بنر٢ سلاماڽ)."
+  },
+  "settings.pats.modal.delete.title": {
+    "message": "اداکه اندا ڤستي ماهو ممادمکن توکن اين؟"
+  },
+  "settings.pats.modal.edit.title": {
+    "message": "سونتيڠ توکن اکسيس ڤريبادي"
+  },
+  "settings.pats.token.action.edit": {
+    "message": "سونتيڠ توکن"
+  },
+  "settings.pats.token.action.revoke": {
+    "message": "تاريق باليق توکن"
+  },
+  "settings.pats.token.expired-ago": {
+    "message": "تله لوڤوت {ago}"
+  },
+  "settings.pats.token.expires-in": {
+    "message": "اکن لوڤوت دالم {inTime}"
+  },
+  "settings.pats.token.last-used": {
+    "message": "کالي تراخير دݢوناکن {ago}"
+  },
+  "settings.pats.token.never-used": {
+    "message": "تيدق ڤرنه دݢوناکن"
+  },
+  "settings.profile.bio.description": {
+    "message": "کترڠن ريڠکس اونتوق ممڤريتاهو سموا اورڠ سربا سديکيت تنتڠ اندا."
+  },
+  "settings.profile.bio.title": {
+    "message": "بيو"
+  },
+  "settings.profile.description": {
+    "message": "معلومت ڤروفيل اندا بوليه دليهت سچارا تربوک ڤد Modrinth دان ملالوءي <docs-link>API Modrinth</docs-link>."
+  },
+  "settings.profile.profile-info": {
+    "message": "معلومت ڤروفيل"
+  },
+  "settings.profile.profile-picture.reset": {
+    "message": "تتڤ سمولا"
+  },
+  "settings.profile.profile-picture.title": {
+    "message": "ݢمبر ڤروفيل"
+  },
+  "settings.profile.username.description": {
+    "message": "نام تيدق سينسيتيف حروف بسر يڠ اونيک اونتوق مڠنل ڤستي ڤروفيل اندا."
+  },
+  "settings.profile.username.title": {
+    "message": "نام ڤڠݢونا"
+  },
+  "settings.sessions.action.revoke-session": {
+    "message": "تاريق باليق سيسي"
+  },
+  "settings.sessions.created-ago": {
+    "message": "دچيڤتا {ago}"
+  },
+  "settings.sessions.current-session": {
+    "message": "سيسي سماس"
+  },
+  "settings.sessions.description": {
+    "message": "برايکوت اياله سموا ڤرنتي يڠ سدڠ دلوݢ ماسوق دڠن اکاءون Modrinth اندا. اندا بوليه لوݢ کلوار درڤد ستياڤ ساتو ڤرنتي سچارا اينديۏيدو.\n\nجک اندا مليهت اينتري يڠ اندا تيدق کنلي⹁ لوݢ کلوار درڤد ڤرنتي ايت دان توکر کات لالوان اکاءون Modrinth اندا دڠن سݢرا."
+  },
+  "settings.sessions.last-accessed-ago": {
+    "message": "کالي تراخير دأکسيس {ago}"
+  },
+  "settings.sessions.unknown-os": {
+    "message": "OS تيدق دکتاهوءي"
+  },
+  "settings.sessions.unknown-platform": {
+    "message": "ڤلتفوم تيدق دکتاهوءي"
+  },
+  "ui.latest-news-row.latest-news": {
+    "message": "بريتا ترکيني دري Modrinth"
+  },
+  "ui.latest-news-row.view-all": {
+    "message": "ليهت سموا بريتا"
+  }
+}

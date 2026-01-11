@@ -1,0 +1,35 @@
+{
+	"mainBinaryName": "SqrilizzLauncher",
+	"version": "1.0.0",
+	"app": {
+		"windows": [
+			{
+				"fullscreen": false,
+				"height": 800,
+				"resizable": true,
+				"title": "Sqrilizz Launcher",
+				"label": "main",
+				"width": 1280,
+				"minHeight": 600,
+				"minWidth": 800,
+				"visible": true,
+				"center": true,
+				"decorations": true
+			}
+		]
+	},
+	"bundle": {
+		"linux": {
+			"deb": {
+				"depends": []
+			},
+			"appimage": {
+				"bundleMediaFramework": true,
+				"files": {}
+			},
+			"rpm": {
+				"depends": []
+			}
+		}
+	}
+}

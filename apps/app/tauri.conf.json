@@ -1,0 +1,105 @@
+{
+	"$schema": "https://schema.tauri.app/config/2",
+	"build": {
+		"beforeDevCommand": "",
+		"beforeBuildCommand": "pnpm turbo run build --filter=@modrinth/app-frontend",
+		"frontendDist": "../app-frontend/dist",
+		"devUrl": "http://localhost:1420"
+	},
+	"bundle": {
+		"active": true,
+		"category": "Game",
+		"copyright": "",
+		"targets": "all",
+		"externalBin": [],
+		"icon": ["icons/128x128.png", "icons/128x128@2x.png", "icons/icon.icns", "icons/icon.ico"],
+		"windows": {
+			"nsis": {
+				"installMode": "currentUser",
+				"installerHooks": "./nsis/hooks.nsi"
+			}
+		},
+		"longDescription": "",
+		"macOS": {
+			"entitlements": "App.entitlements",
+			"exceptionDomain": "",
+			"frameworks": [],
+			"providerShortName": null,
+			"signingIdentity": null
+		},
+		"shortDescription": "",
+		"linux": {
+			"deb": {
+				"depends": []
+			},
+			"appimage": {
+				"bundleMediaFramework": true,
+				"files": {}
+			}
+		},
+		"fileAssociations": [
+			{
+				"ext": ["mrpack"],
+				"mimeType": "application/x-modrinth-modpack+zip"
+			}
+		]
+	},
+	"productName": "Sqrilizz Launcher",
+	"version": "1.0.0",
+	"mainBinaryName": "Sqrilizz Launcher",
+	"identifier": "SqrilizzLauncher",
+	"plugins": {
+		"deep-link": {
+			"desktop": {
+				"schemes": ["modrinth"]
+			},
+			"mobile": []
+		}
+	},
+	"app": {
+		"withGlobalTauri": false,
+		"macOSPrivateApi": true,
+		"windows": [
+			{
+				"titleBarStyle": "Visible",
+				"hiddenTitle": false,
+				"fullscreen": false,
+				"height": 800,
+				"resizable": true,
+				"minWidth": 800,
+				"minHeight": 600,
+				"title": "Sqrilizz Launcher",
+				"label": "main",
+				"width": 1280,
+				"visible": true,
+				"center": true,
+				"zoomHotkeysEnabled": false,
+				"decorations": true
+			}
+		],
+		"security": {
+			"assetProtocol": {
+				"scope": [
+					"$APPDATA/caches/icons/*",
+					"$APPCONFIG/caches/icons/*",
+					"$CONFIG/caches/icons/*",
+					"$APPDATA/profiles/*/saves/*/icon.png",
+					"$APPCONFIG/profiles/*/saves/*/icon.png",
+					"$CONFIG/profiles/*/saves/*/icon.png"
+				],
+				"enable": true
+			},
+			"capabilities": ["core", "plugins"],
+			"csp": {
+				"default-src": "'self' customprotocol: asset:",
+				"connect-src": "ipc: https://github.com https://authserver.ely.by http://ipc.localhost https://modrinth.com https://*.modrinth.com https://*.sentry.io https://api.mclo.gs https://sqrilizz.fun https://www.sqrilizz.fun https://*.sqrilizz.fun 'self' data: blob:",
+				"font-src": ["https://cdn-raw.modrinth.com/fonts/"],
+				"img-src": "https: 'unsafe-inline' 'self' asset: http://asset.localhost http://textures.minecraft.net blob: data:",
+				"style-src": "'unsafe-inline' 'self'",
+				"script-src": "https://*.posthog.com https://tally.so/widgets/embed.js 'self'",
+				"frame-src": "https://www.youtube.com https://www.youtube-nocookie.com https://discord.com https://tally.so/popup/ 'self'",
+				"media-src": "https://*.githubusercontent.com"
+			}
+		}
+	}
+}

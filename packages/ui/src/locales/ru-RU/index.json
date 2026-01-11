@@ -1,0 +1,1002 @@
+{
+  "affiliate.create.button": {
+    "defaultMessage": "Создать партнёрскую ссылку"
+  },
+  "affiliate.create.header": {
+    "defaultMessage": "Создание партнёрского кода"
+  },
+  "affiliate.create.title.description": {
+    "defaultMessage": "Укажите название для отслеживания источника переходов!"
+  },
+  "affiliate.create.title.label": {
+    "defaultMessage": "Название партнёрской ссылки"
+  },
+  "affiliate.create.title.placeholder": {
+    "defaultMessage": "Например: YouTube"
+  },
+  "affiliate.create.user.description": {
+    "defaultMessage": "Пользователь, для которого нужно создать партнёрский код"
+  },
+  "affiliate.create.user.label": {
+    "defaultMessage": "Имя пользователя"
+  },
+  "affiliate.create.user.placeholder": {
+    "defaultMessage": "Введите имя..."
+  },
+  "affiliate.createdBy": {
+    "defaultMessage": "Создана {user}"
+  },
+  "affiliate.creating.button": {
+    "defaultMessage": "Создание партнёрской ссылки..."
+  },
+  "affiliate.revoke": {
+    "defaultMessage": "Удалить ссылку"
+  },
+  "affiliate.viewAnalytics": {
+    "defaultMessage": "Посмотреть аналитику"
+  },
+  "badge.beta": {
+    "defaultMessage": "Бета"
+  },
+  "badge.beta-release": {
+    "defaultMessage": "Бета-версия"
+  },
+  "badge.new": {
+    "defaultMessage": "Новое"
+  },
+  "button.affiliate-links": {
+    "defaultMessage": "Партнёрские ссылки"
+  },
+  "button.analytics": {
+    "defaultMessage": "Аналитика"
+  },
+  "button.back": {
+    "defaultMessage": "Назад"
+  },
+  "button.cancel": {
+    "defaultMessage": "Отмена"
+  },
+  "button.clear": {
+    "defaultMessage": "Очистить"
+  },
+  "button.close": {
+    "defaultMessage": "Закрыть"
+  },
+  "button.continue": {
+    "defaultMessage": "Продолжить"
+  },
+  "button.copy-id": {
+    "defaultMessage": "Скопировать ID"
+  },
+  "button.copy-permalink": {
+    "defaultMessage": "Скопировать постоянную ссылку"
+  },
+  "button.create-a-project": {
+    "defaultMessage": "Создать проект"
+  },
+  "button.download": {
+    "defaultMessage": "Скачать"
+  },
+  "button.downloading": {
+    "defaultMessage": "Скачивание"
+  },
+  "button.edit": {
+    "defaultMessage": "Изменить"
+  },
+  "button.follow": {
+    "defaultMessage": "Подписаться"
+  },
+  "button.max": {
+    "defaultMessage": "Максимум"
+  },
+  "button.more-options": {
+    "defaultMessage": "Дополнительно"
+  },
+  "button.next": {
+    "defaultMessage": "Далее"
+  },
+  "button.open-folder": {
+    "defaultMessage": "Открыть папку"
+  },
+  "button.play": {
+    "defaultMessage": "Играть"
+  },
+  "button.refresh": {
+    "defaultMessage": "Обновить"
+  },
+  "button.remove": {
+    "defaultMessage": "Удалить"
+  },
+  "button.remove-image": {
+    "defaultMessage": "Удалить изображение"
+  },
+  "button.report": {
+    "defaultMessage": "Пожаловаться"
+  },
+  "button.reset": {
+    "defaultMessage": "Сбросить"
+  },
+  "button.save": {
+    "defaultMessage": "Сохранить"
+  },
+  "button.save-changes": {
+    "defaultMessage": "Сохранить изменения"
+  },
+  "button.saving": {
+    "defaultMessage": "Сохранение"
+  },
+  "button.sign-in": {
+    "defaultMessage": "Войти"
+  },
+  "button.sign-out": {
+    "defaultMessage": "Выйти"
+  },
+  "button.sign-up": {
+    "defaultMessage": "Зарегистрироваться"
+  },
+  "button.stop": {
+    "defaultMessage": "Остановить"
+  },
+  "button.unfollow": {
+    "defaultMessage": "Отписаться"
+  },
+  "button.upload-image": {
+    "defaultMessage": "Загрузить изображение"
+  },
+  "changelog.justNow": {
+    "defaultMessage": "Только что"
+  },
+  "changelog.product.api": {
+    "defaultMessage": "API"
+  },
+  "changelog.product.app": {
+    "defaultMessage": "App"
+  },
+  "changelog.product.servers": {
+    "defaultMessage": "Servers"
+  },
+  "changelog.product.web": {
+    "defaultMessage": "Сайт"
+  },
+  "collection.label.private": {
+    "defaultMessage": "Приватная"
+  },
+  "form.label.address-line": {
+    "defaultMessage": "Строка адреса"
+  },
+  "form.label.address-line-2": {
+    "defaultMessage": "Строка адреса 2 (необязательно)"
+  },
+  "form.label.amount": {
+    "defaultMessage": "Сумма"
+  },
+  "form.label.bank-name": {
+    "defaultMessage": "Наименование банка"
+  },
+  "form.label.business-name": {
+    "defaultMessage": "Наименование организации"
+  },
+  "form.label.city": {
+    "defaultMessage": "Город"
+  },
+  "form.label.country": {
+    "defaultMessage": "Страна"
+  },
+  "form.label.date-of-birth": {
+    "defaultMessage": "Дата рождения"
+  },
+  "form.label.email": {
+    "defaultMessage": "Электронная почта"
+  },
+  "form.label.first-name": {
+    "defaultMessage": "Имя"
+  },
+  "form.label.last-name": {
+    "defaultMessage": "Фамилия"
+  },
+  "form.label.postal-code": {
+    "defaultMessage": "Почтовый индекс"
+  },
+  "form.label.state-province": {
+    "defaultMessage": "Край/область"
+  },
+  "form.placeholder.address": {
+    "defaultMessage": "Введите адрес"
+  },
+  "form.placeholder.address-2": {
+    "defaultMessage": "Квартира, офис и т. п."
+  },
+  "form.placeholder.amount": {
+    "defaultMessage": "Введите сумму"
+  },
+  "form.placeholder.bank-name": {
+    "defaultMessage": "Введите наименование банка"
+  },
+  "form.placeholder.bank-name-dropdown": {
+    "defaultMessage": "Выберите наименование банка"
+  },
+  "form.placeholder.business-name": {
+    "defaultMessage": "Введите наименование организации"
+  },
+  "form.placeholder.city": {
+    "defaultMessage": "Введите город"
+  },
+  "form.placeholder.country": {
+    "defaultMessage": "Выберите страну"
+  },
+  "form.placeholder.email": {
+    "defaultMessage": "Введите адрес электронной почты"
+  },
+  "form.placeholder.first-name": {
+    "defaultMessage": "Введите имя"
+  },
+  "form.placeholder.last-name": {
+    "defaultMessage": "Введите фамилию"
+  },
+  "form.placeholder.postal-code": {
+    "defaultMessage": "Введите почтовый индекс"
+  },
+  "form.placeholder.state": {
+    "defaultMessage": "Введите край/область"
+  },
+  "icon-select.edit": {
+    "defaultMessage": "Изменить значок"
+  },
+  "icon-select.remove": {
+    "defaultMessage": "Удалить значок"
+  },
+  "icon-select.replace": {
+    "defaultMessage": "Заменить значок"
+  },
+  "icon-select.select": {
+    "defaultMessage": "Выбрать значок"
+  },
+  "input.search.placeholder": {
+    "defaultMessage": "Поиск..."
+  },
+  "input.view.gallery": {
+    "defaultMessage": "Вид галереи"
+  },
+  "input.view.grid": {
+    "defaultMessage": "Сетка"
+  },
+  "input.view.list": {
+    "defaultMessage": "Список"
+  },
+  "instance.worlds.game_mode.adventure": {
+    "defaultMessage": "Режим приключений"
+  },
+  "instance.worlds.game_mode.creative": {
+    "defaultMessage": "Творческий режим"
+  },
+  "instance.worlds.game_mode.spectator": {
+    "defaultMessage": "Режим наблюдателя"
+  },
+  "instance.worlds.game_mode.survival": {
+    "defaultMessage": "Режим выживания"
+  },
+  "instance.worlds.game_mode.unknown": {
+    "defaultMessage": "Неизвестный режим"
+  },
+  "label.available": {
+    "defaultMessage": "{amount} доступно."
+  },
+  "label.changes-saved": {
+    "defaultMessage": "Изменения сохранены"
+  },
+  "label.collections": {
+    "defaultMessage": "Коллекции"
+  },
+  "label.created-ago": {
+    "defaultMessage": "Создан {ago}"
+  },
+  "label.dashboard": {
+    "defaultMessage": "Панель управления"
+  },
+  "label.delete": {
+    "defaultMessage": "Удалить"
+  },
+  "label.description": {
+    "defaultMessage": "Описание"
+  },
+  "label.error": {
+    "defaultMessage": "Ошибка"
+  },
+  "label.followed-projects": {
+    "defaultMessage": "Отслеживаемые проекты"
+  },
+  "label.loading": {
+    "defaultMessage": "Загрузка..."
+  },
+  "label.moderation": {
+    "defaultMessage": "Модерация"
+  },
+  "label.notifications": {
+    "defaultMessage": "Уведомления"
+  },
+  "label.or": {
+    "defaultMessage": "или"
+  },
+  "label.password": {
+    "defaultMessage": "Пароль"
+  },
+  "label.played": {
+    "defaultMessage": "Наиграно {time}"
+  },
+  "label.public": {
+    "defaultMessage": "Публичный"
+  },
+  "label.rejected": {
+    "defaultMessage": "Отклонён"
+  },
+  "label.rewards-program-terms-agreement": {
+    "defaultMessage": "Я принимаю <terms-link>условия программы вознаграждений</terms-link>"
+  },
+  "label.saved": {
+    "defaultMessage": "Сохранено"
+  },
+  "label.scopes": {
+    "defaultMessage": "Разрешения"
+  },
+  "label.server": {
+    "defaultMessage": "Сервер"
+  },
+  "label.servers": {
+    "defaultMessage": "Серверы"
+  },
+  "label.settings": {
+    "defaultMessage": "Настройки"
+  },
+  "label.singleplayer": {
+    "defaultMessage": "Одиночная игра"
+  },
+  "label.title": {
+    "defaultMessage": "Название"
+  },
+  "label.unlisted": {
+    "defaultMessage": "Скрыт"
+  },
+  "label.visibility": {
+    "defaultMessage": "Видимость"
+  },
+  "label.visit-your-profile": {
+    "defaultMessage": "Открыть профиль"
+  },
+  "modal.add-payment-method.action": {
+    "defaultMessage": "Добавить способ оплаты"
+  },
+  "modal.add-payment-method.title": {
+    "defaultMessage": "Добавление способа оплаты"
+  },
+  "notification.error.title": {
+    "defaultMessage": "Произошла ошибка"
+  },
+  "omorphia.component.badge.label.accepted": {
+    "defaultMessage": "Принят"
+  },
+  "omorphia.component.badge.label.approved": {
+    "defaultMessage": "Одобрен"
+  },
+  "omorphia.component.badge.label.archived": {
+    "defaultMessage": "Архивирован"
+  },
+  "omorphia.component.badge.label.closed": {
+    "defaultMessage": "Закрыта"
+  },
+  "omorphia.component.badge.label.creator": {
+    "defaultMessage": "Автор"
+  },
+  "omorphia.component.badge.label.draft": {
+    "defaultMessage": "Черновик"
+  },
+  "omorphia.component.badge.label.failed": {
+    "defaultMessage": "Ошибка"
+  },
+  "omorphia.component.badge.label.listed": {
+    "defaultMessage": "Размещён"
+  },
+  "omorphia.component.badge.label.moderator": {
+    "defaultMessage": "Модератор"
+  },
+  "omorphia.component.badge.label.modrinth-team": {
+    "defaultMessage": "Команда Modrinth"
+  },
+  "omorphia.component.badge.label.pending": {
+    "defaultMessage": "В ожидании"
+  },
+  "omorphia.component.badge.label.private": {
+    "defaultMessage": "Приватный"
+  },
+  "omorphia.component.badge.label.processed": {
+    "defaultMessage": "Обработан"
+  },
+  "omorphia.component.badge.label.rejected": {
+    "defaultMessage": "Отклонён"
+  },
+  "omorphia.component.badge.label.returned": {
+    "defaultMessage": "Возвращён"
+  },
+  "omorphia.component.badge.label.scheduled": {
+    "defaultMessage": "Отложен"
+  },
+  "omorphia.component.badge.label.under-review": {
+    "defaultMessage": "На рассмотрении"
+  },
+  "omorphia.component.badge.label.unlisted": {
+    "defaultMessage": "Скрыт"
+  },
+  "omorphia.component.badge.label.withheld": {
+    "defaultMessage": "На удержании"
+  },
+  "omorphia.component.copy.action.copy": {
+    "defaultMessage": "Копировать код"
+  },
+  "omorphia.component.environment-indicator.label.client": {
+    "defaultMessage": "Клиент"
+  },
+  "omorphia.component.environment-indicator.label.client-and-server": {
+    "defaultMessage": "Клиент и сервер"
+  },
+  "omorphia.component.environment-indicator.label.client-or-server": {
+    "defaultMessage": "Клиент или сервер"
+  },
+  "omorphia.component.environment-indicator.label.server": {
+    "defaultMessage": "Сервер"
+  },
+  "omorphia.component.environment-indicator.label.type": {
+    "defaultMessage": "Тип: {type}"
+  },
+  "omorphia.component.environment-indicator.label.unsupported": {
+    "defaultMessage": "Не поддерживается"
+  },
+  "omorphia.component.purchase_modal.payment_method_card_display": {
+    "defaultMessage": "{card_brand} ·· {last_four}"
+  },
+  "omorphia.component.purchase_modal.payment_method_type.amazon_pay": {
+    "defaultMessage": "Amazon Pay"
+  },
+  "omorphia.component.purchase_modal.payment_method_type.amex": {
+    "defaultMessage": "American Express"
+  },
+  "omorphia.component.purchase_modal.payment_method_type.cashapp": {
+    "defaultMessage": "Cash App"
+  },
+  "omorphia.component.purchase_modal.payment_method_type.diners": {
+    "defaultMessage": "Diners Club"
+  },
+  "omorphia.component.purchase_modal.payment_method_type.discover": {
+    "defaultMessage": "Discover"
+  },
+  "omorphia.component.purchase_modal.payment_method_type.eftpos": {
+    "defaultMessage": "EFTPOS"
+  },
+  "omorphia.component.purchase_modal.payment_method_type.jcb": {
+    "defaultMessage": "JCB"
+  },
+  "omorphia.component.purchase_modal.payment_method_type.mastercard": {
+    "defaultMessage": "MasterCard"
+  },
+  "omorphia.component.purchase_modal.payment_method_type.paypal": {
+    "defaultMessage": "PayPal"
+  },
+  "omorphia.component.purchase_modal.payment_method_type.paypal_international": {
+    "defaultMessage": "PayPal International"
+  },
+  "omorphia.component.purchase_modal.payment_method_type.unionpay": {
+    "defaultMessage": "UnionPay"
+  },
+  "omorphia.component.purchase_modal.payment_method_type.unknown": {
+    "defaultMessage": "Неизвестный способ оплаты"
+  },
+  "omorphia.component.purchase_modal.payment_method_type.visa": {
+    "defaultMessage": "Visa"
+  },
+  "payment-method.charity": {
+    "defaultMessage": "Благотворительность"
+  },
+  "payment-method.charity-plural": {
+    "defaultMessage": "Благотворительность"
+  },
+  "payment-method.gift-card": {
+    "defaultMessage": "Подарочная карта"
+  },
+  "payment-method.gift-card-plural": {
+    "defaultMessage": "Подарочные карты"
+  },
+  "payment-method.venmo": {
+    "defaultMessage": "Venmo"
+  },
+  "payment-method.virtual-visa": {
+    "defaultMessage": "Виртуальная Visa"
+  },
+  "payment-method.virtual-visa-plural": {
+    "defaultMessage": "Виртуальные Visa"
+  },
+  "project-type.all": {
+    "defaultMessage": "Всё"
+  },
+  "project-type.datapack.capital": {
+    "defaultMessage": "{count, plural, one {Наборов данных} few {Набора данных} many {Наборов данных} other {Наборов данных}}"
+  },
+  "project-type.datapack.category": {
+    "defaultMessage": "Наборы данных"
+  },
+  "project-type.datapack.lowercase": {
+    "defaultMessage": "{count, plural, one {наборов данных} few {набора данных} many {наборов данных} other {наборов данных}}"
+  },
+  "project-type.mod.capital": {
+    "defaultMessage": "{count, plural, one {Мод} few {Мода} many {Модов} other {Модов}}"
+  },
+  "project-type.mod.category": {
+    "defaultMessage": "Моды"
+  },
+  "project-type.mod.lowercase": {
+    "defaultMessage": "{count, plural, one {мод} few {мода} many {модов} other {модов}}"
+  },
+  "project-type.modpack.capital": {
+    "defaultMessage": "{count, plural, one {Сборка} few {Сборки} many {Сборок} other {Сборок}}"
+  },
+  "project-type.modpack.category": {
+    "defaultMessage": "Сборки"
+  },
+  "project-type.modpack.lowercase": {
+    "defaultMessage": "{count, plural, one {сборка} few {сборки} many {сборок} other {сборок}}"
+  },
+  "project-type.plugin.capital": {
+    "defaultMessage": "{count, plural, one {Плагин} few {Плагина} many {Плагинов} other {Плагинов}}"
+  },
+  "project-type.plugin.category": {
+    "defaultMessage": "Плагины"
+  },
+  "project-type.plugin.lowercase": {
+    "defaultMessage": "{count, plural, one {плагин} few {плагина} many {плагинов} other {плагинов}}"
+  },
+  "project-type.resourcepack.capital": {
+    "defaultMessage": "{count, plural, one {Набор Ресурсов} few {Набора Ресурсов} many {Наборов Ресурсов} other {Наборов Ресурсов}}"
+  },
+  "project-type.resourcepack.category": {
+    "defaultMessage": "Наборы ресурсов"
+  },
+  "project-type.resourcepack.lowercase": {
+    "defaultMessage": "{count, plural, one {набор ресурсов} few {набора ресурсов} many {наборов ресурсов} other {наборов ресурсов}}"
+  },
+  "project-type.shader.capital": {
+    "defaultMessage": "{count, plural, one {Шейдер} few {Шейдера} many {Шейдеров} other {Шейдеров}}"
+  },
+  "project-type.shader.category": {
+    "defaultMessage": "Шейдеры"
+  },
+  "project-type.shader.lowercase": {
+    "defaultMessage": "{count, plural, one {шейдер} few {шейдера} many {шейдеров} other {шейдеров}}"
+  },
+  "project.about.compatibility.environments": {
+    "defaultMessage": "Поддерживаемые среды"
+  },
+  "project.about.compatibility.environments.client-and-server": {
+    "defaultMessage": "Клиент и сервер"
+  },
+  "project.about.compatibility.environments.client-side": {
+    "defaultMessage": "Клиент"
+  },
+  "project.about.compatibility.environments.dedicated-servers-only": {
+    "defaultMessage": "Только выделенные серверы"
+  },
+  "project.about.compatibility.environments.server-side": {
+    "defaultMessage": "Сервер"
+  },
+  "project.about.compatibility.environments.singleplayer": {
+    "defaultMessage": "Одиночная игра"
+  },
+  "project.about.compatibility.environments.singleplayer-only": {
+    "defaultMessage": "Только одиночная игра"
+  },
+  "project.about.compatibility.game.minecraftJava": {
+    "defaultMessage": "Minecraft: Java Edition"
+  },
+  "project.about.compatibility.platforms": {
+    "defaultMessage": "Платформы"
+  },
+  "project.about.compatibility.title": {
+    "defaultMessage": "Совместимость"
+  },
+  "project.about.creators.owner": {
+    "defaultMessage": "Владелец проекта"
+  },
+  "project.about.creators.title": {
+    "defaultMessage": "Авторы"
+  },
+  "project.about.details.created": {
+    "defaultMessage": "Создан {date}"
+  },
+  "project.about.details.licensed": {
+    "defaultMessage": "Лицензия: {license}"
+  },
+  "project.about.details.published": {
+    "defaultMessage": "Размещён {date}"
+  },
+  "project.about.details.submitted": {
+    "defaultMessage": "Отправлен {date}"
+  },
+  "project.about.details.title": {
+    "defaultMessage": "Сведения"
+  },
+  "project.about.details.updated": {
+    "defaultMessage": "Обновлён {date}"
+  },
+  "project.about.links.discord": {
+    "defaultMessage": "Вступить в Discord"
+  },
+  "project.about.links.donate.bmac": {
+    "defaultMessage": "Buy Me a Coffee"
+  },
+  "project.about.links.donate.generic": {
+    "defaultMessage": "Поддержать"
+  },
+  "project.about.links.donate.github": {
+    "defaultMessage": "Спонсировать на GitHub"
+  },
+  "project.about.links.donate.kofi": {
+    "defaultMessage": "Поддержать на Ko-fi"
+  },
+  "project.about.links.donate.patreon": {
+    "defaultMessage": "Поддержать на Patreon"
+  },
+  "project.about.links.donate.paypal": {
+    "defaultMessage": "Поддержать на PayPal"
+  },
+  "project.about.links.issues": {
+    "defaultMessage": "Сообщить о проблеме"
+  },
+  "project.about.links.source": {
+    "defaultMessage": "Посмотреть исходники"
+  },
+  "project.about.links.title": {
+    "defaultMessage": "Ссылки"
+  },
+  "project.about.links.wiki": {
+    "defaultMessage": "Открыть вики"
+  },
+  "project.settings.analytics.title": {
+    "defaultMessage": "Аналитика"
+  },
+  "project.settings.description.title": {
+    "defaultMessage": "Описание"
+  },
+  "project.settings.environment.client_and_server.description": {
+    "defaultMessage": "Содержит функциональность как для клиента, так и для сервера, пусть даже частично."
+  },
+  "project.settings.environment.client_and_server.optional_both.title": {
+    "defaultMessage": "Необязателен для обоих; работает одинаково при установке на любую сторону"
+  },
+  "project.settings.environment.client_and_server.optional_both_prefers_both.title": {
+    "defaultMessage": "Необязателен для обоих; работает лучше при установке на обе стороны"
+  },
+  "project.settings.environment.client_and_server.optional_client.title": {
+    "defaultMessage": "Необязателен для клиента"
+  },
+  "project.settings.environment.client_and_server.optional_server.title": {
+    "defaultMessage": "Необязателен для сервера"
+  },
+  "project.settings.environment.client_and_server.required_both.title": {
+    "defaultMessage": "Обязателен для обоих"
+  },
+  "project.settings.environment.client_and_server.title": {
+    "defaultMessage": "Клиент и сервер"
+  },
+  "project.settings.environment.client_only.description": {
+    "defaultMessage": "Вся функциональность сделана для клиента и совместима с немодифицированными серверами."
+  },
+  "project.settings.environment.client_only.title": {
+    "defaultMessage": "Только для клиента"
+  },
+  "project.settings.environment.server_only.dedicated_only.title": {
+    "defaultMessage": "Только для выделенного сервера"
+  },
+  "project.settings.environment.server_only.description": {
+    "defaultMessage": "Вся функциональность сделана для сервера и совместима с немодифицированными клиентами."
+  },
+  "project.settings.environment.server_only.supports_singleplayer.title": {
+    "defaultMessage": "Также работает в одиночной игре"
+  },
+  "project.settings.environment.server_only.title": {
+    "defaultMessage": "Только для сервера"
+  },
+  "project.settings.environment.singleplayer.description": {
+    "defaultMessage": "Работает только в одиночной игре или без подключения к сетевой игре."
+  },
+  "project.settings.environment.singleplayer.title": {
+    "defaultMessage": "Только для одиночной игры"
+  },
+  "project.settings.environment.suboption.accessibility-option-label": {
+    "defaultMessage": "{title}: {description}"
+  },
+  "project.settings.environment.suboption.accessibility-suboption-group-label": {
+    "defaultMessage": "Подпункты варианта «{option}»"
+  },
+  "project.settings.environment.title": {
+    "defaultMessage": "Среда"
+  },
+  "project.settings.gallery.title": {
+    "defaultMessage": "Галерея"
+  },
+  "project.settings.general.title": {
+    "defaultMessage": "Общие"
+  },
+  "project.settings.license.title": {
+    "defaultMessage": "Лицензия"
+  },
+  "project.settings.links.title": {
+    "defaultMessage": "Ссылки"
+  },
+  "project.settings.members.title": {
+    "defaultMessage": "Участники"
+  },
+  "project.settings.notice.no-permission.description": {
+    "defaultMessage": "У вас нет разрешения на изменение этих настроек."
+  },
+  "project.settings.notice.no-permission.title": {
+    "defaultMessage": "Недостаточно разрешений"
+  },
+  "project.settings.tags.title": {
+    "defaultMessage": "Теги"
+  },
+  "project.settings.upload.title": {
+    "defaultMessage": "Добавление"
+  },
+  "project.settings.versions.title": {
+    "defaultMessage": "Версии"
+  },
+  "project.settings.view.title": {
+    "defaultMessage": "Просмотр"
+  },
+  "project.versions.channel.alpha.symbol": {
+    "defaultMessage": "А"
+  },
+  "project.versions.channel.beta.symbol": {
+    "defaultMessage": "Б"
+  },
+  "project.versions.channel.release.symbol": {
+    "defaultMessage": "Р"
+  },
+  "project.visibility.archived": {
+    "defaultMessage": "Архивирован"
+  },
+  "project.visibility.draft": {
+    "defaultMessage": "Черновик"
+  },
+  "project.visibility.private": {
+    "defaultMessage": "Приватный"
+  },
+  "project.visibility.public": {
+    "defaultMessage": "Публичный"
+  },
+  "project.visibility.rejected": {
+    "defaultMessage": "Отклонён"
+  },
+  "project.visibility.scheduled": {
+    "defaultMessage": "Отложен"
+  },
+  "project.visibility.under-review": {
+    "defaultMessage": "На рассмотрении"
+  },
+  "project.visibility.unknown": {
+    "defaultMessage": "Неизвестно"
+  },
+  "project.visibility.unlisted": {
+    "defaultMessage": "Скрыт"
+  },
+  "project.visibility.unlisted-by-staff": {
+    "defaultMessage": "Скрыт персоналом"
+  },
+  "search.filter.locked.default": {
+    "defaultMessage": "Фильтр заблокирован"
+  },
+  "search.filter.locked.default.description": {
+    "defaultMessage": "Разблокировав фильтр, можно установить несовместимый контент."
+  },
+  "search.filter.locked.default.sync": {
+    "defaultMessage": "Синхронизировать"
+  },
+  "search.filter.locked.default.title": {
+    "defaultMessage": "Фильтр заблокирован"
+  },
+  "search.filter.locked.default.unlock": {
+    "defaultMessage": "Разблокировать фильтр"
+  },
+  "search.filter_type.environment": {
+    "defaultMessage": "Среда"
+  },
+  "search.filter_type.environment.client": {
+    "defaultMessage": "Клиент"
+  },
+  "search.filter_type.environment.server": {
+    "defaultMessage": "Сервер"
+  },
+  "search.filter_type.game_version": {
+    "defaultMessage": "Версия игры"
+  },
+  "search.filter_type.game_version.all_versions": {
+    "defaultMessage": "Показывать все версии"
+  },
+  "search.filter_type.license": {
+    "defaultMessage": "Лицензия"
+  },
+  "search.filter_type.license.open_source": {
+    "defaultMessage": "Открытый исходный код"
+  },
+  "search.filter_type.mod_loader": {
+    "defaultMessage": "Загрузчик"
+  },
+  "search.filter_type.modpack_loader": {
+    "defaultMessage": "Загрузчик"
+  },
+  "search.filter_type.plugin_loader": {
+    "defaultMessage": "Загрузчик"
+  },
+  "search.filter_type.plugin_platform": {
+    "defaultMessage": "Платформа"
+  },
+  "search.filter_type.project_id": {
+    "defaultMessage": "ID проекта"
+  },
+  "search.filter_type.shader_loader": {
+    "defaultMessage": "Загрузчик"
+  },
+  "servers.notice.dismiss": {
+    "defaultMessage": "Закрыть"
+  },
+  "servers.notice.dismissable": {
+    "defaultMessage": "Закрываемое"
+  },
+  "servers.notice.heading.attention": {
+    "defaultMessage": "Внимание"
+  },
+  "servers.notice.heading.info": {
+    "defaultMessage": "Информация"
+  },
+  "servers.notice.level.critical.name": {
+    "defaultMessage": "Важно"
+  },
+  "servers.notice.level.info.name": {
+    "defaultMessage": "Информация"
+  },
+  "servers.notice.level.survey.name": {
+    "defaultMessage": "Опрос"
+  },
+  "servers.notice.level.warn.name": {
+    "defaultMessage": "Предупреждение"
+  },
+  "servers.notice.undismissable": {
+    "defaultMessage": "Незакрываемое"
+  },
+  "servers.purchase.step.payment.description": {
+    "defaultMessage": "Средства пока не будут списаны."
+  },
+  "servers.purchase.step.payment.prompt": {
+    "defaultMessage": "Выберите способ оплаты"
+  },
+  "servers.purchase.step.payment.title": {
+    "defaultMessage": "Способ оплаты"
+  },
+  "servers.purchase.step.plan.billed": {
+    "defaultMessage": "{interval, select, monthly {ежемесячно} quarterly {ежеквартально} yearly {ежегодно} other {{interval}}}"
+  },
+  "servers.purchase.step.plan.custom.desc": {
+    "defaultMessage": "Создайте свой план с нужными характеристиками."
+  },
+  "servers.purchase.step.plan.get-started": {
+    "defaultMessage": "Настроить план"
+  },
+  "servers.purchase.step.plan.large.desc": {
+    "defaultMessage": "Для 15–25 игроков, сборок и тяжёлых модов."
+  },
+  "servers.purchase.step.plan.medium.desc": {
+    "defaultMessage": "Для 6–15 игроков и нескольких модов."
+  },
+  "servers.purchase.step.plan.most-popular": {
+    "defaultMessage": "Популярный"
+  },
+  "servers.purchase.step.plan.prompt": {
+    "defaultMessage": "Выберите план"
+  },
+  "servers.purchase.step.plan.select": {
+    "defaultMessage": "Выбрать план"
+  },
+  "servers.purchase.step.plan.small.desc": {
+    "defaultMessage": "Для 1–5 друзей и пары лёгких модов."
+  },
+  "servers.purchase.step.plan.subtitle": {
+    "defaultMessage": "Подберите объём памяти и характеристики под свои задачи."
+  },
+  "servers.purchase.step.plan.title": {
+    "defaultMessage": "План"
+  },
+  "servers.purchase.step.region.title": {
+    "defaultMessage": "Регион"
+  },
+  "servers.purchase.step.review.title": {
+    "defaultMessage": "Проверка"
+  },
+  "servers.region.central-europe": {
+    "defaultMessage": "Центральная Европа"
+  },
+  "servers.region.custom.prompt": {
+    "defaultMessage": "Сколько оперативной памяти вы хотите на сервере?"
+  },
+  "servers.region.north-america": {
+    "defaultMessage": "Северная Америка"
+  },
+  "servers.region.prompt": {
+    "defaultMessage": "Где вы хотите разместить свой сервер?"
+  },
+  "servers.region.region-unsupported": {
+    "defaultMessage": "Нет нужного региона? <link>Расскажите, где запустить Modrinth Servers дальше!</link>"
+  },
+  "servers.region.southeast-asia": {
+    "defaultMessage": "Юго-Восточная Азия"
+  },
+  "servers.region.western-europe": {
+    "defaultMessage": "Западная Европа"
+  },
+  "settings.account.title": {
+    "defaultMessage": "Данные и безопасность"
+  },
+  "settings.appearance.title": {
+    "defaultMessage": "Внешний вид"
+  },
+  "settings.applications.title": {
+    "defaultMessage": "Ваши приложения"
+  },
+  "settings.authorized-apps.title": {
+    "defaultMessage": "Приложения с доступом"
+  },
+  "settings.billing.title": {
+    "defaultMessage": "Платежи и подписки"
+  },
+  "settings.display.theme.dark": {
+    "defaultMessage": "Тёмная"
+  },
+  "settings.display.theme.description": {
+    "defaultMessage": "Выберите тему для Modrinth на этом устройстве."
+  },
+  "settings.display.theme.light": {
+    "defaultMessage": "Светлая"
+  },
+  "settings.display.theme.oled": {
+    "defaultMessage": "OLED"
+  },
+  "settings.display.theme.preferred-dark-theme": {
+    "defaultMessage": "Основная тёмная тема"
+  },
+  "settings.display.theme.preferred-light-theme": {
+    "defaultMessage": "Основная светлая тема"
+  },
+  "settings.display.theme.retro": {
+    "defaultMessage": "Ретро"
+  },
+  "settings.display.theme.system": {
+    "defaultMessage": "Как в системе"
+  },
+  "settings.display.theme.title": {
+    "defaultMessage": "Тема"
+  },
+  "settings.language.title": {
+    "defaultMessage": "Язык"
+  },
+  "settings.pats.title": {
+    "defaultMessage": "Токены доступа"
+  },
+  "settings.profile.title": {
+    "defaultMessage": "Публичный профиль"
+  },
+  "settings.sessions.title": {
+    "defaultMessage": "Сеансы"
+  },
+  "tooltip.date-at-time": {
+    "defaultMessage": "{date, date, long} в {time, time, short}"
+  },
+  "ui.component.unsaved-changes-popup.body": {
+    "defaultMessage": "Имеются несохранённые изменения."
+  }
+}
+
