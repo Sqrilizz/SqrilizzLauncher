@@ -464,10 +464,13 @@ pub enum Argument {
 #[serde(rename_all = "snake_case")]
 /// The type of argument
 pub enum ArgumentType {
-    /// The argument is passed to the game
-    Game,
-    /// The argument is passed to the JVM
-    Jvm,
+	/// The argument is passed to the game
+	Game,
+	/// The argument is passed to the JVM
+	Jvm,
+	/// The argument is passed to the JVM for the default user
+	#[serde(rename = "default-user-jvm")]
+	DefaultUserJvm,
 }
 
 #[derive(Serialize, Deserialize, Debug, Eq, PartialEq, Hash)]

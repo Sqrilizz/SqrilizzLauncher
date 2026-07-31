@@ -121,19 +121,7 @@ import _ElyByIcon from './icons/elyby-icon.svg?component'
 import _MicrosoftIcon from './icons/microsoft.svg?component'
 import _PirateShipIcon from './icons/pirate-ship.svg?component'
 import _PirateIcon from './icons/pirate.svg?component'
-import SqrilizzLogoUrl from './icons/sqrilizz-logo.png'
-
-// Create a component wrapper for the PNG logo
-const _SqrilizzLogo = {
-	name: 'SqrilizzLogo',
-	props: {
-		class: String,
-	},
-	template: `<img :src="logoUrl" :class="props.class" alt="Sqrilizz Launcher" />`,
-	setup(props: any) {
-		return { logoUrl: SqrilizzLogoUrl, props }
-	},
-}
+import _SqrilizzLogo from './icons/sqrilizz-logo.svg?component'
 
 export const PirateIcon = _PirateIcon
 export const MicrosoftIcon = _MicrosoftIcon

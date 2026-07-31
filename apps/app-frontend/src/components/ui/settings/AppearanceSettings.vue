@@ -22,7 +22,7 @@ watch(
 </script>
 <template>
 	<h2 class="m-0 text-lg font-extrabold text-contrast">Color theme</h2>
-	<p class="m-0 mt-1">Select your preferred color theme for Modrinth App.</p>
+	<p class="m-0 mt-1">Select your preferred color theme for Sqrilizz Launcher.</p>
 
 	<ThemeSelector
 		:update-color-theme="
@@ -91,8 +91,11 @@ watch(
 			v-model="settings.default_page"
 			name="Opening page dropdown"
 			class="w-40"
-			:options="['Home', 'Library'].map((v) => ({ value: v, label: v }))"
-			:display-value="settings.default_page ?? 'Select an option'"
+			:options="[
+				{ value: 'home', label: 'Home' },
+				{ value: 'library', label: 'Library' },
+			]"
+			:display-value="settings.default_page === 'library' ? 'Library' : 'Home'"
 		/>
 	</div>
 

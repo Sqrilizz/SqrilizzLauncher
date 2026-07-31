@@ -24,6 +24,7 @@ pub(crate) async fn get_resource(
         let result = match os_type.to_lowercase().as_str() {
             "windows" => handle_windows_file(&full_path).await,
             "macos" => open_macos_file(&full_path).await,
+            "linux" => open_linux_file(&full_path).await,
             _ => open_default(&full_path).await,
         };
 
@@ -36,7 +37,9 @@ pub(crate) async fn get_resource(
     Ok(())
 }
 
-async fn handle_windows_file(path: &PathBuf) -> Result<(), Box<dyn std::error::Error>> {
+async fn handle_windows_file(
+    path: &PathBuf,
+) -> Result<(), Box<dyn std::error::Error>> {
     let filename = path
         .file_name()
         .and_then(|f| f.to_str())
@@ -51,7 +54,9 @@ async fn handle_windows_file(path: &PathBuf) -> Result<(), Box<dyn std::error::E
     }
 }
 
-async fn run_windows_installer(path: &PathBuf) -> Result<(), Box<dyn std::error::Error>> {
+async fn run_windows_installer(
+    path: &PathBuf,
+) -> Result<(), Box<dyn std::error::Error>> {
     let installer_path = path.to_str().unwrap_or_default();
 
     let status = if installer_path.ends_with(".msi") {
@@ -76,7 +81,9 @@ async fn run_windows_installer(path: &PathBuf) -> Result<(), Box<dyn std::error:
     }
 }
 
-async fn open_windows_folder(path: &PathBuf) -> Result<(), Box<dyn std::error::Error>> {
+async fn open_windows_folder(
+    path: &PathBuf,
+) -> Result<(), Box<dyn std::error::Error>> {
     let folder = path.parent().unwrap_or(path);
     let status = Command::new("explorer")
         .arg(folder.display().to_string())
@@ -90,7 +97,9 @@ async fn open_windows_folder(path: &PathBuf) -> Result<(), Box<dyn std::error::E
     }
 }
 
-async fn open_macos_file(path: &PathBuf) -> Result<(), Box<dyn std::error::Error>> {
+async fn open_macos_file(
+    path: &PathBuf,
+) -> Result<(), Box<dyn std::error::Error>> {
     let status = Command::new("open")
         .arg(path.to_str().unwrap_or_default())
         .status()
@@ -103,8 +112,36 @@ async fn open_macos_file(path: &PathBuf) -> Result<(), Box<dyn std::error::Error
     }
 }
 
-async fn open_default(path: &PathBuf) -> Result<(), Box<dyn std::error::Error>> {
-    let status = Command::new(".")
+async fn open_linux_file(
+    path: &PathBuf,
+) -> Result<(), Box<dyn std::error::Error>> {
+    let filename = path
+        .file_name()
+        .and_then(|file| file.to_str())
+        .unwrap_or_default()
+        .to_lowercase();
+
+    if filename.ends_with(".appimage") {
+        #[cfg(unix)]
+        {
+            use std::os::unix::fs::PermissionsExt;
+
+            let metadata = tokio::fs::metadata(path).await?;
+            let mut permissions = metadata.permissions();
+            permissions.set_mode(permissions.mode() | 0o111);
+            tokio::fs::set_permissions(path, permissions).await?;
+            Command::new(path).spawn()?;
+            return Ok(());
+        }
+    }
+
+    open_default(path).await
+}
+
+async fn open_default(
+    path: &PathBuf,
+) -> Result<(), Box<dyn std::error::Error>> {
+    let status = Command::new("xdg-open")
         .arg(path.to_str().unwrap_or_default())
         .status()
         .await?;

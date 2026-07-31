@@ -104,7 +104,6 @@ impl DiscordGuard {
             utils::read_package_json().expect("Failed to read package.json");
 
         let build_info = format!("Sqrilizz Launcher • v{}", launcher.version);
-        let build_download = "https://sqrilizz.xyz";
 
         let time = SystemTime::now()
             .duration_since(UNIX_EPOCH)
@@ -115,10 +114,8 @@ impl DiscordGuard {
             .state(msg)
             .assets(
                 Assets::new()
-                    .large_image("sqrilizz_logo")
-                    .large_text(&build_info)
-                    .small_image("sqrilizz_logo")
-                    .small_text(&build_download),
+                    .large_image("https://i.postimg.cc/fR5ChPH8/3dgifmaker63224.gif")
+                    .large_text(&build_info),
             )
             .timestamps(Timestamps::new().start(time))
             .buttons(vec![

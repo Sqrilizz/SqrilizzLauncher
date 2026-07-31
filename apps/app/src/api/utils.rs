@@ -57,13 +57,13 @@ pub async fn init_update_launcher(
     os_type: &str,
     auto_update_supported: bool,
 ) -> Result<()> {
-    let _ = utils::init_update_launcher(
+    utils::init_update_launcher(
         download_url,
         filename,
         os_type,
         auto_update_supported,
     )
-    .await;
+    .await?;
     Ok(())
 }
 

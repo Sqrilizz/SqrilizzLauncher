@@ -18,9 +18,6 @@
 		"os:allow-locale",
 		"os:allow-hostname",
 		"deep-link:default",
-		"window-state:default",
-		"window-state:allow-restore-state",
-		"window-state:allow-save-window-state",
 		{
 			"identifier": "http:default",
 			"allow": [
@@ -37,8 +34,6 @@
 		"jre:default",
 		"logs:default",
 		"metadata:default",
-		"minecraft-skins:default",
-		"mr-auth:default",
 		"profile-create:default",
 		"pack:default",
 		"process:default",
@@ -47,7 +42,6 @@
 		"settings:default",
 		"tags:default",
 		"utils:default",
-		"friends:default",
 		"worlds:default"
 	]
 }

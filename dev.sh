@@ -4,6 +4,9 @@
 
 # Workaround для WebKit segfault на Linux
 export WEBKIT_DISABLE_DMABUF_RENDERER=1
+export MODRINTH_API_URL="${MODRINTH_API_URL:-https://api.modrinth.com/v2/}"
+export MODRINTH_API_URL_V3="${MODRINTH_API_URL_V3:-https://api.modrinth.com/v3/}"
+export MODRINTH_LAUNCHER_META_URL="${MODRINTH_LAUNCHER_META_URL:-https://launcher-meta.modrinth.com/}"
 
 echo "🚀 Starting Sqrilizz Launcher in development mode..."
 

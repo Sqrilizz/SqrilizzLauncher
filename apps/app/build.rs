@@ -106,37 +106,6 @@ fn main() {
                     ),
             )
             .plugin(
-                "minecraft-skins",
-                InlinedPlugin::new()
-                    .commands(&[
-                        "get_available_capes",
-                        "get_available_skins",
-                        "add_and_equip_custom_skin",
-                        "set_default_cape",
-                        "equip_skin",
-                        "remove_custom_skin",
-                        "unequip_skin",
-                        "normalize_skin_texture",
-                        "get_dragged_skin_data",
-                    ])
-                    .default_permission(
-                        DefaultPermissionRule::AllowAllCommands,
-                    ),
-            )
-            .plugin(
-                "mr-auth",
-                InlinedPlugin::new()
-                    .commands(&[
-                        "modrinth_login",
-                        "logout",
-                        "get",
-                        "cancel_modrinth_login",
-                    ])
-                    .default_permission(
-                        DefaultPermissionRule::AllowAllCommands,
-                    ),
-            )
-            .plugin(
                 "pack",
                 InlinedPlugin::new()
                     .commands(&["pack_install", "pack_get_profile_from_pack"])
@@ -239,19 +208,6 @@ fn main() {
                         "show_launcher_logs_folder",
                         "progress_bars_list",
                         "get_opening_command",
-                    ])
-                    .default_permission(
-                        DefaultPermissionRule::AllowAllCommands,
-                    ),
-            )
-            .plugin(
-                "friends",
-                InlinedPlugin::new()
-                    .commands(&[
-                        "friends",
-                        "friend_statuses",
-                        "add_friend",
-                        "remove_friend",
                     ])
                     .default_permission(
                         DefaultPermissionRule::AllowAllCommands,

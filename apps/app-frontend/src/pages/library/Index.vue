@@ -57,7 +57,7 @@ const installationModal = ref(null)
 				<NewInstanceImage />
 			</div>
 			<h3>No instances found</h3>
-			<Button color="primary" :disabled="offline" @click="installationModal.value.show()">
+			<Button color="primary" :disabled="offline" @click="installationModal.show()">
 				<PlusIcon />
 				Create new instance
 			</Button>

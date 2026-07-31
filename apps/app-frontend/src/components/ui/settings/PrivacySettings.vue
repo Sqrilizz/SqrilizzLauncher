@@ -31,21 +31,23 @@ watch(
 				option, you opt out and ads will no longer be shown based on your interests.
 			</p>
 		</div>
-    <!-- [AR] Patch. Disabled element by default -->
-		<Toggle id="personalized-ads" v-model="settings.personalized_ads" :disabled="!settings.personalized_ads" />
+		<!-- [AR] Patch. Disabled element by default -->
+		<Toggle
+			id="personalized-ads"
+			v-model="settings.personalized_ads"
+			:disabled="!settings.personalized_ads"
+		/>
 	</div>
 
 	<div class="mt-4 flex items-center justify-between gap-4">
 		<div>
 			<h2 class="m-0 text-lg font-extrabold text-contrast">Telemetry</h2>
 			<p class="m-0 text-sm">
-				Modrinth collects anonymized analytics and usage data to improve our user experience and
-				customize your experience. By disabling this option, you opt out and your data will no
-				longer be collected.
+				Sqrilizz Launcher only collects anonymized usage data when you explicitly enable this
+				option. You can change your choice at any time.
 			</p>
 		</div>
-    <!-- [AR] Patch. Disabled element by default -->
-		<Toggle id="opt-out-analytics" v-model="settings.telemetry" :disabled="!settings.telemetry" />
+		<Toggle id="opt-out-analytics" v-model="settings.telemetry" />
 	</div>
 
 	<div class="mt-4 flex items-center justify-between gap-4">

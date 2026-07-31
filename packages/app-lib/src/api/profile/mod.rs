@@ -13,13 +13,11 @@ use crate::state::{
 };
 
 use crate::event::{ProfilePayloadType, emit::emit_profile};
-use crate::util::fetch;
 use crate::util::io::{self, IOError};
 pub use crate::{State, state::Profile};
 use async_zip::tokio::write::ZipFileWriter;
 use async_zip::{Compression, ZipEntryBuilder};
 use path_util::SafeRelativeUtf8UnixPathBuf;
-use serde_json::json;
 
 use std::collections::{HashMap, HashSet};
 
@@ -763,8 +761,6 @@ pub async fn kill(path: &str) -> crate::Result<()> {
 /// Update playtime- sending a request to the server to update the playtime
 #[tracing::instrument]
 pub async fn try_update_playtime(path: &str) -> crate::Result<()> {
-    let state = State::get().await?;
-
     let profile = get(path).await?.ok_or_else(|| {
         crate::ErrorKind::OtherError(format!(
             "Tried to update playtime for a nonexistent or unloaded profile at path {path}!"

@@ -135,7 +135,7 @@ onUnmounted(() => unlisten())
 <template>
 	<template v-if="compact">
 		<div
-			class="card-shadow grid grid-cols-[auto_1fr_auto] bg-bg-raised rounded-xl p-3 pl-4 gap-2 cursor-pointer hover:brightness-90 transition-all"
+			class="home-instance-card grid grid-cols-[auto_minmax(0,1fr)_auto] rounded-xl p-3 pl-4 gap-x-3 gap-y-2 cursor-pointer"
 			@click="seeInstance"
 			@mouseenter="checkProcess"
 		>
@@ -170,7 +170,7 @@ onUnmounted(() => unlisten())
 					</button>
 				</ButtonStyled>
 			</div>
-			<div class="flex items-center col-span-3 gap-1 text-secondary font-semibold">
+			<div class="home-instance-meta flex items-center gap-1 text-secondary font-semibold">
 				<TimerIcon />
 				<span class="text-sm">
 					<template v-if="instance.last_played">
@@ -248,3 +248,31 @@ onUnmounted(() => unlisten())
 		</div>
 	</div>
 </template>
+
+<style scoped lang="scss">
+.home-instance-card {
+	min-height: 6.25rem;
+	border: 1px solid var(--sq-border);
+	background: transparent;
+	box-shadow: none;
+	transition:
+		transform 180ms ease,
+		border-color 180ms ease,
+		background 180ms ease;
+}
+
+.home-instance-card:hover {
+	transform: translateY(-2px);
+	border-color: var(--sq-border-strong);
+	background: rgba(255, 255, 255, 0.025);
+}
+
+.home-instance-card :deep(.avatar) {
+	align-self: start;
+}
+
+.home-instance-meta {
+	grid-column: 2 / -1;
+	min-width: 0;
+}
+</style>

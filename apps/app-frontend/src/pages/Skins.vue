@@ -44,6 +44,14 @@ import {
 	set_default_cape,
 } from '@/helpers/skins.ts'
 import { handleSevereError } from '@/store/error'
+
+interface LauncherUser {
+	profile: {
+		id: string
+		name?: string
+	}
+}
+
 const editSkinModal = useTemplateRef('editSkinModal')
 const selectCapeModal = useTemplateRef('selectCapeModal')
 const uploadSkinModal = useTemplateRef('uploadSkinModal')
@@ -56,7 +64,7 @@ const skins = ref<Skin[]>([])
 const capes = ref<Cape[]>([])
 
 const accountsCard = inject('accountsCard') as Ref<typeof AccountsCard>
-const currentUser = ref<any>(undefined)
+const currentUser = ref<LauncherUser>()
 const currentUserId = ref<string | undefined>(undefined)
 
 const username = computed(() => currentUser.value?.profile?.name ?? undefined)
@@ -226,7 +234,7 @@ async function loadCurrentUser() {
 		currentUserId.value = defaultId
 
 		const allAccounts = await users()
-		currentUser.value = allAccounts.find((acc: any) => acc.profile.id === defaultId)
+		currentUser.value = (allAccounts as LauncherUser[]).find((account) => account.profile.id === defaultId)
 	} catch (e) {
 		handleError(e as Error)
 		currentUser.value = undefined
@@ -444,7 +452,7 @@ await Promise.all([loadCapes(), loadSkins()])
 		>
 			<img
 				:src="ExcitedRinthbot"
-				alt="Excited Modrinth Bot"
+				alt="Excited launcher mascot"
 				class="absolute -top-28 right-8 md:right-20 h-28 w-auto"
 			/>
 			<div
@@ -464,7 +472,7 @@ await Promise.all([loadCapes(), loadSkins()])
 				<h1 class="text-3xl font-extrabold m-0">Please sign-in</h1>
 				<p class="text-lg m-0">
 					Please sign into your Minecraft account to use the skin management features of the
-					Modrinth app.
+					Sqrilizz Launcher.
 				</p>
 				<ButtonStyled v-show="accountsCard" color="brand" :disabled="accountsCard.loginDisabled">
 					<button :disabled="accountsCard.loginDisabled" @click="login">

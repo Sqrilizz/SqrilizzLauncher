@@ -2,6 +2,7 @@
 	<RouterLink
 		v-if="typeof to === 'string'"
 		:to="to"
+		:aria-label="label"
 		v-bind="$attrs"
 		:class="{
 			'router-link-active': isPrimary && isPrimary(route),
@@ -15,6 +16,7 @@
 	<button
 		v-else
 		v-bind="$attrs"
+		:aria-label="label"
 		class="button-animation border-none text-primary cursor-pointer w-12 h-12 rounded-full flex items-center justify-center text-2xl transition-all bg-transparent hover:bg-button-bg hover:text-contrast"
 		:disabled="disabled"
 		@click="to"
@@ -34,12 +36,17 @@ type RouteFunction = (route: RouteLocationNormalizedLoaded) => boolean
 withDefaults(
 	defineProps<{
 		to: (() => void) | string
+		label?: string
 		isPrimary?: RouteFunction
 		isSubpage?: RouteFunction
 		highlightOverride?: boolean
 		disabled?: boolean
 	}>(),
 	{
+		label: '',
+		isPrimary: () => false,
+		isSubpage: () => false,
+		highlightOverride: false,
 		disabled: false,
 	},
 )
@@ -63,5 +70,11 @@ defineOptions({
 
 .subpage-active {
 	@apply text-contrast bg-button-bg;
+}
+
+a:focus-visible,
+button:focus-visible {
+	outline: 0.2rem solid var(--color-brand);
+	outline-offset: 0.15rem;
 }
 </style>

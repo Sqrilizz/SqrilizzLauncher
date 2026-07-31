@@ -8,7 +8,6 @@ use crate::state::db;
 use crate::{Result, State};
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
-use std::process;
 use std::time::SystemTime;
 use tokio::{fs, io};
 
@@ -224,23 +223,14 @@ pub async fn init_update_launcher(
     tracing::info!("[AR] • OS type • {}", os_type);
     tracing::info!("[AR] • Auto update supported • {}", auto_update_supported);
 
-    if let Err(e) = update::get_resource(
+    update::get_resource(
         download_url,
         local_filename,
         os_type,
         auto_update_supported,
     )
     .await
-    {
-        eprintln!(
-            "[AR] • An error occurred! Failed to download the file: {}",
-            e
-        );
-    } else {
-        println!("[AR] • Code finishes without errors.");
-        process::exit(0)
-    }
-    Ok(())
+    .map_err(|error| crate::ErrorKind::OtherError(error.to_string()).as_error())
 }
 
 /// ### AR • AuthLib (Ely.by)

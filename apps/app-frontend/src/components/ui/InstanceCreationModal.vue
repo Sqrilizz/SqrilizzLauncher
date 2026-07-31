@@ -70,7 +70,7 @@
 				</div>
 			</div>
 			<div class="input-group push-right">
-				<Button @click="hide()">
+				<Button :disabled="creating" @click="hide()">
 					<XIcon />
 					Cancel
 				</Button>
@@ -155,13 +155,13 @@
 			</div>
 			<div class="button-row">
 				<Button
-        		  v-if="selectedProfileType.name === 'Curseforge'"
-        		  @click="showCurseForgeProfileModal"
-        		  :disabled="loading"
-        		>
-        		  <CodeIcon />
-        		  Import from Profile Code
-        		</Button>
+					v-if="selectedProfileType.name === 'Curseforge'"
+					:disabled="loading"
+					@click="showCurseForgeProfileModal"
+				>
+					<CodeIcon />
+					Import from Profile Code
+				</Button>
 				<Button
 					:disabled="
 						loading ||
@@ -193,11 +193,12 @@
 			</div>
 		</div>
 	</ModalWrapper>
-  	<CurseForgeProfileImportModal ref="curseforgeProfileModal" :close-parent="hide" />
+	<CurseForgeProfileImportModal ref="curseforgeProfileModal" :close-parent="hide" />
 </template>
 
 <script setup>
 import {
+	CodeIcon,
 	FolderOpenIcon,
 	FolderSearchIcon,
 	InfoIcon,
@@ -213,6 +214,7 @@ import { open } from '@tauri-apps/plugin-dialog'
 import { computed, onUnmounted, ref, shallowRef } from 'vue'
 import Multiselect from 'vue-multiselect'
 
+import CurseForgeProfileImportModal from '@/components/ui/CurseForgeProfileImportModal.vue'
 import ModalWrapper from '@/components/ui/modal/ModalWrapper.vue'
 import ProgressBar from '@/components/ui/ProgressBar.vue'
 import { trackEvent } from '@/helpers/analytics'
@@ -225,8 +227,6 @@ import { get_game_versions, get_loader_versions } from '@/helpers/metadata'
 import { create_profile_and_install_from_file } from '@/helpers/pack.js'
 import { create } from '@/helpers/profile'
 import { get_loaders } from '@/helpers/tags'
-
-import CurseForgeProfileImportModal from '@/components/ui/CurseForgeProfileImportModal.vue'
 
 const { handleError } = injectNotificationManager()
 
@@ -251,6 +251,8 @@ defineExpose({
 		showSnapshots.value = false
 		loader.value = 'vanilla'
 		loader_version.value = 'stable'
+		creationType.value = 'custom'
+		selectedProfileType.value = profileOptions.value[0]
 		icon.value = null
 		display_icon.value = null
 		isShowing.value = true
@@ -264,10 +266,14 @@ defineExpose({
 			hide()
 			const { paths } = event.payload
 			if (paths && paths.length > 0 && paths[0].endsWith('.mrpack')) {
-				await create_profile_and_install_from_file(paths[0]).catch(handleError)
-				trackEvent('InstanceCreate', {
-					source: 'CreationModalFileDrop',
-				})
+				try {
+					await create_profile_and_install_from_file(paths[0])
+					trackEvent('InstanceCreate', {
+						source: 'CreationModalFileDrop',
+					})
+				} catch (error) {
+					handleError(error)
+				}
 			}
 		})
 
@@ -286,7 +292,7 @@ const hide = () => {
 }
 
 const showCurseForgeProfileModal = () => {
-  curseforgeProfileModal.value?.show()
+	curseforgeProfileModal.value?.show()
 }
 
 onUnmounted(() => {
@@ -296,6 +302,15 @@ onUnmounted(() => {
 	}
 })
 
+const loadMetadata = async (request, fallback) => {
+	try {
+		return shallowRef((await request) ?? fallback)
+	} catch (error) {
+		handleError(error)
+		return shallowRef(fallback)
+	}
+}
+
 const [
 	fabric_versions,
 	forge_versions,
@@ -304,15 +319,15 @@ const [
 	all_game_versions,
 	loaders,
 ] = await Promise.all([
-	get_loader_versions('fabric').then(shallowRef).catch(handleError),
-	get_loader_versions('forge').then(shallowRef).catch(handleError),
-	get_loader_versions('quilt').then(shallowRef).catch(handleError),
-	get_loader_versions('neo').then(shallowRef).catch(handleError),
-	get_game_versions().then(shallowRef).catch(handleError),
+	loadMetadata(get_loader_versions('fabric'), { gameVersions: [] }),
+	loadMetadata(get_loader_versions('forge'), { gameVersions: [] }),
+	loadMetadata(get_loader_versions('quilt'), { gameVersions: [] }),
+	loadMetadata(get_loader_versions('neo'), { gameVersions: [] }),
+	loadMetadata(get_game_versions(), { versions: [] }),
 	get_loaders()
 		.then((value) =>
 			ref(
-				value
+				(value ?? [])
 					.filter((item) => item.supported_project_types.includes('modpack'))
 					.map((item) => item.name.toLowerCase()),
 			),
@@ -325,7 +340,7 @@ const [
 loaders.value.unshift('vanilla')
 
 const game_versions = computed(() => {
-	return all_game_versions.value.versions
+	return (all_game_versions.value?.versions ?? [])
 		.filter((item) => {
 			let defaultVal = item.type === 'release' || showSnapshots.value
 			if (loader.value === 'fabric') {
@@ -347,55 +362,69 @@ const modal = ref(null)
 const curseforgeProfileModal = ref(null)
 
 const check_valid = computed(() => {
+	const loaderVersionValid =
+		loader.value === 'vanilla' ||
+		loader_version.value !== 'other' ||
+		(selectable_versions.value.includes(specified_loader_version.value) &&
+			specified_loader_version.value.length > 0)
 	return (
 		profile_name.value.trim() &&
 		game_version.value &&
-		game_versions.value.includes(game_version.value)
+		game_versions.value.includes(game_version.value) &&
+		loaderVersionValid
 	)
 })
 
 const create_instance = async () => {
+	if (creating.value) return
 	creating.value = true
 	const loader_version_value =
 		loader_version.value === 'other' ? specified_loader_version.value : loader_version.value
-	const loaderVersion = loader.value === 'vanilla' ? null : loader_version_value ?? 'stable'
+	const loaderVersion = loader.value === 'vanilla' ? null : (loader_version_value ?? 'stable')
 
-	hide()
-	creating.value = false
-
-	await create(
-		profile_name.value,
-		game_version.value,
-		loader.value,
-		loader.value === 'vanilla' ? null : loader_version_value ?? 'stable',
-		icon.value,
-	).catch(handleError)
-
-	trackEvent('InstanceCreate', {
-		profile_name: profile_name.value,
-		game_version: game_version.value,
-		loader: loader.value,
-		loader_version: loaderVersion,
-		has_icon: !!icon.value,
-		source: 'CreationModal',
-	})
+	try {
+		await create(
+			profile_name.value,
+			game_version.value,
+			loader.value,
+			loader.value === 'vanilla' ? null : (loader_version_value ?? 'stable'),
+			icon.value,
+		)
+		trackEvent('InstanceCreate', {
+			profile_name: profile_name.value,
+			game_version: game_version.value,
+			loader: loader.value,
+			loader_version: loaderVersion,
+			has_icon: !!icon.value,
+			source: 'CreationModal',
+		})
+		hide()
+	} catch (error) {
+		handleError(error)
+	} finally {
+		creating.value = false
+	}
 }
 
 const upload_icon = async () => {
-	const res = await open({
-		multiple: false,
-		filters: [
-			{
-				name: 'Image',
-				extensions: ['png', 'jpeg', 'svg', 'webp', 'gif', 'jpg'],
-			},
-		],
-	})
+	try {
+		const res = await open({
+			multiple: false,
+			filters: [
+				{
+					name: 'Image',
+					extensions: ['png', 'jpeg', 'svg', 'webp', 'gif', 'jpg'],
+				},
+			],
+		})
 
-	icon.value = res.path ?? res
+		icon.value = res?.path ?? res
 
-	if (!icon.value) return
-	display_icon.value = convertFileSrc(icon.value)
+		if (!icon.value) return
+		display_icon.value = convertFileSrc(icon.value)
+	} catch (error) {
+		handleError(error)
+	}
 }
 
 const reset_icon = () => {
@@ -406,31 +435,46 @@ const reset_icon = () => {
 const selectable_versions = computed(() => {
 	if (game_version.value) {
 		if (loader.value === 'fabric') {
-			return fabric_versions.value.gameVersions[0].loaders.map((item) => item.id)
+			return (
+				fabric_versions.value.gameVersions
+					.find((item) => item.id === game_version.value)
+					?.loaders?.map((item) => item.id) ?? []
+			)
 		} else if (loader.value === 'forge') {
-			return forge_versions.value.gameVersions
-				.find((item) => item.id === game_version.value)
-				.loaders.map((item) => item.id)
+			return (
+				forge_versions.value.gameVersions
+					.find((item) => item.id === game_version.value)
+					?.loaders?.map((item) => item.id) ?? []
+			)
 		} else if (loader.value === 'quilt') {
-			return quilt_versions.value.gameVersions[0].loaders.map((item) => item.id)
+			return (
+				quilt_versions.value.gameVersions
+					.find((item) => item.id === game_version.value)
+					?.loaders?.map((item) => item.id) ?? []
+			)
 		} else if (loader.value === 'neoforge') {
-			return neoforge_versions.value.gameVersions
-				.find((item) => item.id === game_version.value)
-				.loaders.map((item) => item.id)
+			return (
+				neoforge_versions.value.gameVersions
+					.find((item) => item.id === game_version.value)
+					?.loaders?.map((item) => item.id) ?? []
+			)
 		}
 	}
 	return []
 })
 
 const openFile = async () => {
-	const newProject = await open({ multiple: false })
-	if (!newProject) return
-	hide()
-	await create_profile_and_install_from_file(newProject.path ?? newProject).catch(handleError)
-
-	trackEvent('InstanceCreate', {
-		source: 'CreationModalFileOpen',
-	})
+	try {
+		const newProject = await open({ multiple: false })
+		if (!newProject) return
+		hide()
+		await create_profile_and_install_from_file(newProject.path ?? newProject)
+		trackEvent('InstanceCreate', {
+			source: 'CreationModalFileOpen',
+		})
+	} catch (error) {
+		handleError(error)
+	}
 }
 
 const profiles = ref(
@@ -447,7 +491,6 @@ const loading = ref(false)
 const importedProfiles = ref(0)
 const totalProfiles = ref(0)
 
-const selectedProfileType = ref('MultiMC')
 const profileOptions = ref([
 	{ name: 'MultiMC', path: '' },
 	{ name: 'GDLauncher', path: '' },
@@ -455,6 +498,7 @@ const profileOptions = ref([
 	{ name: 'Curseforge', path: '' },
 	{ name: 'PrismLauncher', path: '' },
 ])
+const selectedProfileType = ref(profileOptions.value[0])
 
 // Attempt to get import profiles on default paths
 const promises = profileOptions.value.map(async (option) => {
@@ -478,10 +522,14 @@ const promises = profileOptions.value.map(async (option) => {
 await Promise.all(promises)
 
 const selectLauncherPath = async () => {
-	selectedProfileType.value.path = await open({ multiple: false, directory: true })
+	try {
+		selectedProfileType.value.path = await open({ multiple: false, directory: true })
 
-	if (selectedProfileType.value.path) {
-		await reload()
+		if (selectedProfileType.value.path) {
+			await reload()
+		}
+	} catch (error) {
+		handleError(error)
 	}
 }
 
@@ -517,11 +565,13 @@ const next = async () => {
 		profiles,
 	}))) {
 		for (const profile of launcher.profiles.filter((profile) => profile.selected)) {
-			await import_instance(launcher.launcher, launcher.path, profile.name)
-				.catch(handleError)
-				.then(() => console.log(`Successfully Imported ${profile.name} from ${launcher.launcher}`))
+			try {
+				await import_instance(launcher.launcher, launcher.path, profile.name)
+				importedProfiles.value++
+			} catch (error) {
+				handleError(error)
+			}
 			profile.selected = false
-			importedProfiles.value++
 		}
 	}
 	loading.value = false

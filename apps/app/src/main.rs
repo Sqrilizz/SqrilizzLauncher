@@ -78,79 +78,6 @@ fn show_window(app: tauri::AppHandle) {
     }
 }
 
-// [AR] Write news cache to file
-#[tauri::command]
-async fn write_news_cache(content: String) -> api::Result<()> {
-    use tokio::fs;
-
-    let state = State::get().await?;
-    let cache_dir = state.directories.caches_dir();
-    let news_file = cache_dir.join("news.json");
-
-    // Ensure cache directory exists
-    fs::create_dir_all(&cache_dir).await?;
-
-    // Write news content
-    fs::write(&news_file, content).await?;
-
-    tracing::info!("News cache written to {:?}", news_file);
-    Ok(())
-}
-
-// [AR] Read news cache from file
-#[tauri::command]
-async fn read_news_cache() -> api::Result<String> {
-    use tokio::fs;
-
-    let state = State::get().await?;
-    let cache_dir = state.directories.caches_dir();
-    let news_file = cache_dir.join("news.json");
-
-    // Try to read news cache
-    match fs::read_to_string(&news_file).await {
-        Ok(content) => {
-            tracing::info!("News cache read from {:?}", news_file);
-            Ok(content)
-        }
-        Err(e) => {
-            tracing::warn!("Failed to read news cache: {}", e);
-            // Return empty articles if file doesn't exist
-            Ok(r#"{"articles":[]}"#.to_string())
-        }
-    }
-}
-
-// [AR] Fetch news from API (bypasses CSP)
-#[tauri::command]
-async fn fetch_news_from_api() -> api::Result<String> {
-    use theseus::util::fetch::REQWEST_CLIENT;
-
-    let url = "http://151.241.155.196:3000";
-    tracing::info!("Fetching news from API: {}", url);
-
-    let response = REQWEST_CLIENT
-        .get(url)
-        .header("X-API-Key", "SqrilizzTestKey")
-        .send()
-        .await
-        .map_err(|e| {
-            theseus::Error::from(theseus::ErrorKind::OtherError(format!(
-                "Failed to fetch news: {}",
-                e
-            )))
-        })?;
-
-    let text = response.text().await.map_err(|e| {
-        theseus::Error::from(theseus::ErrorKind::OtherError(format!(
-            "Failed to read response: {}",
-            e
-        )))
-    })?;
-
-    tracing::info!("News fetched successfully from API");
-    Ok(text)
-}
-
 #[tauri::command]
 fn is_dev() -> bool {
     cfg!(debug_assertions)
@@ -236,33 +163,6 @@ fn main() {
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_deep_link::init())
         .plugin(tauri_plugin_opener::init())
-        // [AR] Patch: Disabled window-state plugin to allow window resizing
-        // .plugin(
-        //     tauri_plugin_window_state::Builder::default()
-        //         .with_filename(
-        //             if std::env::current_dir()
-        //                 .ok()
-        //                 .map(|dir| dir.join("portable.txt").exists())
-        //                 .unwrap_or(false)
-        //             {
-        //                 std::env::current_dir()
-        //                     .ok()
-        //                     .map(|dir| {
-        //                         dir.join("UserData/app-window-state.json")
-        //                             .to_string_lossy()
-        //                             .into_owned()
-        //                     })
-        //                     .unwrap()
-        //             } else {
-        //                 "app-window-state.json".to_string()
-        //             },
-        //         )
-        //         .with_state_flags(
-        //             tauri_plugin_window_state::StateFlags::POSITION
-        //                 | tauri_plugin_window_state::StateFlags::MAXIMIZED,
-        //         )
-        //         .build(),
-        // )
         .setup(|app| {
             tracing::info!("Running setup hook...");
 
@@ -361,9 +261,6 @@ fn main() {
             remove_enqueued_update,
             toggle_decorations,
             show_window,
-            write_news_cache,
-            read_news_cache,
-            fetch_news_from_api,
             restart_app,
             check_running_sessions,
         ]);
@@ -475,7 +372,7 @@ fn main() {
                     DialogBuilder::message()
                         .set_level(MessageLevel::Error)
                         .set_title("Initialization error")
-                        .set_text("Your Microsoft Edge WebView2 installation is corrupt.\n\nMicrosoft Edge WebView2 is required to run Modrinth App.\n\nLearn how to repair it at https://support.modrinth.com/en/articles/8797765-corrupted-microsoft-edge-webview2-installation")
+                        .set_text("Your Microsoft Edge WebView2 installation is corrupt.\n\nMicrosoft Edge WebView2 is required to run Sqrilizz Launcher.\n\nLearn how to repair it at https://support.microsoft.com/microsoft-edge")
                         .alert()
                         .show()
                         .unwrap();

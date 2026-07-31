@@ -1,12 +1,24 @@
 <template>
-	<div v-if="mode !== 'isolated'" ref="button"
+	<div
+		v-if="mode !== 'isolated'"
+		ref="button"
 		class="button-base mt-2 px-3 py-2 bg-button-bg rounded-xl flex items-center gap-2"
-		:class="{ expanded: mode === 'expanded' }" @click="toggleMenu">
-		<Avatar size="36px" :src="selectedAccount ? avatarUrl : 'https://launcher-files.modrinth.com/assets/steve_head.png'
-			" />
+		:class="{ expanded: mode === 'expanded' }"
+		@click="toggleMenu"
+	>
+		<Avatar
+			size="36px"
+			:src="
+				selectedAccount ? avatarUrl : 'https://launcher-files.modrinth.com/assets/steve_head.png'
+			"
+		/>
 		<div class="flex flex-col w-full">
 			<span>
-				<component :is="getAccountType(selectedAccount)" v-if="selectedAccount" class="vector-icon" />
+				<component
+					:is="getAccountType(selectedAccount)"
+					v-if="selectedAccount"
+					class="vector-icon"
+				/>
 				{{ selectedAccount ? selectedAccount.profile.name : 'Select account' }}
 			</span>
 			<span class="text-secondary text-xs">Minecraft account</span>
@@ -14,24 +26,38 @@
 		<DropdownIcon class="w-5 h-5 shrink-0" />
 	</div>
 	<transition name="fade">
-		<Card v-if="showCard || mode === 'isolated'" ref="card" class="account-card"
-			:class="{ expanded: mode === 'expanded', isolated: mode === 'isolated' }">
+		<Card
+			v-if="showCard || mode === 'isolated'"
+			ref="card"
+			class="account-card"
+			:class="{ expanded: mode === 'expanded', isolated: mode === 'isolated' }"
+		>
 			<div v-if="selectedAccount" class="selected account">
 				<Avatar size="xs" :src="avatarUrl" />
 				<div>
 					<h4>
-						<component :is="getAccountType(selectedAccount)" class="vector-icon" /> {{
-							selectedAccount.profile.name }}
+						<component :is="getAccountType(selectedAccount)" class="vector-icon" />
+						{{ selectedAccount.profile.name }}
 					</h4>
 					<p>Selected</p>
 				</div>
-				<Button v-tooltip="'Log out'" icon-only color="raised" @click="logout(selectedAccount.profile.id)">
+				<Button
+					v-tooltip="'Log out'"
+					icon-only
+					color="raised"
+					@click="logout(selectedAccount.profile.id)"
+				>
 					<TrashIcon />
 				</Button>
 			</div>
 			<div v-else class="login-section account">
 				<h4>Not signed in</h4>
-				<Button v-tooltip="'Log via Microsoft'" :disabled="microsoftLoginDisabled" icon-only @click="login()">
+				<Button
+					v-tooltip="'Log via Microsoft'"
+					:disabled="microsoftLoginDisabled"
+					icon-only
+					@click="login()"
+				>
 					<MicrosoftIcon v-if="!microsoftLoginDisabled" />
 					<SpinnerIcon v-else class="animate-spin" />
 				</Button>
@@ -73,11 +99,19 @@
 		</Card>
 	</transition>
 	<ModalWrapper ref="addElybyModal" class="modal" header="Authenticate with Ely.by">
-		<ModalWrapper ref="requestElybyTwoFactorCodeModal" class="modal"
-			header="Ely.by requested 2FA code for authentication">
+		<ModalWrapper
+			ref="requestElybyTwoFactorCodeModal"
+			class="modal"
+			header="Ely.by requested 2FA code for authentication"
+		>
 			<div class="flex flex-col gap-4 px-6 py-5">
 				<label class="label">Enter your 2FA code</label>
-				<input v-model="elybyTwoFactorCode" type="text" placeholder="Your 2FA code here..." class="input" />
+				<input
+					v-model="elybyTwoFactorCode"
+					type="text"
+					placeholder="Your 2FA code here..."
+					class="input"
+				/>
 				<div class="mt-6 ml-auto">
 					<Button icon-only color="primary" class="continue-button" @click="addElybyProfile()">
 						Continue
@@ -87,9 +121,19 @@
 		</ModalWrapper>
 		<div class="flex flex-col gap-4 px-6 py-5">
 			<label class="label">Enter your player name or email (preferred)</label>
-			<input v-model="elybyLogin" type="text" placeholder="Your player name or email here..." class="input" />
+			<input
+				v-model="elybyLogin"
+				type="text"
+				placeholder="Your player name or email here..."
+				class="input"
+			/>
 			<label class="label">Enter your password</label>
-			<input v-model="elybyPassword" type="password" placeholder="Your password here..." class="input" />
+			<input
+				v-model="elybyPassword"
+				type="password"
+				placeholder="Your password here..."
+				class="input"
+			/>
 			<div class="mt-6 ml-auto">
 				<Button icon-only color="primary" class="continue-button" @click="addElybyProfile()">
 					Login
@@ -100,7 +144,12 @@
 	<ModalWrapper ref="addOfflineModal" class="modal" header="Add new offline account">
 		<div class="flex flex-col gap-4 px-6 py-5">
 			<label class="label">Enter your player name</label>
-			<input v-model="offlinePlayerName" type="text" placeholder="Your player name here..." class="input" />
+			<input
+				v-model="offlinePlayerName"
+				type="text"
+				placeholder="Your player name here..."
+				class="input"
+			/>
 			<div class="mt-6 ml-auto">
 				<Button icon-only color="primary" class="continue-button" @click="addOfflineProfile()">
 					Login
@@ -108,8 +157,11 @@
 			</div>
 		</div>
 	</ModalWrapper>
-	<ModalWrapper ref="authenticationElybyErrorModal" class="modal"
-		header="Error while proceeding authentication event with Ely.by">
+	<ModalWrapper
+		ref="authenticationElybyErrorModal"
+		class="modal"
+		header="Error while proceeding authentication event with Ely.by"
+	>
 		<div class="flex flex-col gap-4 px-6 py-5">
 			<label class="text-base font-medium text-red-700">
 				An error occurred while logging in.
@@ -122,7 +174,11 @@
 			</div>
 		</div>
 	</ModalWrapper>
-	<ModalWrapper ref="inputElybyErrorModal" class="modal" header="Error while proceeding input event with Ely.by">
+	<ModalWrapper
+		ref="inputElybyErrorModal"
+		class="modal"
+		header="Error while proceeding input event with Ely.by"
+	>
 		<div class="flex flex-col gap-4 px-6 py-5">
 			<label class="text-base font-medium text-red-700">
 				An error occurred while adding the Ely.by account. Please follow the instructions below.
@@ -140,7 +196,11 @@
 			</div>
 		</div>
 	</ModalWrapper>
-	<ModalWrapper ref="inputErrorModal" class="modal" header="Error while proceeding input event with offline account">
+	<ModalWrapper
+		ref="inputErrorModal"
+		class="modal"
+		header="Error while proceeding input event with offline account"
+	>
 		<div class="flex flex-col gap-4 px-6 py-5">
 			<label class="text-base font-medium text-red-700">
 				An error occurred while adding the offline account. Please follow the instructions below.
@@ -149,8 +209,8 @@
 			<ul class="list-disc list-inside text-sm space-y-1">
 				<li>Check that you have entered the correct player name.</li>
 				<li>
-					Player name must be at least {{ minOfflinePlayerNameLength }} characters long and no more than
-					{{ maxOfflinePlayerNameLength }} characters.
+					Player name must be at least {{ minOfflinePlayerNameLength }} characters long and no more
+					than {{ maxOfflinePlayerNameLength }} characters.
 				</li>
 			</ul>
 
@@ -169,33 +229,34 @@
 </template>
 
 <script setup>
-import ModalWrapper from '@/components/ui/modal/ModalWrapper.vue'
-import { trackEvent } from '@/helpers/analytics'
 import {
-    elyby_auth_authenticate,
-    elyby_login,
-    get_default_user,
-    login as login_flow,
-    offline_login,
-    remove_user,
-    set_default_user,
-    users,
-} from '@/helpers/auth'
-import { process_listener } from '@/helpers/events'
-import { handleSevereError } from '@/store/error.js'
-import {
-    DropdownIcon,
-    ElyByIcon as Elyby,
-    ElyByIcon,
-    MicrosoftIcon as License,
-    MicrosoftIcon,
-    PirateIcon as Offline,
-    PirateIcon,
-    SpinnerIcon,
-    TrashIcon
+	DropdownIcon,
+	ElyByIcon as Elyby,
+	ElyByIcon,
+	MicrosoftIcon as License,
+	MicrosoftIcon,
+	PirateIcon as Offline,
+	PirateIcon,
+	SpinnerIcon,
+	TrashIcon,
 } from '@modrinth/assets'
 import { Avatar, Button, Card, injectNotificationManager } from '@modrinth/ui'
 import { computed, onBeforeUnmount, onMounted, onUnmounted, ref } from 'vue'
+
+import ModalWrapper from '@/components/ui/modal/ModalWrapper.vue'
+import { trackEvent } from '@/helpers/analytics'
+import {
+	elyby_auth_authenticate,
+	elyby_login,
+	get_default_user,
+	login as login_flow,
+	offline_login,
+	remove_user,
+	set_default_user,
+	users,
+} from '@/helpers/auth'
+import { process_listener } from '@/helpers/events'
+import { handleSevereError } from '@/store/error.js'
 
 const { handleError } = injectNotificationManager()
 
@@ -209,13 +270,13 @@ defineProps({
 
 const emit = defineEmits(['change'])
 
-const accounts = ref({})
+const accounts = ref([])
 const microsoftLoginDisabled = ref(false)
 const elybyLoginDisabled = ref(false)
 const defaultUser = ref()
 
 // [AR] • Feature
-const clientToken = "astralrinth"
+const clientToken = 'astralrinth'
 const addOfflineModal = ref(null)
 const addElybyModal = ref(null)
 const requestElybyTwoFactorCodeModal = ref(null)
@@ -282,7 +343,8 @@ function clearOfflineFields() {
 // [AR] • Feature
 async function addOfflineProfile() {
 	const name = offlinePlayerName.value.trim()
-	const isValidName = name.length >= minOfflinePlayerNameLength && name.length <= maxOfflinePlayerNameLength
+	const isValidName =
+		name.length >= minOfflinePlayerNameLength && name.length <= maxOfflinePlayerNameLength
 
 	if (!isValidName) {
 		addOfflineModal.value?.hide()
@@ -328,11 +390,7 @@ async function addElybyProfile() {
 	}
 
 	try {
-		const raw_result = await elyby_auth_authenticate(
-			login,
-			password,
-			clientToken
-		)
+		const raw_result = await elyby_auth_authenticate(login, password, clientToken)
 
 		const json_data = JSON.parse(raw_result)
 
@@ -540,7 +598,6 @@ onUnmounted(() => {
 	gap: 1rem;
 }
 
-
 .vector-icon {
 	width: 12px;
 	height: 12px;
@@ -597,6 +654,7 @@ onUnmounted(() => {
 	&.isolated {
 		position: relative;
 		left: 0;
+		right: auto;
 		top: 0;
 	}
 }

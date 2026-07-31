@@ -178,9 +178,7 @@
 			<template #disable><XIcon />Disable selected</template>
 			<template #enable><CheckCircleIcon />Enable selected</template>
 			<template #hide_show><EyeIcon />Show/Hide unselected</template>
-			<template #update_all
-				><UpdatedIcon />Update {{ selected.length > 0 ? 'selected' : 'all' }}</template
-			>
+			<template #update_all><UpdatedIcon />Update all</template>
 			<template #filter_update><UpdatedIcon />Select Updatable</template>
 		</ContextMenu>
 	</div>
@@ -296,7 +294,7 @@ const basePath = computed(() => `/instance/${encodeURIComponent(route.params.id)
 
 const tabs = computed(() => [
 	{
-		label: 'Content',
+		label: instance.value.loader === 'vanilla' ? 'Content' : 'Mods',
 		href: `${basePath.value}`,
 	},
 	{

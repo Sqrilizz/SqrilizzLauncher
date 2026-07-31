@@ -334,9 +334,10 @@ pub struct VersionFile {
 #[derive(Serialize, Deserialize, Copy, Clone, Debug)]
 #[serde(rename_all = "kebab-case")]
 pub enum FileType {
-    RequiredResourcePack,
-    OptionalResourcePack,
-    Unknown,
+	RequiredResourcePack,
+	OptionalResourcePack,
+	#[serde(other)]
+	Unknown,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]

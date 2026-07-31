@@ -1,40 +1,22 @@
 <script setup>
-import { AuthFeature, TauriModrinthClient } from '@modrinth/api-client'
+import { TauriModrinthClient } from '@modrinth/api-client'
 import {
-    CompassIcon,
-    DownloadIcon,
-    ExternalIcon,
-    HomeIcon,
-    LeftArrowIcon,
-    LibraryIcon,
-    LogOutIcon,
-    MaximizeIcon,
-    MinimizeIcon,
-    NewspaperIcon,
-    NotepadTextIcon,
-    PlusIcon,
-    RefreshCwIcon,
-    RestoreIcon,
-    RightArrowIcon,
-    ServerIcon,
-    SettingsIcon,
-    UserIcon,
-    WorldIcon,
-    XIcon
+	LeftArrowIcon,
+	MaximizeIcon,
+	MinimizeIcon,
+	NotepadTextIcon,
+	RestoreIcon,
+	RightArrowIcon,
+	XIcon,
 } from '@modrinth/assets'
 import {
-    Admonition,
-    Avatar,
-    Button,
-    ButtonStyled,
-    commonMessages,
-    NewsArticleCard,
-    NotificationPanel,
-    OverflowMenu,
-    ProgressSpinner,
-    provideModrinthClient,
-    provideNotificationManager,
-    useDebugLogger,
+	Admonition,
+	Button,
+	ButtonStyled,
+	NotificationPanel,
+	provideModrinthClient,
+	provideNotificationManager,
+	useDebugLogger,
 } from '@modrinth/ui'
 import { renderString } from '@modrinth/utils'
 import { useQuery } from '@tanstack/vue-query'
@@ -45,20 +27,15 @@ import { openUrl } from '@tauri-apps/plugin-opener'
 import { type } from '@tauri-apps/plugin-os'
 import { defineMessages, useVIntl } from '@vintl/vintl'
 import { $fetch } from 'ofetch'
-import { computed, onMounted, onUnmounted, provide, ref } from 'vue'
+import { computed, defineAsyncComponent, onMounted, onUnmounted, provide, ref } from 'vue'
 import { RouterView, useRoute, useRouter } from 'vue-router'
 
 import ModrinthLoadingIndicator from '@/components/LoadingIndicatorBar.vue'
 import AccountsCard from '@/components/ui/AccountsCard.vue'
 import Breadcrumbs from '@/components/ui/Breadcrumbs.vue'
 import ErrorModal from '@/components/ui/ErrorModal.vue'
-// [AR] Patch: Removed FriendsList import
-import IncompatibilityWarningModal from '@/components/ui/install_flow/IncompatibilityWarningModal.vue'
-import InstallConfirmModal from '@/components/ui/install_flow/InstallConfirmModal.vue'
-import ModInstallModal from '@/components/ui/install_flow/ModInstallModal.vue'
-import InstanceCreationModal from '@/components/ui/InstanceCreationModal.vue'
-import AppSettingsModal from '@/components/ui/modal/AppSettingsModal.vue'
 import NavButton from '@/components/ui/NavButton.vue'
+import OnboardingOverlay from '@/components/ui/OnboardingOverlay.vue'
 import QuickInstanceSwitcher from '@/components/ui/QuickInstanceSwitcher.vue'
 import RunningAppBar from '@/components/ui/RunningAppBar.vue'
 import SplashScreen from '@/components/ui/SplashScreen.vue'
@@ -66,20 +43,14 @@ import URLConfirmModal from '@/components/ui/URLConfirmModal.vue'
 import { useCheckDisableMouseover } from '@/composables/macCssFix.js'
 import { debugAnalytics, optOutAnalytics, trackEvent } from '@/helpers/analytics'
 import { check_reachable } from '@/helpers/auth.js'
-import { get_user } from '@/helpers/cache.js'
 import { command_listener, warning_listener } from '@/helpers/events.js'
 import { useFetch } from '@/helpers/fetch.js'
-// [AR] Patch: Removed Modrinth auth imports
 import { list } from '@/helpers/profile.js'
 import { get as getSettings, set as setSettings } from '@/helpers/settings.ts'
-import { get_opening_command, initialize_state } from '@/helpers/state'
-import {
-    getOS,
-    isDev
-} from '@/helpers/utils.js'
-import {
-    provideAppUpdateDownloadProgress
-} from '@/providers/download-progress.ts'
+import { check_running_sessions, get_opening_command, initialize_state } from '@/helpers/state'
+import { getRemote } from '@/helpers/update.js'
+import { getOS, isDev } from '@/helpers/utils.js'
+import { provideAppUpdateDownloadProgress } from '@/providers/download-progress.ts'
 import { useError } from '@/store/error.js'
 import { useInstall } from '@/store/install.js'
 import { useLoading, useTheming } from '@/store/state'
@@ -87,9 +58,21 @@ import { useLoading, useTheming } from '@/store/state'
 import { create_profile_and_install_from_file } from './helpers/pack'
 import { AppNotificationManager } from './providers/app-notifications'
 
-// [AR] Imports
-import { get, set } from '@/helpers/settings.ts'
-import { getRemote, updateState } from '@/helpers/update.js'
+const AppSettingsModal = defineAsyncComponent(
+	() => import('@/components/ui/modal/AppSettingsModal.vue'),
+)
+const InstanceCreationModal = defineAsyncComponent(
+	() => import('@/components/ui/InstanceCreationModal.vue'),
+)
+const IncompatibilityWarningModal = defineAsyncComponent(
+	() => import('@/components/ui/install_flow/IncompatibilityWarningModal.vue'),
+)
+const InstallConfirmModal = defineAsyncComponent(
+	() => import('@/components/ui/install_flow/InstallConfirmModal.vue'),
+)
+const ModInstallModal = defineAsyncComponent(
+	() => import('@/components/ui/install_flow/ModInstallModal.vue'),
+)
 
 const themeStore = useTheming()
 
@@ -98,77 +81,24 @@ provideNotificationManager(notificationManager)
 const { handleError, addNotification } = notificationManager
 
 const tauriApiClient = new TauriModrinthClient({
-	userAgent: `modrinth/theseus/${getVersion()} (support@modrinth.com)`,
-	features: [
-		new AuthFeature({
-			token: async () => (await getCreds()).session,
-		}),
-	],
+	userAgent: `sqrilizz/launcher/${getVersion()}`,
 })
 provideModrinthClient(tauriApiClient)
 
-const news = ref([])
 const availableSurvey = ref(false)
-
-// Load news immediately using Tauri HTTP (bypasses CSP)
-setTimeout(async () => {
-	const NEWS_API_URL = 'http://151.241.155.196:3000'
-
-	// First, load from cache
-	try {
-		const cacheContent = await invoke('read_news_cache')
-		const cacheData = JSON.parse(cacheContent)
-		if (cacheData && cacheData.articles && cacheData.articles.length > 0) {
-			news.value = cacheData.articles
-				.map((article) => ({
-					...article,
-					path: article.link,
-					thumbnail: article.thumbnail,
-					title: article.title,
-					summary: article.summary,
-					date: article.date,
-				}))
-				.slice(0, 4)
-		}
-	} catch (err) {
-		// Cache not available
-	}
-
-	// Then, fetch from API using Tauri HTTP
-	try {
-		const apiData = await invoke('fetch_news_from_api')
-
-		const parsedData = JSON.parse(apiData)
-		if (parsedData && parsedData.articles && parsedData.articles.length > 0) {
-			// Save to cache
-			try {
-				await invoke('write_news_cache', {
-					content: apiData
-				})
-			} catch (writeErr) {
-				// Could not save to cache
-			}
-
-			// Update display
-			news.value = parsedData.articles
-				.map((article) => ({
-					...article,
-					path: article.link,
-					thumbnail: article.thumbnail,
-					title: article.title,
-					summary: article.summary,
-					date: article.date,
-				}))
-				.slice(0, 4)
-		}
-	} catch (err) {
-		// API request failed, using cached news if available
-	}
-}, 2000)
 
 const urlModal = ref(null)
 const installationModal = ref(null)
 const settingsModal = ref(null)
+provide('openInstanceCreation', () => installationModal.value?.show())
+
+async function openSettings() {
+	for (let attempt = 0; attempt < 20 && !settingsModal.value; attempt++) {
+		await new Promise((resolve) => setTimeout(resolve, 25))
+	}
+
+	settingsModal.value?.show()
+}
 
 const offline = ref(!navigator.onLine)
 window.addEventListener('offline', () => {
@@ -224,75 +154,12 @@ async function dismissLinuxWarning() {
 	await setSettings(settings)
 }
 
-// Function to load news from API and cache
-function loadNews() {
-	const NEWS_API_URL = 'http://151.241.155.196:3000/api/launchernews'
-
-	// First, load from cache immediately for instant display
-	invoke('read_news_cache')
-		.then((cacheContent) => {
-			try {
-				const cacheData = JSON.parse(cacheContent)
-				if (cacheData && cacheData.articles && cacheData.articles.length > 0) {
-					news.value = cacheData.articles
-						.map((article) => ({
-							...article,
-							path: article.link,
-							thumbnail: article.thumbnail,
-							title: article.title,
-							summary: article.summary,
-							date: article.date,
-						}))
-						.slice(0, 4)
-				}
-			} catch (e) {
-				// Failed to parse cache
-			}
-		})
-		.catch((err) => {
-			// No cache available
-		})
-
-	// Then, fetch from API in background and update cache
-	$fetch(NEWS_API_URL)
-		.then(async (apiData) => {
-			if (apiData && apiData.articles && apiData.articles.length > 0) {
-				// Save to cache
-				try {
-					await invoke('write_news_cache', {
-						content: JSON.stringify(apiData, null, 2)
-					})
-				} catch (writeErr) {
-					// Could not save to cache
-				}
-
-				// Update display with fresh API data
-				news.value = apiData.articles
-					.map((article) => ({
-						...article,
-						path: article.link,
-						thumbnail: article.thumbnail,
-						title: article.title,
-						summary: article.summary,
-						date: article.date,
-					}))
-					.slice(0, 4)
-			}
-		})
-		.catch((err) => {
-			// API request failed, using cached news if available
-		})
-}
-
 onMounted(async () => {
 	await useCheckDisableMouseover()
-	await getRemote(false) // Check for updates
+	if (navigator.onLine) await getRemote(false)
 
 	document.querySelector('body').addEventListener('click', handleClick)
 	document.querySelector('body').addEventListener('auxclick', handleAuxClick)
-
-	// Load news on mount
-	loadNews()
 })
 
 onUnmounted(async () => {
@@ -334,11 +201,7 @@ const messages = defineMessages({
 })
 
 async function setupApp() {
-	// [AR] Patched
-	const settings = await get()
-  	settings.personalized_ads = false
-  	settings.telemetry = false
-  	await set(settings)
+	const settings = await getSettings()
 
 	stateInitialized.value = true
 	const {
@@ -354,9 +217,9 @@ async function setupApp() {
 		developer_mode,
 		feature_flags,
 		pending_update_toast_for_version,
-	} = await getSettings()
+	} = settings
 
-	if (default_page === 'Library') {
+	if (default_page === 'library') {
 		await router.push('/library')
 	}
 
@@ -390,12 +253,12 @@ async function setupApp() {
 
 	// [AR] Patched
 	if (!telemetry) {
-  	  console.info("[AR] • Telemetry disabled by default (Hard patched).")
-  	  optOutAnalytics()
-  	}
-  	if (!personalized_ads) {
-  	  console.info("[AR] • Personalized ads disabled by default (Hard patched).")
-  	}
+		console.info('[AR] • Telemetry disabled by default (Hard patched).')
+		optOutAnalytics()
+	}
+	if (!personalized_ads) {
+		console.info('[AR] • Personalized ads disabled by default (Hard patched).')
+	}
 	if (dev) debugAnalytics()
 	trackEvent('Launched', { version, dev, onboarded })
 
@@ -466,10 +329,10 @@ async function setupApp() {
 		await setSettings(settings)
 	}
 
-	if (osType === 'windows') {
+	if (osType === 'windows' && telemetry) {
 		await processPendingSurveys()
 	} else {
-		console.info('Skipping user surveys on non-Windows platforms')
+		console.info('Skipping user surveys while telemetry is disabled or on a non-Windows platform')
 	}
 }
 
@@ -489,9 +352,15 @@ initialize_state()
 	})
 
 const handleClose = async () => {
-	// [AR] Patch: window-state plugin disabled, just close window
-	// await saveWindowState(StateFlags.ALL)
 	await getCurrentWindow().close()
+}
+
+async function completeOnboarding() {
+	const settings = await getSettings()
+	settings.onboarded = true
+	await setSettings(settings)
+	showOnboarding.value = false
+	trackEvent('OnboardingComplete')
 }
 
 const router = useRouter()
@@ -515,51 +384,7 @@ const modInstallModal = ref()
 const installConfirmModal = ref()
 const incompatibilityWarningModal = ref()
 
-const credentials = ref()
-
-const modrinthLoginFlowWaitModal = ref()
-
-async function fetchCredentials() {
-	const creds = await getCreds().catch(handleError)
-	if (creds && creds.user_id) {
-		creds.user = await get_user(creds.user_id).catch(handleError)
-	}
-	credentials.value = creds ?? null
-}
-
-async function signIn() {
-	modrinthLoginFlowWaitModal.value.show()
-
-	try {
-		await login()
-		await fetchCredentials()
-	} catch (error) {
-		if (
-			typeof error === 'object' &&
-			typeof error['message'] === 'string' &&
-			error.message.includes('Login canceled')
-		) {
-			// Not really an error due to being a result of user interaction, show nothing
-		} else {
-			handleError(error)
-		}
-	} finally {
-		modrinthLoginFlowWaitModal.value.hide()
-	}
-}
-
-async function logOut() {
-	await logout().catch(handleError)
-	await fetchCredentials()
-}
-
-const MIDAS_BITFLAG = 1 << 0
-const hasPlus = computed(
-	() =>
-		credentials.value &&
-		credentials.value.user &&
-		(credentials.value.user.badges & MIDAS_BITFLAG) === MIDAS_BITFLAG,
-)
+const hasPlus = false
 
 const sidebarToggled = ref(true)
 
@@ -665,9 +490,6 @@ async function openSurvey() {
 		return
 	}
 
-	const creds = await getCreds().catch(handleError)
-	const userId = creds?.user_id
-
 	const formId = availableSurvey.value.tally_id
 
 	const popupOptions = {
@@ -676,7 +498,7 @@ async function openSurvey() {
 		autoClose: 2000,
 		hideTitle: true,
 		hiddenFields: {
-			user_id: userId,
+			user_id: null,
 		},
 		onOpen: () => console.info('Opened user survey'),
 		onClose: () => {
@@ -698,7 +520,6 @@ async function openSurvey() {
 	}
 
 	console.info(`Found user survey to show with tally_id: ${formId}`)
-	window.Tally.openPopup(formId, popupOptions)
 }
 
 function dismissSurvey() {
@@ -714,9 +535,6 @@ async function processPendingSurveys() {
 	}
 
 	cleanupOldSurveyDisplayData()
-
-	const creds = await getCreds().catch(handleError)
-	const userId = creds?.user_id
 
 	const instances = await list().catch(handleError)
 	const isActivePlayer =
@@ -738,7 +556,7 @@ async function processPendingSurveys() {
 				localStorage.getItem(`survey-${survey.id}-display`) === null &&
 				survey.type === 'tally_app' &&
 				((survey.condition === 'active_player' && isActivePlayer) ||
-					(survey.assigned_users?.includes(userId) && !survey.dismissed_users?.includes(userId)))
+					(survey.assigned_users?.length && !survey.dismissed_users?.length))
 			),
 	)
 
@@ -764,15 +582,27 @@ provideAppUpdateDownloadProgress(appUpdateDownload) // [AR Note] If delete this 
 	>
 		<div class="bg-bg-raised rounded-xl shadow-2xl max-w-md w-full mx-4 overflow-hidden">
 			<div class="bg-orange-500 px-6 py-4 flex items-center gap-3">
-				<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="h-8 w-8 text-white flex-shrink-0"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+					/>
 				</svg>
 				<h2 class="text-xl font-bold text-white">Linux Compatibility Notice</h2>
 			</div>
 
 			<div class="p-6 space-y-4">
 				<p class="text-contrast">
-					You are running Sqrilizz Launcher on Linux. Due to WebKit limitations, some features may not work as expected:
+					You are running Sqrilizz Launcher on Linux. Due to WebKit limitations, some features may
+					not work as expected:
 				</p>
 
 				<ul class="list-disc list-inside space-y-2 text-secondary">
@@ -780,27 +610,27 @@ provideAppUpdateDownloadProgress(appUpdateDownload) // [AR Note] If delete this 
 					<li>Some native system integrations may be limited</li>
 				</ul>
 
-				<div class="bg-blue-500 bg-opacity-10 border border-blue-500 border-opacity-30 rounded-lg p-4">
+				<div
+					class="bg-blue-500 bg-opacity-10 border border-blue-500 border-opacity-30 rounded-lg p-4"
+				>
 					<p class="text-sm text-contrast">
-						<strong>Workaround:</strong> Use drag & drop to add files instead of file picker dialogs.
+						<strong>Workaround:</strong> Use drag & drop to add files instead of file picker
+						dialogs.
 					</p>
 				</div>
 
 				<p class="text-sm text-secondary">
-					These issues are specific to Linux and do not occur on Windows or macOS. We recommend using Windows for the best experience.
+					These issues are specific to Linux and do not occur on Windows or macOS. We recommend
+					using Windows for the best experience.
 				</p>
 			</div>
 
 			<div class="px-6 pb-6 flex gap-3">
 				<ButtonStyled class="flex-1">
-					<button @click="dismissLinuxWarning" class="w-full">
-						Don't show again
-					</button>
+					<button class="w-full" @click="dismissLinuxWarning">Don't show again</button>
 				</ButtonStyled>
 				<ButtonStyled type="transparent" class="flex-1">
-					<button @click="showLinuxWarning = false" class="w-full">
-						Remind me later
-					</button>
+					<button class="w-full" @click="showLinuxWarning = false">Remind me later</button>
 				</ButtonStyled>
 			</div>
 		</div>
@@ -821,26 +651,33 @@ provideAppUpdateDownloadProgress(appUpdateDownload) // [AR Note] If delete this 
 		<div
 			class="app-grid-navbar bg-bg-raised flex flex-col p-[0.5rem] pt-0 gap-[0.5rem] w-[--left-bar-width]"
 		>
-			<NavButton v-tooltip.right="'Home'" to="/">
-				<HomeIcon />
+			<NavButton v-tooltip.right="'Home'" label="Home" to="/">
+				<i aria-hidden="true" class="fa-solid fa-house" />
 			</NavButton>
-			<NavButton v-if="themeStore.featureFlags.worlds_tab" v-tooltip.right="'Worlds'" to="/worlds">
-				<WorldIcon />
+			<NavButton
+				v-if="themeStore.featureFlags.worlds_tab"
+				v-tooltip.right="'Worlds'"
+				label="Worlds"
+				to="/worlds"
+			>
+				<i aria-hidden="true" class="fa-solid fa-earth-americas" />
 			</NavButton>
 			<NavButton
 				v-if="themeStore.featureFlags.servers_in_app"
 				v-tooltip.right="'Servers'"
+				label="Servers"
 				to="/servers/manage"
 			>
-				<ServerIcon />
+				<i aria-hidden="true" class="fa-solid fa-server" />
 			</NavButton>
 			<NavButton
 				v-tooltip.right="'Discover content'"
+				label="Discover content"
 				to="/browse/modpack"
 				:is-primary="() => route.path.startsWith('/browse') && !route.query.i"
 				:is-subpage="(route) => route.path.startsWith('/project') && !route.query.i"
 			>
-				<CompassIcon />
+				<i aria-hidden="true" class="fa-solid fa-compass" />
 			</NavButton>
 			<!-- [AR] Patch: Skins system removed - hide button -->
 			<!-- <NavButton v-tooltip.right="'Skins (Beta)'" to="/skins">
@@ -848,6 +685,7 @@ provideAppUpdateDownloadProgress(appUpdateDownload) // [AR Note] If delete this 
 			</NavButton> -->
 			<NavButton
 				v-tooltip.right="'Library'"
+				label="Library"
 				to="/library"
 				:is-subpage="
 					() =>
@@ -856,7 +694,7 @@ provideAppUpdateDownloadProgress(appUpdateDownload) // [AR Note] If delete this 
 							route.query.i)
 				"
 			>
-				<LibraryIcon />
+				<i aria-hidden="true" class="fa-solid fa-layer-group" />
 			</NavButton>
 			<div class="h-px w-6 mx-auto my-2 bg-surface-5"></div>
 			<suspense>
@@ -864,100 +702,16 @@ provideAppUpdateDownloadProgress(appUpdateDownload) // [AR Note] If delete this 
 			</suspense>
 			<NavButton
 				v-tooltip.right="'Create new instance'"
+				label="Create new instance"
 				:to="() => installationModal.show()"
 				:disabled="offline"
 			>
-				<PlusIcon />
+				<i aria-hidden="true" class="fa-solid fa-plus" />
 			</NavButton>
 			<div class="flex flex-grow"></div>
-			<Transition name="nav-button-animated">
-				<div
-					v-if="
-						availableUpdate &&
-						updateToastDismissed &&
-						!restarting &&
-						(finishedDownloading || metered)
-					"
-				>
-					<NavButton
-						v-tooltip.right="
-							formatMessage(
-								finishedDownloading
-									? messages.reloadToUpdate
-									: downloadProgress === 0
-										? messages.downloadUpdate
-										: messages.downloadingUpdate,
-								{
-									percent: downloadPercent,
-								},
-							)
-						"
-						:to="
-							finishedDownloading
-								? installUpdate
-								: downloadProgress > 0 && downloadProgress < 1
-									? showUpdateToast
-									: downloadAvailableUpdate
-						"
-					>
-						<ProgressSpinner
-							v-if="downloadProgress > 0 && downloadProgress < 1"
-							class="text-brand"
-							:progress="downloadProgress"
-						/>
-						<RefreshCwIcon v-else-if="finishedDownloading" class="text-brand" />
-						<DownloadIcon v-else class="text-brand" />
-					</NavButton>
-				</div>
-			</Transition>
-			<template v-if="updateState">
-			  <NavButton
-			    class="neon-icon pulse"
-				v-tooltip.right="formatMessage(commonMessages.settingsLabel)"
-				:to="() => settingsModal.show()">
-				<SettingsIcon />
-			    </NavButton>
-      		</template>
-      		<template v-else>
-      		  <NavButton
-				v-tooltip.right="formatMessage(commonMessages.settingsLabel)"
-				:to="() => settingsModal.show()">
-				<SettingsIcon />
-			  </NavButton>
-      		</template>
-			<OverflowMenu
-				v-if="credentials"
-				v-tooltip.right="`Modrinth account`"
-				class="w-12 h-12 text-primary rounded-full flex items-center justify-center text-2xl transition-all bg-transparent hover:bg-button-bg hover:text-contrast border-0 cursor-pointer"
-				:options="[
-					{
-						id: 'view-profile',
-						action: () => openUrl('https://modrinth.com/user/' + credentials.user.username),
-					},
-					{
-						id: 'sign-out',
-						action: () => logOut(),
-						color: 'danger',
-					},
-				]"
-				placement="right-end"
-			>
-				<Avatar :src="credentials.user.avatar_url" alt="" size="32px" circle />
-				<template #view-profile>
-					<UserIcon />
-					<span class="inline-flex items-center gap-1">
-						Signed in as
-						<span class="inline-flex items-center gap-1 text-contrast font-semibold">
-							<Avatar :src="credentials.user.avatar_url" alt="" size="20px" circle />
-							{{ credentials.user.username }}
-						</span>
-					</span>
-					<ExternalIcon />
-				</template>
-				<template #sign-out> <LogOutIcon /> Sign out </template>
-			</OverflowMenu>
-			<!-- [AR] Patch: Removed Modrinth sign-in button for offline launcher -->
-			<!-- Modrinth account login disabled -->
+			<NavButton v-tooltip.right="'Settings'" label="Settings" :to="openSettings">
+				<i aria-hidden="true" class="fa-solid fa-gear" />
+			</NavButton>
 		</div>
 		<div data-tauri-drag-region class="app-grid-statusbar bg-bg-raised h-[--top-bar-height] flex">
 			<div data-tauri-drag-region class="flex p-3">
@@ -1029,12 +783,12 @@ provideAppUpdateDownloadProgress(appUpdateDownload) // [AR Note] If delete this 
 					v-if="availableSurvey"
 					class="w-[400px] z-20 fixed -bottom-12 pb-16 right-[--right-bar-width] mr-4 rounded-t-2xl card-shadow bg-bg-raised border-divider border-[1px] border-solid border-b-0 p-4"
 				>
-					<h2 class="text-lg font-extrabold mt-0 mb-2">Hey there Modrinth user!</h2>
+					<h2 class="text-lg font-extrabold mt-0 mb-2">Help shape Sqrilizz Launcher</h2>
 					<p class="m-0 leading-tight">
-						Would you mind answering a few questions about your experience with Modrinth App?
+						Would you mind answering a few questions about your launcher experience?
 					</p>
 					<p class="mt-3 mb-4 leading-tight">
-						This feedback will go directly to the Modrinth team and help guide future updates!
+						Your feedback will help guide future Sqrilizz Launcher updates!
 					</p>
 					<div class="flex gap-2">
 						<ButtonStyled color="brand">
@@ -1114,49 +868,11 @@ provideAppUpdateDownloadProgress(appUpdateDownload) // [AR Note] If delete this 
 							<AccountsCard ref="accounts" mode="small" />
 						</suspense>
 					</div>
-					<!-- [AR] Patch: FriendsList disabled -->
-					<!--
-					<div class="py-4 border-0 border-b-[1px] border-[--brand-gradient-border] border-solid">
-						<suspense>
-							<FriendsList
-								:credentials="credentials"
-								:sign-in="() => signIn()"
-								:refresh-credentials="fetchCredentials"
-							/>
-						</suspense>
-					</div>
-					-->
-					<div class="p-4 pr-1 flex flex-col items-center">
-						<h3 class="text-base mb-4 text-primary font-medium m-0 text-left w-full">News</h3>
-						<div v-if="news && news.length > 0" class="space-y-4 flex flex-col items-center w-full">
-							<NewsArticleCard
-								v-for="(item, index) in news"
-								:key="`news-${index}`"
-								:article="item"
-							/>
-							<ButtonStyled color="brand" size="large">
-								<a href="https://github.com/sqrilizz/SqrilizzLauncher/releases" target="_blank" class="my-4">
-									<NewspaperIcon /> View all updates
-								</a>
-							</ButtonStyled>
-						</div>
-						<div v-else class="w-full flex flex-col items-center justify-center py-12 px-4 text-center">
-							<div class="flex items-center justify-center mb-4">
-								<NewspaperIcon class="w-12 h-12 text-secondary opacity-40" />
-							</div>
-							<p class="text-secondary text-sm mb-1 font-medium">No news available</p>
-							<p class="text-tertiary text-xs mb-6">Check back later for updates</p>
-							<ButtonStyled color="brand" size="small">
-								<a href="https://github.com/sqrilizz/SqrilizzLauncher/releases" target="_blank" class="flex items-center gap-2">
-									<ExternalIcon /> View releases
-								</a>
-							</ButtonStyled>
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<OnboardingOverlay v-if="stateInitialized && showOnboarding" @complete="completeOnboarding" />
 	<URLConfirmModal ref="urlModal" />
 	<NotificationPanel has-sidebar />
 	<ErrorModal ref="errorModal" />

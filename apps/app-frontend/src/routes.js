@@ -1,11 +1,6 @@
 import { ServersManagePageIndex } from '@modrinth/ui'
 import { createRouter, createWebHistory } from 'vue-router'
 
-import * as Pages from '@/pages'
-import * as Instance from '@/pages/instance'
-import * as Library from '@/pages/library'
-import * as Project from '@/pages/project'
-
 /**
  * Configures application routing. Add page to pages/index and then add to route table here.
  */
@@ -15,7 +10,7 @@ export default new createRouter({
 		{
 			path: '/',
 			name: 'Home',
-			component: Pages.Index,
+			component: () => import('@/pages/Index.vue'),
 			meta: {
 				breadcrumb: [{ name: 'Home' }],
 			},
@@ -23,7 +18,7 @@ export default new createRouter({
 		{
 			path: '/worlds',
 			name: 'Worlds',
-			component: Pages.Worlds,
+			component: () => import('@/pages/Worlds.vue'),
 			meta: {
 				breadcrumb: [{ name: 'Worlds' }],
 			},
@@ -39,7 +34,7 @@ export default new createRouter({
 		{
 			path: '/browse/:projectType',
 			name: 'Discover content',
-			component: Pages.Browse,
+			component: () => import('@/pages/Browse.vue'),
 			meta: {
 				breadcrumb: [{ name: 'Discover content' }],
 			},
@@ -47,7 +42,7 @@ export default new createRouter({
 		{
 			path: '/skins',
 			name: 'Skins',
-			component: Pages.Skins,
+			component: () => import('@/pages/Skins.vue'),
 			meta: {
 				breadcrumb: [{ name: 'Skins' }],
 			},
@@ -55,7 +50,7 @@ export default new createRouter({
 		{
 			path: '/library',
 			name: 'Library',
-			component: Library.Index,
+			component: () => import('@/pages/library/Index.vue'),
 			meta: {
 				breadcrumb: [{ name: 'Library' }],
 			},
@@ -63,30 +58,30 @@ export default new createRouter({
 				{
 					path: '',
 					name: 'Overview',
-					component: Library.Overview,
+					component: () => import('@/pages/library/Overview.vue'),
 				},
 				{
 					path: 'downloaded',
 					name: 'Downloaded',
-					component: Library.Downloaded,
+					component: () => import('@/pages/library/Downloaded.vue'),
 				},
 				{
 					path: 'custom',
 					name: 'Custom',
-					component: Library.Custom,
+					component: () => import('@/pages/library/Custom.vue'),
 				},
 			],
 		},
 		{
 			path: '/project/:id',
 			name: 'Project',
-			component: Project.Index,
+			component: () => import('@/pages/project/Index.vue'),
 			props: true,
 			children: [
 				{
 					path: '',
 					name: 'Description',
-					component: Project.Description,
+					component: () => import('@/pages/project/Description.vue'),
 					meta: {
 						useContext: true,
 						breadcrumb: [{ name: '?Project' }],
@@ -95,7 +90,7 @@ export default new createRouter({
 				{
 					path: 'versions',
 					name: 'Versions',
-					component: Project.Versions,
+					component: () => import('@/pages/project/Versions.vue'),
 					meta: {
 						useContext: true,
 						breadcrumb: [{ name: '?Project', link: '/project/{id}/' }, { name: 'Versions' }],
@@ -104,7 +99,7 @@ export default new createRouter({
 				{
 					path: 'version/:version',
 					name: 'Version',
-					component: Project.Version,
+					component: () => import('@/pages/project/Version.vue'),
 					props: true,
 					meta: {
 						useContext: true,
@@ -118,7 +113,7 @@ export default new createRouter({
 				{
 					path: 'gallery',
 					name: 'Gallery',
-					component: Project.Gallery,
+					component: () => import('@/pages/project/Gallery.vue'),
 					meta: {
 						useContext: true,
 						breadcrumb: [{ name: '?Project', link: '/project/{id}/' }, { name: 'Gallery' }],
@@ -129,7 +124,7 @@ export default new createRouter({
 		{
 			path: '/instance/:id',
 			name: 'Instance',
-			component: Instance.Index,
+			component: () => import('@/pages/instance/Index.vue'),
 			props: true,
 			children: [
 				// {
@@ -144,7 +139,7 @@ export default new createRouter({
 				{
 					path: 'worlds',
 					name: 'InstanceWorlds',
-					component: Instance.Worlds,
+					component: () => import('@/pages/instance/Worlds.vue'),
 					meta: {
 						useRootContext: true,
 						breadcrumb: [{ name: '?Instance', link: '/instance/{id}/' }, { name: 'Worlds' }],
@@ -153,25 +148,25 @@ export default new createRouter({
 				{
 					path: '',
 					name: 'Mods',
-					component: Instance.Mods,
+					component: () => import('@/pages/instance/Mods.vue'),
 					meta: {
 						useRootContext: true,
-						breadcrumb: [{ name: '?Instance', link: '/instance/{id}/' }, { name: 'Content' }],
+						breadcrumb: [{ name: '?Instance', link: '/instance/{id}/' }, { name: 'Mods' }],
 					},
 				},
 				{
 					path: 'projects/:type',
 					name: 'ModsFilter',
-					component: Instance.Mods,
+					component: () => import('@/pages/instance/Mods.vue'),
 					meta: {
 						useRootContext: true,
-						breadcrumb: [{ name: '?Instance', link: '/instance/{id}/' }, { name: 'Content' }],
+						breadcrumb: [{ name: '?Instance', link: '/instance/{id}/' }, { name: 'Mods' }],
 					},
 				},
 				{
 					path: 'logs',
 					name: 'Logs',
-					component: Instance.Logs,
+					component: () => import('@/pages/instance/Logs.vue'),
 					meta: {
 						useRootContext: true,
 						breadcrumb: [{ name: '?Instance', link: '/instance/{id}/' }, { name: 'Logs' }],

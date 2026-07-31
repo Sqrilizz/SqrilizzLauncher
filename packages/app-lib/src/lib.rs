@@ -26,8 +26,4 @@ pub use event::{
 pub use logger::start_logger;
 pub use state::State;
 
-pub const LAUNCHER_USER_AGENT: &str = concat!(
-    "modrinth/theseus/",
-    env!("CARGO_PKG_VERSION"),
-    " (support@modrinth.com)"
-);
+pub const LAUNCHER_USER_AGENT: &str = concat!("sqrilizz/launcher/", env!("CARGO_PKG_VERSION"));

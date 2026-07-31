@@ -1,8 +1,29 @@
 <template>
-	<div>
+	<div class="mods-page">
 		<template v-if="projects?.length > 0">
-			<div class="flex items-center gap-2 mb-4">
-				<div class="iconified-input flex-grow">
+			<div class="mods-heading">
+				<div>
+					<span class="mods-kicker">INSTANCE CONTENT</span>
+					<h1>{{ instance.loader === 'vanilla' ? 'Content' : 'Mods' }}</h1>
+					<p>Keep this profile clean, compatible and ready to play.</p>
+				</div>
+				<div class="mods-stats" aria-label="Content summary">
+					<div class="mods-stat">
+						<strong>{{ projects.length }}</strong>
+						<span>Installed</span>
+					</div>
+					<div class="mods-stat">
+						<strong>{{ enabledProjects }}</strong>
+						<span>Enabled</span>
+					</div>
+					<div class="mods-stat" :class="{ 'has-updates': updatesAvailable > 0 }">
+						<strong>{{ updatesAvailable }}</strong>
+						<span>Updates</span>
+					</div>
+				</div>
+			</div>
+			<div class="mods-toolbar">
+				<div class="iconified-input mods-search">
 					<SearchIcon />
 					<input
 						v-model="searchFilter"
@@ -17,13 +38,14 @@
 				</div>
 				<AddContentButton :instance="instance" />
 			</div>
-			<div class="flex items-center justify-between">
-				<div v-if="filterOptions.length > 1" class="flex flex-wrap gap-1 items-center pb-4">
-					<FilterIcon class="text-secondary h-5 w-5 mr-1" />
+			<div class="mods-filter-row">
+				<div v-if="filterOptions.length > 1" class="mods-filters">
+					<span class="mods-filter-label"><FilterIcon /> Filters</span>
 					<button
 						v-for="filter in filterOptions"
 						:key="`content-filter-${filter.id}`"
-						:class="`px-2 py-1 rounded-full font-semibold leading-none border-none cursor-pointer active:scale-[0.97] duration-100 transition-all ${selectedFilters.includes(filter.id) ? 'bg-brand-highlight text-brand' : 'bg-bg-raised text-secondary'}`"
+						:class="['mods-filter-chip', { 'is-selected': selectedFilters.includes(filter.id) }]"
+						:aria-pressed="selectedFilters.includes(filter.id)"
 						@click="toggleArray(selectedFilters, filter.id)"
 					>
 						{{ filter.formattedName }}
@@ -40,6 +62,7 @@
 
 			<ContentListPanel
 				v-model="selectedFiles"
+				class="mods-list-panel"
 				:locked="isPackLocked"
 				:items="
 					search.map((x) => {
@@ -338,6 +361,10 @@ const canUpdatePack = computed(() => {
 const exportModal = ref(null)
 
 const projects = ref<ProjectListEntry[]>([])
+const enabledProjects = computed(() => projects.value.filter((project) => !project.disabled).length)
+const updatesAvailable = computed(
+	() => projects.value.filter((project) => project.outdated).length,
+)
 const selectedFiles = ref<string[]>([])
 const selectedProjects = computed(() =>
 	projects.value.filter((x) => selectedFiles.value.includes(x.file_name)),
@@ -734,12 +761,6 @@ const removeMod = async (mod: ContentItem<ProjectListEntry>) => {
 	})
 }
 
-const copyModLink = async (mod: ContentItem<ProjectListEntry>) => {
-	await navigator.clipboard.writeText(
-		`https://modrinth.com/${mod.data.project_type}/${mod.data.slug}`,
-	)
-}
-
 const deleteSelected = async () => {
 	for (const project of functionValues.value) {
 		await remove_project(props.instance.path, project.path).catch(handleError)
@@ -850,6 +871,199 @@ onUnmounted(() => {
 </script>
 
 <style scoped lang="scss">
+.mods-page {
+	min-width: 0;
+}
+
+.mods-heading {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: 1.5rem;
+	margin-bottom: 1.25rem;
+}
+
+.mods-kicker {
+	color: var(--color-brand);
+	font-size: 0.7rem;
+	font-weight: 800;
+	letter-spacing: 0.14em;
+}
+
+.mods-heading h1 {
+	margin: 0.3rem 0 0;
+	color: var(--color-contrast);
+	font-size: clamp(1.6rem, 2.5vw, 2.25rem);
+	letter-spacing: -0.04em;
+}
+
+.mods-heading p {
+	margin: 0.4rem 0 0;
+	color: var(--color-secondary);
+	font-size: 0.85rem;
+}
+
+.mods-stats {
+	display: flex;
+	align-items: stretch;
+	gap: 0.5rem;
+}
+
+.mods-stat {
+	min-width: 5.5rem;
+	padding: 0.65rem 0.85rem;
+	border: 1px solid var(--color-divider);
+	border-radius: var(--radius-md);
+	background: var(--color-raised-bg);
+}
+
+.mods-stat strong,
+.mods-stat span {
+	display: block;
+}
+
+.mods-stat strong {
+	color: var(--color-contrast);
+	font-size: 1.15rem;
+	line-height: 1;
+}
+
+.mods-stat span {
+	margin-top: 0.3rem;
+	color: var(--color-secondary);
+	font-size: 0.7rem;
+	font-weight: 700;
+}
+
+.mods-stat.has-updates {
+	border-color: color-mix(in srgb, var(--color-brand) 55%, var(--color-divider));
+}
+
+.mods-stat.has-updates strong {
+	color: var(--color-brand);
+}
+
+.mods-toolbar {
+	display: flex;
+	align-items: center;
+	gap: 0.65rem;
+	margin-bottom: 0.8rem;
+}
+
+.mods-search {
+	flex: 1;
+	min-width: 12rem;
+}
+
+.mods-filter-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.75rem;
+	min-height: 2.5rem;
+	margin-bottom: 0.35rem;
+}
+
+.mods-filters {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 0.4rem;
+}
+
+.mods-filter-label {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+	margin-right: 0.2rem;
+	color: var(--color-secondary);
+	font-size: 0.76rem;
+	font-weight: 700;
+}
+
+.mods-filter-label svg {
+	width: 1rem;
+	height: 1rem;
+}
+
+.mods-filter-chip {
+	min-height: 2rem;
+	padding: 0.35rem 0.7rem;
+	border: 1px solid var(--color-divider);
+	border-radius: 999px;
+	background: transparent;
+	color: var(--color-secondary);
+	font-size: 0.75rem;
+	font-weight: 700;
+	cursor: pointer;
+	transition:
+		background 160ms ease,
+		border-color 160ms ease,
+		color 160ms ease;
+}
+
+.mods-filter-chip:hover,
+.mods-filter-chip:focus-visible {
+	border-color: var(--color-brand);
+	color: var(--color-contrast);
+}
+
+.mods-filter-chip.is-selected {
+	border-color: var(--color-brand);
+	background: var(--color-brand-highlight);
+	color: var(--color-brand);
+}
+
+.mods-filter-chip:focus-visible {
+	outline: 2px solid var(--color-brand);
+	outline-offset: 2px;
+}
+
+.mods-list-panel {
+	margin-top: 0.2rem;
+}
+
+.mods-list-panel :deep(.content-list-item) {
+	grid-template-columns: 2rem minmax(0, 1fr) auto !important;
+	min-height: 4.5rem;
+	padding: 0.65rem 0.85rem;
+	border-bottom-color: var(--color-divider);
+	background: var(--color-raised-bg);
+}
+
+.mods-list-panel :deep(.content-list-item:hover) {
+	background: var(--color-button-bg);
+}
+
+.mods-list-panel :deep(.content-list-item .avatar) {
+	--_size: 2.75rem !important;
+}
+
+.mods-list-panel :deep(.content-list-item .text-contrast) {
+	font-size: 0.92rem;
+	font-weight: 700;
+	line-height: 1.25;
+}
+
+.mods-list-panel :deep(.content-list-item .text-secondary) {
+	font-size: 0.76rem;
+	line-height: 1.35;
+}
+
+.mods-list-panel :deep(.content-list-item .select-checkbox > span) {
+	width: 1.15rem;
+	height: 1.15rem;
+	border-radius: 0.35rem;
+}
+
+.mods-list-panel :deep(.content-list-item > div:last-child) {
+	gap: 0.45rem;
+}
+
+.mods-list-panel :deep(.content-list-item .switch) {
+	transform: scale(1.08);
+}
+
 .text-input {
 	width: 100%;
 }
@@ -1123,6 +1337,33 @@ onUnmounted(() => {
 	p,
 	h3 {
 		margin: 0;
+	}
+}
+
+@media (max-width: 800px) {
+	.mods-heading {
+		align-items: flex-start;
+		flex-direction: column;
+	}
+
+	.mods-stats {
+		width: 100%;
+	}
+
+	.mods-stat {
+		flex: 1;
+	}
+}
+
+@media (max-width: 600px) {
+	.mods-toolbar,
+	.mods-filter-row {
+		align-items: stretch;
+		flex-direction: column;
+	}
+
+	.mods-search {
+		width: 100%;
 	}
 }
 </style>

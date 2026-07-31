@@ -23,9 +23,9 @@
 				<div
 					v-if="!hideHeader"
 					data-tauri-drag-region
-					class="grid grid-cols-[auto_min-content] items-center gap-12 p-6 border-solid border-0 border-b-[1px] border-divider max-w-full"
+					class="flex items-center justify-between gap-4 px-7 py-4 border-solid border-0 border-b-[1px] border-divider max-w-full"
 				>
-					<div class="flex text-wrap break-words items-center gap-3 min-w-0">
+					<div class="flex flex-1 min-w-0 text-wrap break-words items-center gap-3">
 						<slot name="title">
 							<span v-if="header" class="text-lg font-extrabold text-contrast">
 								{{ header }}
