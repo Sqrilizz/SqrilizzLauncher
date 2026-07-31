@@ -21,7 +21,7 @@ A modern Minecraft launcher built with Tauri and Vue 3.
 Download the installer for your platform:
 
 - **Windows**: `.exe` file
-- **Linux**: `.deb` or `.rpm` file
+- **Linux**: `.deb`,`.rpm` or `.appimage` file
 
 
 Run the installer and follow the instructions.
