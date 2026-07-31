@@ -83,10 +83,16 @@ cd apps/app
 pnpm tauri build -- --bundles deb
 ```
 
-**Linux - deb и AppImage:**
+**Linux - deb, RPM и AppImage:**
 ```bash
 cd apps/app
-pnpm tauri build -- --bundles deb,appimage
+pnpm tauri build -- --bundles deb,rpm,appimage
+```
+
+**Windows - NSIS `.exe` и MSI:**
+```powershell
+cd apps/app
+pnpm tauri build -- --bundles nsis,msi
 ```
 
 **macOS - универсальный бинарник:**
@@ -104,7 +110,7 @@ apps/app/target/release/bundle/
 
 Структура:
 - Windows: `nsis/` (установщик) и `msi/` (MSI пакет)
-- Linux: `deb/` и `appimage/`
+- Linux: `deb/`, `rpm/` и `appimage/`
 - macOS: `dmg/` и `macos/`
 
 ## Проблемы при сборке
