@@ -24,8 +24,10 @@
 				"depends": []
 			},
 			"appimage": {
-				"bundleMediaFramework": true,
-				"files": {}
+				"bundleMediaFramework": false,
+				"files": {
+					"/usr/share/icons/hicolor/128x128/apps/SqrilizzLauncher.png": "icons/128x128.png"
+				}
 			},
 			"rpm": {
 				"depends": []

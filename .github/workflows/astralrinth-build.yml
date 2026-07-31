@@ -138,6 +138,10 @@ jobs:
         env:
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
+          MODRINTH_API_URL: https://api.modrinth.com/v2/
+          MODRINTH_API_URL_V3: https://api.modrinth.com/v3/
+          MODRINTH_LAUNCHER_META_URL: https://launcher-meta.modrinth.com/
+          NO_STRIP: '1'
 
       - name: 🔨 Build Windows app
         if: matrix.platform == 'windows-latest'
@@ -148,6 +152,9 @@ jobs:
         env:
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
+          MODRINTH_API_URL: https://api.modrinth.com/v2/
+          MODRINTH_API_URL_V3: https://api.modrinth.com/v3/
+          MODRINTH_LAUNCHER_META_URL: https://launcher-meta.modrinth.com/
 
       - name: 📤 Upload app bundles
         uses: actions/upload-artifact@v4
