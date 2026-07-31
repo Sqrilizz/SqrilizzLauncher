@@ -1,4 +1,3 @@
-import '@fortawesome/fontawesome-free/css/all.min.css'
 import 'floating-vue/dist/style.css'
 
 import { VueQueryPlugin } from '@tanstack/vue-query'

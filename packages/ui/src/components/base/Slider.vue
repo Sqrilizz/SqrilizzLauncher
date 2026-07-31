@@ -152,13 +152,31 @@ const onInput = (value: string) => {
 		var(--color-brand),
 		var(--color-brand)
 			calc((var(--current-value) - var(--min-value)) / (var(--max-value) - var(--min-value)) * 100%),
-		var(--color-base)
+		var(--color-button-bg)
 			calc((var(--current-value) - var(--min-value)) / (var(--max-value) - var(--min-value)) * 100%),
-		var(--color-base) 100%
-	);
+		var(--color-button-bg) 100%
+	) !important;
 	background-size: 100% 100%;
 	outline: none;
 	vertical-align: middle;
+}
+
+.slider-component .slide-container .slider::-webkit-slider-runnable-track {
+	height: 0.25rem;
+	border-radius: var(--radius-sm);
+	background: transparent;
+}
+
+.slider-component .slide-container .slider::-moz-range-track {
+	height: 0.25rem;
+	border-radius: var(--radius-sm);
+	background: transparent;
+}
+
+.slider-component .slide-container .slider::-moz-range-progress {
+	height: 0.25rem;
+	border-radius: var(--radius-sm);
+	background: var(--color-brand);
 }
 
 .slider-component .slide-container .slider::-webkit-slider-thumb {

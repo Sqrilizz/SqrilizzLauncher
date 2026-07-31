@@ -2,23 +2,28 @@
 import { TauriModrinthClient } from '@modrinth/api-client'
 import {
 	LeftArrowIcon,
+	CompassIcon,
+	HomeIcon,
+	LibraryIcon,
 	MaximizeIcon,
 	MinimizeIcon,
 	NotepadTextIcon,
+	PlusIcon,
 	RestoreIcon,
 	RightArrowIcon,
+	ServerIcon,
+	SettingsIcon,
+	WorldIcon,
 	XIcon,
 } from '@modrinth/assets'
-import {
-	Admonition,
-	Button,
-	ButtonStyled,
-	NotificationPanel,
-	provideModrinthClient,
-	provideNotificationManager,
-	useDebugLogger,
-} from '@modrinth/ui'
-import { renderString } from '@modrinth/utils'
+import Admonition from '@modrinth/ui/src/components/base/Admonition.vue'
+import Button from '@modrinth/ui/src/components/base/Button.vue'
+import ButtonStyled from '@modrinth/ui/src/components/base/ButtonStyled.vue'
+import NotificationPanel from '@modrinth/ui/src/components/nav/NotificationPanel.vue'
+import { provideModrinthClient } from '@modrinth/ui/src/providers/api-client'
+import { provideNotificationManager } from '@modrinth/ui/src/providers/web-notifications'
+import { useDebugLogger } from '@modrinth/ui/src/composables/debug-logger'
+import { renderString } from '@modrinth/utils/parse'
 import { useQuery } from '@tanstack/vue-query'
 import { getVersion } from '@tauri-apps/api/app'
 import { invoke } from '@tauri-apps/api/core'
@@ -31,13 +36,9 @@ import { computed, defineAsyncComponent, onMounted, onUnmounted, provide, ref } 
 import { RouterView, useRoute, useRouter } from 'vue-router'
 
 import ModrinthLoadingIndicator from '@/components/LoadingIndicatorBar.vue'
-import AccountsCard from '@/components/ui/AccountsCard.vue'
 import Breadcrumbs from '@/components/ui/Breadcrumbs.vue'
 import ErrorModal from '@/components/ui/ErrorModal.vue'
 import NavButton from '@/components/ui/NavButton.vue'
-import OnboardingOverlay from '@/components/ui/OnboardingOverlay.vue'
-import QuickInstanceSwitcher from '@/components/ui/QuickInstanceSwitcher.vue'
-import RunningAppBar from '@/components/ui/RunningAppBar.vue'
 import SplashScreen from '@/components/ui/SplashScreen.vue'
 import URLConfirmModal from '@/components/ui/URLConfirmModal.vue'
 import { useCheckDisableMouseover } from '@/composables/macCssFix.js'
@@ -73,6 +74,14 @@ const InstallConfirmModal = defineAsyncComponent(
 const ModInstallModal = defineAsyncComponent(
 	() => import('@/components/ui/install_flow/ModInstallModal.vue'),
 )
+const AccountsCard = defineAsyncComponent(() => import('@/components/ui/AccountsCard.vue'))
+const OnboardingOverlay = defineAsyncComponent(
+	() => import('@/components/ui/OnboardingOverlay.vue'),
+)
+const QuickInstanceSwitcher = defineAsyncComponent(
+	() => import('@/components/ui/QuickInstanceSwitcher.vue'),
+)
+const RunningAppBar = defineAsyncComponent(() => import('@/components/ui/RunningAppBar.vue'))
 
 const themeStore = useTheming()
 
@@ -98,6 +107,14 @@ async function openSettings() {
 	}
 
 	settingsModal.value?.show()
+}
+
+async function openInstanceCreationModal() {
+	for (let attempt = 0; attempt < 20 && !installationModal.value; attempt++) {
+		await new Promise((resolve) => setTimeout(resolve, 25))
+	}
+
+	installationModal.value?.show()
 }
 
 const offline = ref(!navigator.onLine)
@@ -134,6 +151,7 @@ const authServerQuery = useQuery({
 	refetchInterval: 5 * 60 * 1000, // 5 minutes
 	retry: false,
 	refetchOnWindowFocus: false,
+	enabled: false,
 })
 
 const authUnreachable = computed(() => {
@@ -156,7 +174,7 @@ async function dismissLinuxWarning() {
 
 onMounted(async () => {
 	await useCheckDisableMouseover()
-	if (navigator.onLine) await getRemote(false)
+	if (navigator.onLine && !(await isDev())) await getRemote(false)
 
 	document.querySelector('body').addEventListener('click', handleClick)
 	document.querySelector('body').addEventListener('auxclick', handleAuxClick)
@@ -279,22 +297,25 @@ async function setupApp() {
 		}),
 	)
 
-	useFetch(
-		`https://api.modrinth.com/appCriticalAnnouncement.json?version=${version}`,
-		'criticalAnnouncements',
-		true,
-	)
-		.then((response) => response.json())
-		.then((res) => {
-			if (res && res.header && res.body) {
-				criticalErrorMessage.value = res
-			}
-		})
-		.catch(() => {
-			console.log(
-				`No critical announcement found at https://api.modrinth.com/appCriticalAnnouncement.json?version=${version}`,
-			)
-		})
+	window.setTimeout(() => {
+		void authServerQuery.refetch()
+		useFetch(
+			`https://api.modrinth.com/appCriticalAnnouncement.json?version=${version}`,
+			'criticalAnnouncements',
+			true,
+		)
+			.then((response) => response.json())
+			.then((res) => {
+				if (res && res.header && res.body) {
+					criticalErrorMessage.value = res
+				}
+			})
+			.catch(() => {
+				console.log(
+					`No critical announcement found at https://api.modrinth.com/appCriticalAnnouncement.json?version=${version}`,
+				)
+			})
+	}, 1500)
 
 	get_opening_command().then(handleCommand)
 	// [AR] Patch: Removed fetchCredentials() call
@@ -424,7 +445,7 @@ async function handleCommand(e) {
 		}
 	} else {
 		// Other commands are URL-based (deep linking)
-		urlModal.value.show(e)
+		urlModal.value?.show?.(e)
 	}
 }
 
@@ -652,7 +673,7 @@ provideAppUpdateDownloadProgress(appUpdateDownload) // [AR Note] If delete this 
 			class="app-grid-navbar bg-bg-raised flex flex-col p-[0.5rem] pt-0 gap-[0.5rem] w-[--left-bar-width]"
 		>
 			<NavButton v-tooltip.right="'Home'" label="Home" to="/">
-				<i aria-hidden="true" class="fa-solid fa-house" />
+				<HomeIcon aria-hidden="true" />
 			</NavButton>
 			<NavButton
 				v-if="themeStore.featureFlags.worlds_tab"
@@ -660,7 +681,7 @@ provideAppUpdateDownloadProgress(appUpdateDownload) // [AR Note] If delete this 
 				label="Worlds"
 				to="/worlds"
 			>
-				<i aria-hidden="true" class="fa-solid fa-earth-americas" />
+				<WorldIcon aria-hidden="true" />
 			</NavButton>
 			<NavButton
 				v-if="themeStore.featureFlags.servers_in_app"
@@ -668,7 +689,7 @@ provideAppUpdateDownloadProgress(appUpdateDownload) // [AR Note] If delete this 
 				label="Servers"
 				to="/servers/manage"
 			>
-				<i aria-hidden="true" class="fa-solid fa-server" />
+				<ServerIcon aria-hidden="true" />
 			</NavButton>
 			<NavButton
 				v-tooltip.right="'Discover content'"
@@ -677,7 +698,7 @@ provideAppUpdateDownloadProgress(appUpdateDownload) // [AR Note] If delete this 
 				:is-primary="() => route.path.startsWith('/browse') && !route.query.i"
 				:is-subpage="(route) => route.path.startsWith('/project') && !route.query.i"
 			>
-				<i aria-hidden="true" class="fa-solid fa-compass" />
+				<CompassIcon aria-hidden="true" />
 			</NavButton>
 			<!-- [AR] Patch: Skins system removed - hide button -->
 			<!-- <NavButton v-tooltip.right="'Skins (Beta)'" to="/skins">
@@ -694,7 +715,7 @@ provideAppUpdateDownloadProgress(appUpdateDownload) // [AR Note] If delete this 
 							route.query.i)
 				"
 			>
-				<i aria-hidden="true" class="fa-solid fa-layer-group" />
+				<LibraryIcon aria-hidden="true" />
 			</NavButton>
 			<div class="h-px w-6 mx-auto my-2 bg-surface-5"></div>
 			<suspense>
@@ -703,14 +724,14 @@ provideAppUpdateDownloadProgress(appUpdateDownload) // [AR Note] If delete this 
 			<NavButton
 				v-tooltip.right="'Create new instance'"
 				label="Create new instance"
-				:to="() => installationModal.show()"
+				:to="openInstanceCreationModal"
 				:disabled="offline"
 			>
-				<i aria-hidden="true" class="fa-solid fa-plus" />
+				<PlusIcon aria-hidden="true" />
 			</NavButton>
 			<div class="flex flex-grow"></div>
 			<NavButton v-tooltip.right="'Settings'" label="Settings" :to="openSettings">
-				<i aria-hidden="true" class="fa-solid fa-gear" />
+				<SettingsIcon aria-hidden="true" />
 			</NavButton>
 		</div>
 		<div data-tauri-drag-region class="app-grid-statusbar bg-bg-raised h-[--top-bar-height] flex">

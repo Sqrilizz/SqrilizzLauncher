@@ -1,7 +1,7 @@
 import { getVersion } from '@tauri-apps/api/app'
 import { ref } from 'vue'
 
-import { getOS, initUpdateLauncher } from '@/helpers/utils.js'
+import { getOS, initUpdateLauncher, isDev } from '@/helpers/utils.js'
 
 export const allowState = ref(false)
 export const installState = ref(false)
@@ -9,7 +9,7 @@ export const updateState = ref(false)
 export const latestRelease = ref({ tag: '', title: '' })
 
 const currentOS = ref('')
-const api = 'https://api.github.com/repos/sqrilizz/SqrilizzLauncher/releases/latest'
+const api = 'https://api.github.com/repos/Sqrilizz/SqrilizzLauncher/releases/latest'
 
 const installerExtensions = {
 	windows: ['.msi', '.exe'],
@@ -28,10 +28,16 @@ const blacklistBeginPrefixes = [
 ]
 
 export async function getRemote(isDownloadState = false) {
+	if (await isDev()) return false
+
+	const controller = new AbortController()
+	const timeout = window.setTimeout(() => controller.abort(), 10000)
+
 	try {
 		currentOS.value = String(await getOS()).toLowerCase()
 		const response = await fetch(api, {
 			headers: { Accept: 'application/vnd.github+json' },
+			signal: controller.signal,
 		})
 		if (!response.ok) throw new Error(`GitHub release request failed with ${response.status}`)
 
@@ -60,6 +66,7 @@ export async function getRemote(isDownloadState = false) {
 		console.error('Failed to check or download launcher update:', error)
 		return false
 	} finally {
+		window.clearTimeout(timeout)
 		installState.value = false
 	}
 }
@@ -67,7 +74,7 @@ export async function getRemote(isDownloadState = false) {
 function normalizeVersion(version) {
 	return String(version ?? '')
 		.trim()
-		.replace(/^v/i, '')
+		.replace(/^(?:release[-_]?|version[-_]?|v)/i, '')
 }
 
 function setReleaseMetadata(release) {

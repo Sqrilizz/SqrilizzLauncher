@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import { CompassIcon, LibraryIcon, PlusIcon } from '@modrinth/assets'
 import { injectNotificationManager, useRelativeTime } from '@modrinth/ui'
 import type { SearchResult } from '@modrinth/utils'
 import dayjs from 'dayjs'
 import { computed, inject, onMounted, onUnmounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-import defaultHeroBackground from '@/assets/home/sqrilizz-hero.png'
+import defaultHeroBackground from '@/assets/home/sqrilizz-hero.webp'
 import RowDisplay from '@/components/RowDisplay.vue'
 import Instance from '@/components/ui/Instance.vue'
 import { get_search_results } from '@/helpers/cache.js'
@@ -94,7 +95,14 @@ async function refreshFeaturedProjects() {
 
 async function refreshHome() {
 	await fetchInstances()
-	if (!offline.value) await refreshFeaturedProjects()
+	if (offline.value) return
+
+	const refresh = () => void refreshFeaturedProjects()
+	if ('requestIdleCallback' in window) {
+		window.requestIdleCallback(refresh, { timeout: 1500 })
+	} else {
+		window.setTimeout(refresh, 250)
+	}
 }
 
 async function reconnectToRecent() {
@@ -164,7 +172,7 @@ onUnmounted(() => {
 						{{ latestInstance ? `Play ${latestInstance.name}` : 'Open your library' }}
 					</button>
 					<button class="premium-button premium-button-ghost" @click="openCreate">
-						<i aria-hidden="true" class="fa-solid fa-plus" /> Create instance
+						<PlusIcon aria-hidden="true" /> Create instance
 					</button>
 				</div>
 				<div class="hero-meta">
@@ -179,7 +187,7 @@ onUnmounted(() => {
 		<section class="home-stat-grid">
 			<button class="home-stat-card" @click="openLibrary">
 				<div class="stat-icon stat-icon-purple">
-					<i aria-hidden="true" class="fa-solid fa-layer-group" />
+					<LibraryIcon aria-hidden="true" />
 				</div>
 				<div>
 					<strong>{{ instances.length }}</strong
@@ -189,7 +197,7 @@ onUnmounted(() => {
 			</button>
 			<button class="home-stat-card" @click="openDiscover">
 				<div class="stat-icon stat-icon-cyan">
-					<i aria-hidden="true" class="fa-solid fa-compass" />
+					<CompassIcon aria-hidden="true" />
 				</div>
 				<div>
 					<strong>{{ featuredModpacks.length + featuredMods.length }}</strong
@@ -217,7 +225,7 @@ onUnmounted(() => {
 				/>
 			</div>
 			<div v-else class="empty-panel premium-panel">
-				<div class="empty-icon"><i aria-hidden="true" class="fa-solid fa-plus" /></div>
+				<div class="empty-icon"><PlusIcon aria-hidden="true" /></div>
 				<div>
 					<h3>Your next adventure starts here</h3>
 					<p>Create an instance or import a modpack to build your library.</p>
@@ -432,7 +440,8 @@ onUnmounted(() => {
 }
 .stat-icon svg,
 .stat-icon i {
-	font-size: 1.3rem;
+	width: 1.3rem;
+	height: 1.3rem;
 }
 .stat-icon-purple {
 	background: rgba(139, 92, 246, 0.16);

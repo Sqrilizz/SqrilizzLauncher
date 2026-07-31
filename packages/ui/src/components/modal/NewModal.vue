@@ -291,9 +291,10 @@ function handleKeyDown(event: KeyboardEvent) {
 
 	> .modal-body {
 		position: fixed;
+		box-sizing: border-box;
 		box-shadow: 4px 4px 26px 10px rgba(0, 0, 0, 0.08);
 		max-height: calc(100% - 2 * var(--gap-lg));
-		max-width: min(var(--_max-width, 60rem), calc(100% - 2 * var(--gap-lg)));
+		max-width: min(var(--_max-width, 60rem), calc(100vw - 2 * var(--gap-lg)));
 		overflow-y: auto;
 		overflow-x: hidden;
 		width: fit-content;
@@ -309,7 +310,8 @@ function handleKeyDown(event: KeyboardEvent) {
 		}
 
 		@media screen and (max-width: 640px) {
-			width: calc(100% - 2 * var(--gap-lg));
+			width: calc(100vw - 2 * var(--gap-lg));
+			max-width: calc(100vw - 2 * var(--gap-lg));
 		}
 	}
 }

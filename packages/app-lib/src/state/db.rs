@@ -43,7 +43,7 @@ async fn connect_without_migrate() -> crate::Result<Pool<Sqlite>> {
         .create_if_missing(true);
 
     let pool = SqlitePoolOptions::new()
-        .max_connections(100)
+        .max_connections(8)
         .connect_with(conn_options)
         .await?;
 
@@ -134,6 +134,22 @@ pub(crate) async fn apply_migration_fix(eol: &str) -> crate::Result<bool> {
         (
             ("crlf", "20241222013857"),
             "6B6F097E5BB45A397C96C3F1DC9C2A18433564E81DB264FE08A4775198CCEAC03C9E63C3605994ECB19C281C37D8F6AE",
+        ),
+        (
+            ("lf", "20260101000001"),
+            "3ccba02100df1ac0d7d7e2ed1a82aa6299a67d46d49e7a926744731738f404094e1198e2c1932644758ff797660709d4",
+        ),
+        (
+            ("crlf", "20260101000001"),
+            "e426bd8c50c6b1785fb7e6ce24f595b82293d87c7ab167333adba73d3cb88e1318e2efa9d60cbedd05960377fe0835b8",
+        ),
+        (
+            ("lf", "20260731180000"),
+            "b54b8c8fd27a16fcbe17659cf235ab08ce447854fd7b3c9466f03955f9eff6eff29896980e0b0b842727a39a28ed46c7",
+        ),
+        (
+            ("crlf", "20260731180000"),
+            "02c5644155731afc52bbc937c197d3e99d290049c5f7ef84e49079715acede516ff7e3bb56c64b00af36674e20ae9bdf",
         ),
     ]);
 

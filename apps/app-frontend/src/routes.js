@@ -1,4 +1,3 @@
-import { ServersManagePageIndex } from '@modrinth/ui'
 import { createRouter, createWebHistory } from 'vue-router'
 
 /**
@@ -26,7 +25,8 @@ export default new createRouter({
 		{
 			path: '/servers/manage/',
 			name: 'Servers',
-			component: ServersManagePageIndex,
+			component: () =>
+				import('@modrinth/ui/pages').then(({ ServersManagePageIndex }) => ServersManagePageIndex),
 			meta: {
 				breadcrumb: [{ name: 'Servers' }],
 			},

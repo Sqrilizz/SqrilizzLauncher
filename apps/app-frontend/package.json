@@ -14,7 +14,6 @@
 		"test": "vue-tsc --noEmit"
 	},
 	"dependencies": {
-		"@fortawesome/fontawesome-free": "^7.3.1",
 		"@modrinth/api-client": "workspace:^",
 		"@modrinth/assets": "workspace:*",
 		"@modrinth/ui": "workspace:*",
