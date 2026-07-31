@@ -45,7 +45,7 @@
 		]
 	},
 	"productName": "Sqrilizz Launcher",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"mainBinaryName": "Sqrilizz Launcher",
 	"identifier": "SqrilizzLauncher",
 	"plugins": {

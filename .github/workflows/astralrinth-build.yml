@@ -102,6 +102,10 @@ jobs:
             xdg-utils \
             openjdk-17-jdk
 
+      - name: ☕ Configure Java 17 on Linux
+        if: matrix.platform == 'ubuntu-latest'
+        run: echo "JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64" >> "$GITHUB_ENV"
+
       - name: ⚙️ Set application environment
         shell: bash
         run: |
