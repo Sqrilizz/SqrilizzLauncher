@@ -23,6 +23,10 @@ Download the installer for your platform:
 - **Windows**: `.exe` file
 - **Linux**: `.deb`,`.rpm` or `.appimage` file
 
+## For Arch users simply install by yay
+
+``` yay -S sqrilizz-launcher-bin ```
+
 
 Run the installer and follow the instructions.
 
