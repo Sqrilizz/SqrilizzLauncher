@@ -116,7 +116,7 @@ sqrilizz_parse = { path = "crates/parse", version = "1.0.6" }
 sqrilizz_pkg = { path = "crates/pkg", version = "1.0.6" }
 sqrilizz_pkg_gen = { path = "crates/pkg_gen", version = "1.0.6" }
 sqrilizz_shared = { path = "crates/shared", version = "1.0.6" }
-oauth2 = "4.4.2"
+oauth2 = "5.0.0"
 open = "5.4.1"
 pin-project-lite = "0.2.16"
 rand = "0.8.5"
