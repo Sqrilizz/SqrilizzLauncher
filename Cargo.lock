@@ -6157,7 +6157,7 @@ dependencies = [
 
 [[package]]
 name = "sqrilizz"
-version = "1.0.6"
+version = "1.0.7"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -6191,7 +6191,7 @@ dependencies = [
 
 [[package]]
 name = "sqrilizz_auth"
-version = "1.0.6"
+version = "1.0.7"
 dependencies = [
  "anyhow",
  "bytes",
@@ -6211,7 +6211,7 @@ dependencies = [
 
 [[package]]
 name = "sqrilizz_cli"
-version = "1.0.6"
+version = "1.0.7"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -6238,7 +6238,7 @@ dependencies = [
 
 [[package]]
 name = "sqrilizz_config"
-version = "1.0.6"
+version = "1.0.7"
 dependencies = [
  "anyhow",
  "cfg-match",
@@ -6250,7 +6250,7 @@ dependencies = [
 
 [[package]]
 name = "sqrilizz_core"
-version = "1.0.6"
+version = "1.0.7"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -6275,7 +6275,7 @@ dependencies = [
 
 [[package]]
 name = "sqrilizz_instance"
-version = "1.0.6"
+version = "1.0.7"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -6296,7 +6296,7 @@ dependencies = [
 
 [[package]]
 name = "sqrilizz_launcher"
-version = "1.0.6"
+version = "1.0.7"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -6326,7 +6326,7 @@ dependencies = [
 
 [[package]]
 name = "sqrilizz_mods"
-version = "1.0.6"
+version = "1.0.7"
 dependencies = [
  "anyhow",
  "itertools 0.15.0",
@@ -6342,7 +6342,7 @@ dependencies = [
 
 [[package]]
 name = "sqrilizz_net"
-version = "1.0.6"
+version = "1.0.7"
 dependencies = [
  "anyhow",
  "bytes",
@@ -6355,7 +6355,7 @@ dependencies = [
 
 [[package]]
 name = "sqrilizz_options"
-version = "1.0.6"
+version = "1.0.7"
 dependencies = [
  "anyhow",
  "itertools 0.15.0",
@@ -6367,7 +6367,7 @@ dependencies = [
 
 [[package]]
 name = "sqrilizz_parse"
-version = "1.0.6"
+version = "1.0.7"
 dependencies = [
  "anyhow",
  "schemars",
@@ -6378,7 +6378,7 @@ dependencies = [
 
 [[package]]
 name = "sqrilizz_pkg"
-version = "1.0.6"
+version = "1.0.7"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -6394,7 +6394,7 @@ dependencies = [
 
 [[package]]
 name = "sqrilizz_pkg_gen"
-version = "1.0.6"
+version = "1.0.7"
 dependencies = [
  "anyhow",
  "serde",
@@ -6409,7 +6409,7 @@ dependencies = [
 
 [[package]]
 name = "sqrilizz_shared"
-version = "1.0.6"
+version = "1.0.7"
 dependencies = [
  "anyhow",
  "async-trait",

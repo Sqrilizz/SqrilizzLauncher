@@ -1,6 +1,6 @@
 [package]
 name = "sqrilizz_auth"
-version = "1.0.6"
+version = "1.0.7"
 description = "Useful authentication wrapper for Minecraft"
 keywords = ["minecraft", "launcher", "game", "mc", "auth"]
 categories.workspace = true

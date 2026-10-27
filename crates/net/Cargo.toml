@@ -1,6 +1,6 @@
 [package]
 name = "sqrilizz_net"
-version = "1.0.6"
+version = "1.0.7"
 description = "Various network APIs for Sqrilizz"
 keywords = ["minecraft", "launcher", "game", "mc", "api"]
 categories.workspace = true

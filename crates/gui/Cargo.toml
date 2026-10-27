@@ -1,6 +1,6 @@
 [package]
 name = "sqrilizz_launcher"
-version = "1.0.6"
+version = "1.0.7"
 description = "The GUI interface for Sqrilizz Launcher"
 keywords = ["minecraft", "launcher", "game", "mc", "gui"]
 categories.workspace = true
@@ -13,7 +13,7 @@ default-run = "sqrilizz_launcher"
 
 [package.metadata.packager]
 product_name = "Sqrilizz Launcher"
-version = "1.0.6"
+version = "1.0.7"
 identifier = "org.sqrilizz.launcher"
 description = "Sqrilizz Launcher GUI"
 icons = ["assets/icon_1024x1024.png", "assets/icon.ico", "assets/icon.icns"]
