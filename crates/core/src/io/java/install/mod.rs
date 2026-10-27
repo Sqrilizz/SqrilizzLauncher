@@ -166,22 +166,19 @@ impl JavaInstallation {
 
 	/// Get the path to the JVM.
 	pub fn get_jvm_path(&self) -> PathBuf {
-		let filename = format!("java{}", EXE_SUFFIX);
-
-		// In case it was set as the JVM path
-		if self
-			.path
-			.file_name()
-			.is_some_and(|x| x.to_string_lossy() == filename)
-		{
-			return self.path.clone();
+		let clean_path = PathBuf::from(self.path.to_string_lossy().trim_matches('"').trim_matches('\x27'));
+		if let Some(file_name) = clean_path.file_name().map(|x| x.to_string_lossy().to_lowercase()) {
+			if file_name == "java" || file_name == "java.exe" || file_name == "javaw" || file_name == "javaw.exe" {
+				return clean_path;
+			}
 		}
 
-		let bin_path = self.path.join("bin").join(&filename);
+		let filename = format!("java{}", EXE_SUFFIX);
+		let bin_path = clean_path.join("bin").join(&filename);
 		if bin_path.exists() {
 			bin_path
 		} else {
-			self.path.join(filename)
+			clean_path.join(filename)
 		}
 	}
 

@@ -16,11 +16,12 @@ pub enum MemoryNum {
 impl MemoryNum {
 	/// Parse a string into a MemoryNum
 	pub fn parse(string: &str) -> Option<Self> {
-		Some(match string.chars().last()? {
-			'k' | 'K' => Self::Kb(string[..string.len() - 1].parse().ok()?),
-			'm' | 'M' => Self::Mb(string[..string.len() - 1].parse().ok()?),
-			'g' | 'G' => Self::Gb(string[..string.len() - 1].parse().ok()?),
-			_ => Self::B(string.parse().ok()?),
+		let s = string.trim().trim_end_matches(['b', 'B']).trim();
+		Some(match s.chars().last()? {
+			'k' | 'K' => Self::Kb(s[..s.len() - 1].parse().ok()?),
+			'm' | 'M' => Self::Mb(s[..s.len() - 1].parse().ok()?),
+			'g' | 'G' => Self::Gb(s[..s.len() - 1].parse().ok()?),
+			_ => Self::B(s.parse().ok()?),
 		})
 	}
 

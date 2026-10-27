@@ -233,14 +233,25 @@ impl InstKind {
 
 fn launch_config_to_options(config: LaunchConfig) -> anyhow::Result<LaunchOptions> {
 	let min_mem = match &config.memory {
-		LaunchMemory::None => None,
-		LaunchMemory::Single(string) => MemoryNum::parse(string),
-		LaunchMemory::Both { min, .. } => MemoryNum::parse(min),
+		LaunchMemory::None | LaunchMemory::Single(_) => None,
+		LaunchMemory::Both { min, .. } => {
+			let parsed = MemoryNum::parse(min);
+			ensure!(parsed.is_some(), "Некорректный формат минимальной памяти: {min}");
+			parsed
+		}
 	};
 	let max_mem = match &config.memory {
 		LaunchMemory::None => None,
-		LaunchMemory::Single(string) => MemoryNum::parse(string),
-		LaunchMemory::Both { max, .. } => MemoryNum::parse(max),
+		LaunchMemory::Single(string) => {
+			let parsed = MemoryNum::parse(string);
+			ensure!(parsed.is_some(), "Некорректный формат максимальной памяти: {string}");
+			parsed
+		}
+		LaunchMemory::Both { max, .. } => {
+			let parsed = MemoryNum::parse(max);
+			ensure!(parsed.is_some(), "Некорректный формат максимальной памяти: {max}");
+			parsed
+		}
 	};
 	if let Some(min_mem) = &min_mem
 		&& let Some(max_mem) = &max_mem

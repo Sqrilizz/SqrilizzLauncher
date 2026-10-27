@@ -18,11 +18,21 @@ use crate::{
 	secrets::get_ms_client_id,
 };
 
-struct PresenceGuard;
+struct PresenceGuard {
+	back_state: BackState,
+}
 
 impl Drop for PresenceGuard {
 	fn drop(&mut self) {
-		discord::clear_presence();
+		let bs = self.back_state.clone();
+		tokio::spawn(async move {
+			let running = bs.running_instances.get_running_instances().await;
+			if running.is_empty() {
+				discord::clear_presence();
+			} else if let Some(first) = running.first() {
+				discord::set_instance_presence(&first.instance_id, None);
+			}
+		});
 	}
 }
 
@@ -138,8 +148,11 @@ impl MutationCapability for LaunchInstance {
 				Some(details_parts.join(" • "))
 			};
 			discord::set_instance_presence(display_name, details_str.as_deref());
-			let _presence_guard = PresenceGuard;
+			let _presence_guard = PresenceGuard {
+				back_state: (*back_state).clone(),
+			};
 
+			let stdio_path = handle.stdout().to_path_buf();
 			let mut wait_fut = Box::pin(handle.wait(&mut output));
 			let mut interval = tokio::time::interval(std::time::Duration::from_secs(5));
 			let mut last_tick = std::time::Instant::now();
@@ -177,12 +190,19 @@ impl MutationCapability for LaunchInstance {
 			let exit_status = wait_res?;
 
 			if !exit_status.success() {
-				let log_text = if let Some(inst_dir) = instance.dir() {
+				let mut log_text = if let Some(inst_dir) = instance.dir() {
 					let latest_log = inst_dir.join("logs").join("latest.log");
 					std::fs::read_to_string(&latest_log).unwrap_or_default()
 				} else {
 					String::new()
 				};
+
+				if let Ok(process_output) = std::fs::read_to_string(&stdio_path) {
+					if !process_output.is_empty() {
+						log_text.push_str("\n--- JVM Process Output ---\n");
+						log_text.push_str(&process_output);
+					}
+				}
 
 				let (title, advice) = diagnose_crash(&log_text, exit_status.code());
 				let _ = back_state.event_tx.send(crate::state::BackEvent::ErrorToast(title, Some(advice)));
