@@ -98,7 +98,7 @@ image = { version = "0.25.10", default-features = false, features = ["jpeg", "gi
 inquire = { version = "0.6.2", default-features = false, features = [
 	"crossterm",
 ] }
-iso8601-timestamp = "0.2.17"
+iso8601-timestamp = "0.4.0"
 itertools = "0.11.0"
 libflate = "2.1.0"
 lnk = { version = "0.6.3", features = ["unstable-save", "binwrite"] }
