@@ -3115,15 +3115,6 @@ dependencies = [
 
 [[package]]
 name = "itertools"
-version = "0.11.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b1c173a5686ce8bfa551b3563d0c2170bf24ca44da99c7ca4bfdab5418c3fe57"
-dependencies = [
- "either",
-]
-
-[[package]]
-name = "itertools"
 version = "0.13.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "413ee7dfc52ee1a4949ceeb7dbc8a33f2d6c088194d9f922fb8318faf1f01186"
@@ -6173,7 +6164,7 @@ dependencies = [
  "dashmap",
  "directories",
  "hex",
- "itertools 0.11.0",
+ "itertools 0.15.0",
  "rand 0.8.8",
  "reqwest 0.12.28",
  "schemars",
@@ -6227,7 +6218,7 @@ dependencies = [
  "dashmap",
  "image",
  "inquire",
- "itertools 0.11.0",
+ "itertools 0.15.0",
  "ratatui",
  "ratatui-core",
  "ratatui-image",
@@ -6263,7 +6254,7 @@ dependencies = [
  "bytes",
  "cfg-match",
  "directories",
- "itertools 0.11.0",
+ "itertools 0.15.0",
  "libflate",
  "reqwest 0.12.28",
  "schemars",
@@ -6286,7 +6277,7 @@ dependencies = [
  "anyhow",
  "async-trait",
  "base64 0.23.1",
- "itertools 0.11.0",
+ "itertools 0.15.0",
  "libflate",
  "named-binary-tag",
  "schemars",
@@ -6312,7 +6303,7 @@ dependencies = [
  "freya-core",
  "html_parser",
  "image",
- "itertools 0.11.0",
+ "itertools 0.15.0",
  "open",
  "reqwest 0.12.28",
  "rfd",
@@ -6333,7 +6324,7 @@ name = "sqrilizz_mods"
 version = "1.0.6"
 dependencies = [
  "anyhow",
- "itertools 0.11.0",
+ "itertools 0.15.0",
  "reqwest 0.12.28",
  "serde",
  "serde_json",
@@ -6362,7 +6353,7 @@ name = "sqrilizz_options"
 version = "1.0.6"
 dependencies = [
  "anyhow",
- "itertools 0.11.0",
+ "itertools 0.15.0",
  "schemars",
  "serde",
  "serde_json",
@@ -6386,7 +6377,7 @@ version = "1.0.6"
 dependencies = [
  "anyhow",
  "async-trait",
- "itertools 0.11.0",
+ "itertools 0.15.0",
  "schemars",
  "serde",
  "serde_json",
@@ -6418,7 +6409,7 @@ dependencies = [
  "anyhow",
  "async-trait",
  "cfg-match",
- "itertools 0.11.0",
+ "itertools 0.15.0",
  "schemars",
  "serde",
  "serde_json",
