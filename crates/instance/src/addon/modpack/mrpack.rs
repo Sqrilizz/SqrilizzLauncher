@@ -60,7 +60,40 @@ impl<R: Read + Seek> ModrinthPack<R> {
 			};
 			let url = url.clone();
 			let client = client.clone();
-			tasks.spawn(async move { sqrilizz_net::download::file(url, path, &client).await });
+			let expected_sha512 = file.hashes.sha512.clone();
+			tasks.spawn(async move {
+				let temp_path = path.with_extension(format!("tmp.{}", std::process::id()));
+				let dl_res = sqrilizz_net::download::file(url, &temp_path, &client).await;
+				if let Err(e) = dl_res {
+					let _ = std::fs::remove_file(&temp_path);
+					return Err(e);
+				}
+
+				let bytes = match std::fs::read(&temp_path) {
+					Ok(b) => b,
+					Err(e) => {
+						let _ = std::fs::remove_file(&temp_path);
+						return Err(e.into());
+					}
+				};
+
+				use sha2::{Digest, Sha512};
+				let mut hasher = Sha512::new();
+				hasher.update(&bytes);
+				let actual_hash = hex::encode(hasher.finalize());
+
+				if !actual_hash.eq_ignore_ascii_case(&expected_sha512) {
+					let _ = std::fs::remove_file(&temp_path);
+					anyhow::bail!("SHA512 hash mismatch: expected {expected_sha512}, got {actual_hash}");
+				}
+
+				if let Err(e) = std::fs::rename(&temp_path, &path) {
+					let _ = std::fs::remove_file(&temp_path);
+					return Err(e.into());
+				}
+
+				Ok(())
+			});
 		}
 
 		while let Some(result) = tasks.join_next().await {

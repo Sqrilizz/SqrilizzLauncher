@@ -19,6 +19,8 @@ net = ["dep:tokio", "dep:sqrilizz_net"]
 
 [dependencies]
 anyhow = { workspace = true }
+hex = { workspace = true }
+sha2 = { workspace = true }
 async-trait = { workspace = true }
 base64 = { workspace = true }
 itertools = { workspace = true }

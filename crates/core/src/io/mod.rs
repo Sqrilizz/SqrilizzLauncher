@@ -83,11 +83,30 @@ fn write_json_atomically(
 		drop(writer);
 
 		#[cfg(windows)]
-		if path.exists() {
-			std::fs::remove_file(path)
-				.with_context(|| format!("Failed to replace {}", path.display()))?;
+		{
+			let mut success = false;
+			for attempt in 0..3 {
+				if attempt > 0 {
+					std::thread::sleep(std::time::Duration::from_millis(50));
+				}
+				if std::fs::rename(&temporary_path, path).is_ok() {
+					success = true;
+					break;
+				}
+				if path.exists() {
+					let _ = std::fs::remove_file(path);
+				}
+				if std::fs::rename(&temporary_path, path).is_ok() {
+					success = true;
+					break;
+				}
+			}
+			if !success {
+				std::fs::rename(&temporary_path, path)
+					.with_context(|| format!("Failed to replace {}", path.display()))?;
+			}
 		}
-
+		#[cfg(not(windows))]
 		std::fs::rename(&temporary_path, path)
 			.with_context(|| format!("Failed to replace {}", path.display()))?;
 		Ok(())

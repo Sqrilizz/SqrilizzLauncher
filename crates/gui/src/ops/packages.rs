@@ -696,7 +696,7 @@ simple_query!(
 				ConfigKind::Instance => {
 					let instance = config
 						.instances
-						.get(&InstanceID::from(keys.item.id.unwrap()))
+						.get(&InstanceID::from(keys.item.id.as_ref().context("No instance ID provided")?.clone()))
 						.context("Instance does not exist")?;
 
 					let mc_version = back_state
@@ -725,7 +725,7 @@ simple_query!(
 					let template = match keys.item.ty {
 						ConfigKind::Template => config
 							.consolidated_templates
-							.get(&TemplateID::from(id.clone().unwrap()))
+							.get(&TemplateID::from(id.clone().context("No template ID provided")?))
 							.context("Template does not exist")?,
 						ConfigKind::BaseTemplate => &config.base_template,
 						_ => unreachable!(),

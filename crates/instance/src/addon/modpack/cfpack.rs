@@ -86,7 +86,17 @@ impl<R: Read + Seek> CurseForgePack<R> {
 					if let Some(parent) = source_path.parent() {
 						let _ = std::fs::create_dir_all(parent);
 					}
-					sqrilizz_net::download::file(download_url, source_path, &client).await
+					let temp_path = source_path.with_extension(format!("tmp.{}", std::process::id()));
+					let dl_res = sqrilizz_net::download::file(download_url, &temp_path, &client).await;
+					if let Err(e) = dl_res {
+						let _ = std::fs::remove_file(&temp_path);
+						return Err(e);
+					}
+					if let Err(e) = std::fs::rename(&temp_path, &source_path) {
+						let _ = std::fs::remove_file(&temp_path);
+						return Err(e.into());
+					}
+					Ok(())
 				});
 			} else {
 				let Some(project) = projects.iter().find(|p| p.id == file.mod_id) else {

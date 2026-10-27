@@ -171,7 +171,11 @@ impl Component for OutputIndicator {
 				.corner_radius(theme.round)
 				.overlay_shadow()
 				.overflow(Overflow::Clip)
-				.on_press(move |_| kill_task.mutate(current_task2.clone().unwrap()))
+				.on_press(move |_| {
+					if let Some(task) = current_task2.clone() {
+						kill_task.mutate(task);
+					}
+				})
 				.child(
 					rect()
 						.maybe(can_cancel, |this| this.tip(&front_state, "Click to cancel"))

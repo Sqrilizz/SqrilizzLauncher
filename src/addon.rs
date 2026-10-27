@@ -167,13 +167,20 @@ impl AddonRequest {
 			match location {
 				AddonLocation::Remote(url) => {
 					if url.is_empty() {
+						let _ = std::fs::remove_file(&temp_path);
 						bail!("Empty URL for addon {id} from package {pkg}");
 					}
-					try_3!({ download::file(url.clone(), &temp_path, &client).await })
-						.context("Failed to download addon")?;
+					let dl_res = try_3!({ download::file(url.clone(), &temp_path, &client).await });
+					if let Err(e) = dl_res {
+						let _ = std::fs::remove_file(&temp_path);
+						return Err(e.context("Failed to download addon"));
+					}
 				}
 				AddonLocation::Local(actual_path) => {
-					update_link(&actual_path, &temp_path).context("Failed to hardlink local addon")?;
+					if let Err(e) = update_link(&actual_path, &temp_path) {
+						let _ = std::fs::remove_file(&temp_path);
+						return Err(anyhow::Error::from(e).context("Failed to hardlink local addon"));
+					}
 				}
 			}
 
