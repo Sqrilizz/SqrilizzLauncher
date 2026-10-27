@@ -24,7 +24,7 @@ jobs:
       - uses: actions/checkout@v7
       - name: Cache Cargo Deps
         id: cache-cargo-deps
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: |
             target
