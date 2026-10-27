@@ -126,7 +126,7 @@ pub async fn get_microsoft_token(
 		.exchange_device_access_token(&auth_response)
 		.request_async(
 			async_http_client,
-			|x| async move { std::thread::sleep(x) },
+			|x| async move { tokio::time::sleep(x).await },
 			None,
 		)
 		.await;

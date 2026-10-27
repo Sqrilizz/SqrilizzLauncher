@@ -87,7 +87,7 @@ pub enum ConfigModification {
 pub async fn apply_modifications(
 	config: &mut ConfigDeser,
 	modifications: Vec<ConfigModification>,
-	_paths: &Paths,
+	paths: &Paths,
 	_o: &mut impl SqrilizzOutput,
 ) -> anyhow::Result<()> {
 	for modification in modifications {
@@ -124,6 +124,10 @@ pub async fn apply_modifications(
 			}
 			ConfigModification::RemoveAccount(account) => {
 				config.accounts.remove(&account);
+				if let Ok(mut auth_db) = sqrilizz_auth::db::AuthDatabase::open(&paths.core.auth) {
+					let _ = auth_db.remove_account(&account);
+					let _ = auth_db.write();
+				}
 			}
 			ConfigModification::RemoveInstance(instance) => {
 				config.instances.remove(&instance);
@@ -145,9 +149,10 @@ pub async fn apply_modifications_and_write(
 ) -> anyhow::Result<()> {
 	apply_modifications(config, modifications, paths, o).await?;
 	let path = Config::get_path(paths);
-	// Backup the contents first
-	std::fs::copy(&path, paths.config.join("sqrilizz_write_backup.json"))
-		.context("Failed to backup config")?;
+	// Backup the contents first if it exists
+	if path.exists() {
+		let _ = std::fs::copy(&path, paths.config.join("sqrilizz_write_backup.json"));
+	}
 	json_to_file_pretty(path, config).context("Failed to write modified configuration")?;
 
 	Ok(())

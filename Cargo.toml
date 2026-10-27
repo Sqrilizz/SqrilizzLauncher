@@ -163,6 +163,7 @@ dashmap = { workspace = true }
 directories = { workspace = true }
 hex = { workspace = true }
 itertools = { workspace = true }
+sqrilizz_auth = { workspace = true }
 sqrilizz_config = { workspace = true }
 sqrilizz_core = { workspace = true }
 sqrilizz_instance = { workspace = true, features = ["net"] }

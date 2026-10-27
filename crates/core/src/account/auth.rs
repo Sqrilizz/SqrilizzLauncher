@@ -182,10 +182,12 @@ pub(crate) async fn update_microsoft_account_auth(
 	{
 		let db_account = db_account.clone();
 
+		const EXPIRATION_BUFFER_SECS: u64 = 300;
+		let now = utc_timestamp().unwrap_or(u64::MAX);
 		let access_token = if let (Some(access_token), Some(expiration)) =
 			(&sensitive.access_token, &sensitive.access_token_expires)
 		{
-			if utc_timestamp().unwrap_or(u64::MAX) < *expiration {
+			if expiration.saturating_sub(EXPIRATION_BUFFER_SECS) > now {
 				AccessToken(access_token.clone())
 			} else {
 				update_using_refresh_token(account_id, &sensitive, &params, &mut db, o)
@@ -224,12 +226,11 @@ async fn update_using_refresh_token(
 	db: &mut AuthDatabase,
 	o: &mut impl SqrilizzOutput,
 ) -> anyhow::Result<AccessToken> {
-	let refresh_token = RefreshToken::new(
-		sensitive
-			.refresh_token
-			.clone()
-			.expect("Refresh token should be present in a full valid account"),
-	);
+	let refresh_token_str = sensitive
+		.refresh_token
+		.as_ref()
+		.ok_or_else(|| anyhow::anyhow!("Refresh token is missing for account {account_id}. Please log in again."))?;
+	let refresh_token = RefreshToken::new(refresh_token_str.clone());
 	let oauth_client =
 		auth::create_client(params.client_id.clone()).context("Failed to create OAuth client")?;
 	let token = auth::refresh_microsoft_token(&oauth_client, &refresh_token)
