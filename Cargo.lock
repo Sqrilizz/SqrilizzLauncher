@@ -3108,12 +3108,12 @@ checksum = "a6cb138bb79a146c1bd460005623e142ef0181e3d0219cb493e02f7d08a35695"
 
 [[package]]
 name = "iso8601-timestamp"
-version = "0.2.17"
+version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "24d4e5d712dd664b11e778d1cfc06c79ba2700d6bc1771e44fb7b6a4656b487d"
+checksum = "664d15f33cfa25f56bc56b01f051247b0e76504ba3f17c391f84bd85d25a2ecc"
 dependencies = [
  "generic-array 1.4.5",
- "serde",
+ "serde_core",
  "time",
 ]
 
