@@ -6235,7 +6235,7 @@ dependencies = [
  "serde",
  "serde_json",
  "sqrilizz_shared",
- "thiserror 1.0.69",
+ "thiserror 2.0.21",
 ]
 
 [[package]]
@@ -6446,7 +6446,7 @@ dependencies = [
  "serde",
  "serde_json",
  "sys-locale",
- "thiserror 1.0.69",
+ "thiserror 2.0.21",
 ]
 
 [[package]]
