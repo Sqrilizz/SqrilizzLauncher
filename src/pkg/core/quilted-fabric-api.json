@@ -1,0 +1,13 @@
+{
+	"meta": {
+		"name": "Quilted Fabric API",
+		"description": "Ensures support for the Quilted Fabric API",
+		"package_maintainers": [ "Sqrilizz" ]
+	},
+	"properties": {
+		"supported_loaders": [ "quilt" ]
+	},
+	"relations": {
+		"dependencies": [ "qfapi-qsl" ]
+	}
+}

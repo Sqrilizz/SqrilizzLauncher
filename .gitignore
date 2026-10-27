@@ -1,0 +1,23 @@
+/build
+/.vscode
+/target
+/.env
+/crates/tools/schemas
+/docs/public
+/docs/.retype
+/docs/retype.manifest
+/docs/.obsidian
+
+# Releasing
+/release
+result
+
+# Agent / IDE leftovers
+.gemini
+.agents
+/skills
+
+# Nix (managed separately)
+/nix
+flake.nix
+flake.lock

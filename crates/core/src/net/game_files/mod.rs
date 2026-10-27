@@ -1,0 +1,114 @@
+/// Downloading game assets
+pub mod assets;
+/// Structure for the client metadata file
+pub mod client_meta;
+/// Downloading game Java libraries
+pub mod libraries;
+/// Downloading and using the version manifest
+pub mod version_manifest;
+
+use crate::io::files::paths::Paths;
+use crate::io::update::UpdateManager;
+use sqrilizz_shared::Side;
+use sqrilizz_shared::translate;
+use sqrilizz_shared::util::cap_first_letter;
+
+use reqwest::Client;
+
+use super::download;
+
+/// Downloading the game JAR file
+pub mod game_jar {
+	use sqrilizz_shared::output::{MessageContents, SqrilizzOutput, OutputProcess};
+
+	use self::download::ProgressiveDownload;
+
+	use super::{client_meta::ClientMeta, *};
+
+	/// Downloads the vanilla game JAR file
+	pub async fn get(
+		side: Side,
+		client_meta: &ClientMeta,
+		version: &str,
+		paths: &Paths,
+		manager: &UpdateManager,
+		client: &Client,
+		o: &mut impl SqrilizzOutput,
+	) -> anyhow::Result<()> {
+		let side_str = side.to_string();
+		let path = crate::io::minecraft::game_jar::get_path(side, version, None, &paths.jars);
+		if !manager.should_update_file(&path) {
+			return Ok(());
+		}
+
+		let mut process = OutputProcess::new(o);
+		let download_message = translate!(process, StartDownloadingGameJar, "side" = &side_str);
+		process.display(MessageContents::StartProcess(download_message.clone()));
+
+		let Some(downloads) = &client_meta.downloads else {
+			return Ok(());
+		};
+
+		let download = match side {
+			Side::Client => &downloads.client,
+			Side::Server => &downloads.server,
+		};
+
+		let mut download = ProgressiveDownload::file(&download.url, path, client).await?;
+		while !download.is_finished() {
+			download.poll_download().await?;
+			process.display(MessageContents::Associated(
+				Box::new(download.get_progress()),
+				Box::new(MessageContents::Simple(download_message.clone())),
+			));
+		}
+
+		let side_str = cap_first_letter(&side_str);
+
+		let message = MessageContents::Success(translate!(
+			process,
+			FinishDownloadingGameJar,
+			"side" = &side_str
+		));
+		process.display(message);
+
+		Ok(())
+	}
+}
+
+/// Downloading and using the logging config file
+pub mod log_config {
+	use std::path::PathBuf;
+
+	use super::{client_meta::ClientMeta, *};
+
+	/// Get the logging configuration file
+	pub async fn get(
+		client_meta: &ClientMeta,
+		version: &str,
+		paths: &Paths,
+		manager: &UpdateManager,
+		client: &Client,
+	) -> anyhow::Result<()> {
+		let path = get_path(version, paths);
+
+		if !manager.should_update_file(&path) {
+			return Ok(());
+		}
+
+		let Some(logging) = &client_meta.logging else {
+			return Ok(());
+		};
+
+		let url = &logging.client.file.url;
+		download::file(url, &path, client).await?;
+
+		Ok(())
+	}
+
+	/// Get the path to the logging config file
+	pub fn get_path(version: &str, paths: &Paths) -> PathBuf {
+		let version_dir = paths.internal.join("versions").join(version);
+		version_dir.join("logging.xml")
+	}
+}

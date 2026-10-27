@@ -1,0 +1,25 @@
+[package]
+name = "sqrilizz_pkg_gen"
+version = "0.32.2"
+description = "Sqrilizz package generation from existing platforms"
+keywords = ["minecraft", "launcher", "game", "mc"]
+categories.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+anyhow = { workspace = true }
+sqrilizz_core = { workspace = true }
+sqrilizz_net = { workspace = true }
+sqrilizz_pkg = { workspace = true }
+sqrilizz_shared = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tokio = { workspace = true }
+version-compare = { workspace = true }

@@ -1,0 +1,38 @@
+[package]
+name = "sqrilizz_core"
+version = "0.32.2"
+description = "Core functionality for launching Minecraft"
+keywords = ["minecraft", "launcher", "game", "mc"]
+categories.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[lints]
+workspace = true
+
+[features]
+schema = ["dep:schemars", "sqrilizz_shared/schema"]
+
+[dependencies]
+anyhow = { workspace = true }
+async-trait = { workspace = true }
+bytes = { workspace = true }
+cfg-match = { workspace = true }
+directories = { workspace = true }
+itertools = { workspace = true }
+libflate = { workspace = true }
+sqrilizz_auth = { workspace = true }
+sqrilizz_net = { workspace = true }
+sqrilizz_shared = { workspace = true }
+reqwest = { workspace = true }
+schemars = { workspace = true, optional = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+simd-json = { workspace = true }
+tar = { workspace = true }
+tokio = { workspace = true, features = ["fs", "macros"] }
+version-compare = { workspace = true }
+zip = { workspace = true }

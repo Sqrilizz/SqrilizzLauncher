@@ -1,0 +1,25 @@
+[package]
+name = "sqrilizz_net"
+version = "0.32.2"
+description = "Various network APIs for Sqrilizz"
+keywords = ["minecraft", "launcher", "game", "mc", "api"]
+categories.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[lints]
+workspace = true
+
+[features]
+
+[dependencies]
+anyhow = { workspace = true }
+bytes = { workspace = true }
+sqrilizz_shared = { workspace = true }
+reqwest = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+simd-json = { workspace = true }

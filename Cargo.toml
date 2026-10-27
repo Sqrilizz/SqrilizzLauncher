@@ -1,0 +1,185 @@
+[package]
+name = "sqrilizz"
+version = "0.32.2"
+description = "A fast, extensible, and powerful Minecraft launcher"
+keywords = ["minecraft", "launcher", "game", "mc"]
+exclude = ["/docs", "/tools"]
+categories.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[workspace.package]
+edition = "2024"
+license = "GPL-3.0-or-later"
+authors = ["CarbonSmasher"]
+repository = "https://github.com/Sqrilizz/SqrilizzLauncher"
+rust-version = "1.94.0"
+categories = ["games"]
+
+[workspace.lints.rust]
+
+[lints]
+workspace = true
+
+[profile.dev]
+debug = 1
+incremental = true
+codegen-units = 256
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true
+
+[profile.fast_release]
+inherits = "release"
+lto = "thin"
+codegen-units = 16
+strip = false
+
+[lib]
+name = "sqrilizz"
+path = "src/lib.rs"
+
+[workspace]
+resolver = "2"
+members = [
+	"crates/auth",
+	"crates/cli",
+	"crates/config",
+	"crates/core",
+	"crates/gui",
+	"crates/instance",
+	"crates/mods",
+	"crates/net",
+	"crates/options",
+	"crates/parse",
+	"crates/pkg",
+	"crates/pkg_gen",
+	"crates/shared",
+	"crates/tools",
+]
+
+[features]
+disable_instance_update_packages = []
+schema = [
+	"dep:schemars",
+	"sqrilizz_config/schema",
+	"sqrilizz_core/schema",
+	"sqrilizz_instance/schema",
+	"sqrilizz_pkg/schema",
+	"sqrilizz_shared/schema",
+]
+
+[workspace.dependencies]
+anyhow = "1.0.86"
+async-trait = "0.1.73"
+base64 = "0.22.0"
+blake3 = "1.8.5"
+bytes = "1.4.0"
+cfg-match = "0.2.1"
+chrono = { version = "0.4.42", default-features = false, features = ["std"] }
+clap = { version = "4.5.4", features = ["derive"] }
+color-print = "0.3.6"
+crossterm = { version = "0.29.0", default-features = false, features = ["events", "windows"] }
+dashmap = "7.0.0-rc2"
+directories = "5.0.0"
+discord-rich-presence = "1.1.0"
+freya = { version = "0.5.0-rc.6", features = ["query", "radio", "remote-asset", "markdown"], git = "https://github.com/marc2332/freya.git", tag = "v0.5.0-rc.6" }
+freya-core = { version = "0.5.0-rc.6", git = "https://github.com/marc2332/freya.git", tag = "v0.5.0-rc.6" }
+glob = "0.3.1"
+hex = "0.4.3"
+home = "=0.5.11"
+html_parser = "0.7.0"
+image = { version = "0.25.10", default-features = false, features = ["jpeg", "gif", "png", "webp"] }
+inquire = { version = "0.6.2", default-features = false, features = [
+	"crossterm",
+] }
+iso8601-timestamp = "0.2.17"
+itertools = "0.11.0"
+libflate = "2.1.0"
+lnk = { version = "0.6.3", features = ["unstable-save", "binwrite"] }
+memchr = "2.8.0"
+named-binary-tag = "0.6.0"
+sqrilizz = { path = ".", version = "0.32.2" }
+sqrilizz_auth = { path = "crates/auth", version = "0.32.2" }
+sqrilizz_core = { path = "crates/core", version = "0.32.2" }
+sqrilizz_config = { path = "crates/config", version = "0.32.2" }
+sqrilizz_instance = { path = "crates/instance", version = "0.32.2" }
+sqrilizz_mods = { path = "crates/mods", version = "0.32.2" }
+sqrilizz_net = { path = "crates/net", version = "0.32.2" }
+sqrilizz_options = { path = "crates/options", version = "0.32.2" }
+sqrilizz_parse = { path = "crates/parse", version = "0.32.2" }
+sqrilizz_pkg = { path = "crates/pkg", version = "0.32.2" }
+sqrilizz_pkg_gen = { path = "crates/pkg_gen", version = "0.32.2" }
+sqrilizz_shared = { path = "crates/shared", version = "0.32.2" }
+oauth2 = "4.4.2"
+open = "5.4.1"
+pin-project-lite = "0.2.16"
+rand = "0.8.5"
+rand_chacha = "0.3.1"
+ratatui = { version = "0.30.0", default-features = false, features = ["crossterm", "layout-cache", "underline-color"] }
+ratatui-core = "=0.1.0"
+ratatui-image = { version = "10.0.6", default-features = false, features = [
+	"crossterm"
+] }
+ratatui-textarea = "0.9.0"
+reqwest = { version = "0.12.15", default-features = false, features = [
+	"json",
+	"rustls-tls",
+	"multipart",
+	"stream",
+] }
+rfd = "0.17.2"
+rsa = { version = "0.9.10", default-features = false, features = [
+	"std",
+	"u64_digit",
+] }
+rust-embed = "8.11.0"
+schemars = { version = "0.8.20" }
+serde = { version = "1.0.202", features = ["derive", "rc"] }
+serde_json = "1.0.117"
+sha2 = "0.10.8"
+simd-json = { version = "0.13.10", features = ["value-no-dup-keys"] }
+sysinfo = { version = "0.34.2", default-features = false, features = ["system"] }
+sys-locale = "0.3.1"
+tar = { version = "0.4.38", default-features = false }
+termimad = "0.31.1"
+thiserror = "1.0.61"
+tokio = { version = "1.37.0", features = ["rt-multi-thread"] }
+tui-markdown = { version = "0.3.7", default-features = false }
+version-compare = "0.2.0"
+which = "6.0.1"
+zip = { version = "3.0.0", default-features = false, features = ["deflate"] }
+
+[dependencies]
+anyhow = { workspace = true }
+async-trait = { workspace = true }
+cfg-match = { workspace = true }
+dashmap = { workspace = true }
+directories = { workspace = true }
+hex = { workspace = true }
+itertools = { workspace = true }
+sqrilizz_config = { workspace = true }
+sqrilizz_core = { workspace = true }
+sqrilizz_instance = { workspace = true, features = ["net"] }
+sqrilizz_mods = { workspace = true }
+sqrilizz_net = { workspace = true }
+sqrilizz_parse = { workspace = true }
+sqrilizz_pkg = { workspace = true }
+sqrilizz_pkg_gen = { workspace = true }
+sqrilizz_shared = { workspace = true }
+rand = { workspace = true }
+reqwest = { workspace = true }
+schemars = { workspace = true, optional = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+simd-json = { workspace = true }
+sha2 = { workspace = true }
+sysinfo = { workspace = true }
+tokio = { workspace = true, features = ["fs", "io-std"] }
+version-compare = { workspace = true }
+zip = { workspace = true }

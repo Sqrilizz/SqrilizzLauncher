@@ -1,0 +1,13 @@
+{
+	"meta": {
+		"name": "Quilt Standard Libraries",
+		"description": "Ensures support for the Quilt Standard Libraries",
+		"package_maintainers": [ "Sqrilizz" ]
+	},
+	"properties": {
+		"supported_loaders": [ "quilt" ]
+	},
+	"relations": {
+		"dependencies": [ "qfapi-qsl" ]
+	}
+}

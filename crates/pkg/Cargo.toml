@@ -1,0 +1,26 @@
+[package]
+name = "sqrilizz_pkg"
+version = "0.32.2"
+description = "Package standard for Sqrilizz"
+keywords = ["minecraft", "launcher", "game", "mc"]
+categories.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[features]
+schema = ["dep:schemars", "sqrilizz_parse/schema", "sqrilizz_shared/schema"]
+
+[dependencies]
+async-trait = { workspace = true }
+anyhow = { workspace = true }
+itertools = { workspace = true }
+sqrilizz_instance = { workspace = true }
+sqrilizz_parse = { workspace = true }
+sqrilizz_shared = { workspace = true }
+schemars = { workspace = true, optional = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+simd-json = { workspace = true }

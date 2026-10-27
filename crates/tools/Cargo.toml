@@ -1,0 +1,24 @@
+[package]
+name = "sqrilizz_tools"
+version = "0.9.0"
+description = "Utilities for Sqrilizz"
+keywords = ["minecraft", "launcher", "game", "mc"]
+categories.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+anyhow = { workspace = true }
+clap = { workspace = true }
+iso8601-timestamp = { workspace = true }
+sqrilizz = { workspace = true, features = ["schema"] }
+sqrilizz_net = { workspace = true }
+sqrilizz_options = { workspace = true, features = ["schema"] }
+reqwest = { workspace = true }
+schemars = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tokio = { workspace = true, features = ["macros"] }

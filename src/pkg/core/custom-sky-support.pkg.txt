@@ -1,0 +1,17 @@
+@meta {
+	name "Custom Skies Support";
+	description "Installs mods to support custom skies in resource packs";
+	authors "Sqrilizz";
+}
+
+@install {
+	if loader forgelike {
+		require "optifine-support";
+		finish;
+	}
+	if loader fabriclike {
+		require "fabric-skyboxes" "fabric-skyboxes-interop";
+		finish;
+	}
+	fail unsupported_loader;
+}

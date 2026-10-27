@@ -1,0 +1,459 @@
+use std::path::{Path, PathBuf};
+use std::sync::Arc;
+
+use anyhow::{Context, bail};
+use sqrilizz_shared::io::update_link;
+use sqrilizz_shared::output::{MessageContents, SqrilizzOutput};
+use sqrilizz_shared::versions::VersionName;
+use sqrilizz_shared::{Side, translate};
+use tokio::sync::Mutex;
+
+use crate::account::AccountManager;
+use crate::config::BrandingProperties;
+use crate::io::files::paths::Paths;
+use crate::io::java::classpath::Classpath;
+use crate::io::java::install::{
+	CustomJavaFunction, JavaInstallParameters, JavaInstallation, JavaInstallationRegistry,
+};
+use crate::io::persistent::PersistentData;
+use crate::io::update::UpdateManager;
+use crate::launch::{LaunchConfiguration, LaunchParameters};
+use crate::net::game_files::client_meta::ClientMeta;
+use crate::net::game_files::version_manifest::VersionManifestAndList;
+use crate::net::game_files::{game_jar, libraries};
+use crate::version::{ClientAssetsAndLibraries, ClientAssetsAndLibsParameters};
+use crate::{InstanceHandle, QuickPlayType};
+
+/// The default main class for the server
+pub const DEFAULT_SERVER_MAIN_CLASS: &str = "net.minecraft.server.Main";
+
+/// An instance of a version which can be launched
+pub struct Instance {
+	params: InstanceParameters,
+	config: InstanceConfiguration,
+	java: JavaInstallation,
+	jar_path: PathBuf,
+	classpath: Classpath,
+	main_class: String,
+	pipe_stdin: bool,
+}
+
+impl Instance {
+	pub(crate) async fn load(
+		config: InstanceConfiguration,
+		params: InstanceParameters,
+		o: &mut impl SqrilizzOutput,
+	) -> anyhow::Result<Self> {
+		// Start setting up the instance
+		tokio::fs::create_dir_all(&config.path)
+			.await
+			.context("Failed to create instance directory")?;
+		if !config.path.is_dir() {
+			bail!("Instance directory path is not a directory");
+		}
+
+		// Install Java
+		let java_vers = &params
+			.client_meta
+			.java_info
+			.as_ref()
+			.context("Client meta Java info missing")?
+			.major_version;
+
+		let java_key = (config.launch.java.clone(), *java_vers);
+
+		let java = if let Some(java) = params
+			.java_installations
+			.installations
+			.lock()
+			.await
+			.get(&java_key)
+		{
+			java.clone()
+		} else {
+			let java_params = JavaInstallParameters {
+				paths: &params.paths,
+				update_manager: &params.update_manager,
+				persistent: params.persistent.clone(),
+				req_client: &params.req_client,
+				custom_install_func: params.custom_java_fn.clone(),
+			};
+
+			let java =
+				JavaInstallation::install(config.launch.java.clone(), *java_vers, java_params, o)
+					.await
+					.context("Failed to install or update Java")?;
+
+			params
+				.java_installations
+				.installations
+				.lock()
+				.await
+				.insert(java_key, java.clone());
+
+			java
+		};
+
+		java.verify().context("Java installation is invalid")?;
+
+		params.persistent.lock().await.dump(&params.paths).await?;
+
+		// Get the game jar
+		game_jar::get(
+			config.side.get_side(),
+			&params.client_meta,
+			&params.version,
+			&params.paths,
+			&params.update_manager,
+			&params.req_client,
+			o,
+		)
+		.await
+		.context("Failed to get the game JAR file")?;
+
+		let mut jar_path = if let Some(jar_path) = &config.jar_path {
+			jar_path.clone()
+		} else {
+			crate::io::minecraft::game_jar::get_path(
+				config.side.get_side(),
+				&params.version,
+				None,
+				&params.paths.jars,
+			)
+		};
+		if !jar_path.exists() {
+			bail!("Game JAR does not exist");
+		}
+
+		// For the server, the jar file has to be in the launch directory, so we hardlink it,
+		// or copy it if hardlinks are disabled
+		if let Side::Server = config.side.get_side() {
+			let new_jar_path = config.path.join("server.jar");
+			// Don't hardlink if it's already in the right place
+			if new_jar_path != jar_path {
+				// Update the hardlink
+				if params.update_manager.should_update_file(&new_jar_path) {
+					if new_jar_path.exists() {
+						tokio::fs::remove_file(&new_jar_path)
+							.await
+							.context("Failed to remove existing server.jar")?;
+					}
+
+					if params.disable_hardlinks {
+						tokio::fs::copy(&jar_path, &new_jar_path)
+							.await
+							.context("Failed to copy server.jar")?;
+					} else {
+						update_link(&jar_path, &new_jar_path)
+							.context("Failed to link server.jar")?;
+					}
+				}
+			}
+			jar_path = new_jar_path;
+
+			if !jar_path.exists() {
+				bail!("Game JAR does not exist");
+			}
+		}
+
+		// Load assets and libs for client
+		if let Side::Client = config.side.get_side() {
+			let sub_params = ClientAssetsAndLibsParameters {
+				client_meta: &params.client_meta,
+				version: &params.version,
+				paths: &params.paths,
+				req_client: &params.req_client,
+				version_manifest: &params.version_manifest,
+				update_manager: &params.update_manager,
+			};
+			params
+				.client_assets_and_libs
+				.load(sub_params, o)
+				.await
+				.context("Failed to load client assets and libraries")?;
+		}
+
+		// Classpath
+		let mut classpath = Classpath::new();
+		if let Side::Client = config.side.get_side() {
+			let lib_classpath =
+				libraries::get_classpath(&params.client_meta.libraries, &params.paths.internal)
+					.context("Failed to extract classpath from game library list")?;
+			classpath.extend(lib_classpath);
+		}
+		for lib in &config.additional_libs {
+			classpath.add_path(lib)?;
+		}
+		if !config.exclude_game_jar {
+			classpath.add_path(&jar_path)?;
+		}
+
+		// Deduplicate the classpath for common libraries
+		classpath.deduplicate_java_lib("asm");
+		classpath.deduplicate_java_libs();
+
+		// Main class
+		let main_class = if let Some(main_class) = &config.main_class {
+			main_class.clone()
+		} else {
+			match config.side.get_side() {
+				Side::Client => params.client_meta.main_class.clone(),
+				Side::Server => DEFAULT_SERVER_MAIN_CLASS.into(),
+			}
+		};
+
+		// Server EULA
+		if let InstanceKind::Server { create_eula, .. } = &config.side
+			&& *create_eula
+		{
+			let eula_path = config.path.join("eula.txt");
+			if !eula_path.exists() {
+				tokio::fs::write(eula_path, "eula = true\n")
+					.await
+					.context("Failed to create eula.txt")?;
+
+				o.display(MessageContents::Notice(translate!(o, AgreeToEula)));
+			}
+		}
+
+		Ok(Self {
+			config,
+			params,
+			java,
+			jar_path,
+			classpath,
+			main_class,
+			pipe_stdin: false,
+		})
+	}
+
+	/// Launch the instance and block until the process is finished
+	pub async fn launch(
+		&mut self,
+		accounts: &mut AccountManager,
+		offline_auth: bool,
+		quick_play: Option<QuickPlayType>,
+		o: &mut impl SqrilizzOutput,
+	) -> anyhow::Result<()> {
+		let mut handle = self
+			.launch_with_handle(accounts, offline_auth, quick_play, o)
+			.await?;
+		handle
+			.wait()
+			.context("Failed to wait for instance process")?;
+		Ok(())
+	}
+
+	/// Launch the instance and get the handle
+	pub async fn launch_with_handle(
+		&mut self,
+		accounts: &mut AccountManager,
+		offline_auth: bool,
+		quick_play: Option<QuickPlayType>,
+		o: &mut impl SqrilizzOutput,
+	) -> anyhow::Result<InstanceHandle> {
+		let mut launch_config = self.config.launch.clone();
+		if let Some(quick_play) = quick_play {
+			launch_config.quick_play = quick_play;
+		}
+		let params = LaunchParameters {
+			version: &self.params.version,
+			version_manifest: &self.params.version_manifest,
+			side: &self.config.side,
+			launch_dir: &self.config.path,
+			java: &self.java,
+			classpath: &self.classpath,
+			jar_path: &self.jar_path,
+			main_class: &self.main_class,
+			launch_config: &launch_config,
+			paths: &self.params.paths,
+			req_client: &self.params.req_client,
+			client_meta: &self.params.client_meta,
+			accounts,
+			offline_auth,
+			censor_secrets: self.params.censor_secrets,
+			branding: &self.params.branding,
+			pipe_stdin: self.pipe_stdin,
+		};
+		let handle = crate::launch::launch(params, o)
+			.await
+			.context("Failed to run launch routine")?;
+		Ok(handle)
+	}
+
+	/// Set whether to pipe stdin for the instance
+	pub fn pipe_stdin(&mut self, pipe: bool) {
+		self.pipe_stdin = pipe;
+	}
+
+	/// Get the JAR path of the instance
+	pub fn get_jar_path(&self) -> &Path {
+		&self.jar_path
+	}
+
+	/// Get the Java installation of the instance
+	pub fn get_java(&self) -> &JavaInstallation {
+		&self.java
+	}
+
+	/// Get the classpath of the instance
+	pub fn get_classpath(&self) -> &Classpath {
+		&self.classpath
+	}
+}
+
+/// Configuration for an instance
+pub struct InstanceConfiguration {
+	/// Configuration for the instance side
+	pub side: InstanceKind,
+	/// The directory where the instance will be stored and launched from
+	pub path: PathBuf,
+	/// Launch options for the instance
+	pub launch: LaunchConfiguration,
+	/// JAR path override
+	pub jar_path: Option<PathBuf>,
+	/// Java main class override
+	pub main_class: Option<String>,
+	/// Additional libraries to add to the classpath.
+	/// These must be absolute paths to Java libraries already installed on the
+	/// system, and will not be installed automatically
+	pub additional_libs: Vec<PathBuf>,
+	/// Whether to skip adding the JAR path to the classpath.
+	/// Should only be set if your modifications add their own Minecraft jar
+	/// which conflicts with the default one
+	pub exclude_game_jar: bool,
+}
+
+impl InstanceConfiguration {
+	/// Construct a new InstanceConfiguration with default settings
+	pub fn new(side: InstanceKind, path: PathBuf) -> Self {
+		Self {
+			side,
+			path,
+			launch: LaunchConfiguration::new(),
+			jar_path: None,
+			main_class: None,
+			additional_libs: Vec::new(),
+			exclude_game_jar: false,
+		}
+	}
+}
+
+/// Simple builder for the configuration
+pub struct InstanceConfigBuilder {
+	config: InstanceConfiguration,
+}
+
+impl InstanceConfigBuilder {
+	/// Start a new ConfigBuilder with default configuration
+	pub fn new(side: InstanceKind, path: PathBuf) -> Self {
+		Self {
+			config: InstanceConfiguration::new(side, path),
+		}
+	}
+
+	/// Finish building and get the configuration
+	pub fn build(self) -> InstanceConfiguration {
+		self.config
+	}
+
+	/// Set the launch options for the instance
+	pub fn launch_config(mut self, launch_config: LaunchConfiguration) -> Self {
+		self.config.launch = launch_config;
+		self
+	}
+
+	/// Override the default JAR path
+	pub fn jar_path(mut self, jar_path: PathBuf) -> Self {
+		self.config.jar_path = Some(jar_path);
+		self
+	}
+
+	/// Override the default main class
+	pub fn main_class(mut self, main_class: String) -> Self {
+		self.config.main_class = Some(main_class);
+		self
+	}
+
+	/// Add additional libraries to the game. They must already be installed
+	/// on the system.
+	pub fn additional_libs(mut self, additional_libs: Vec<PathBuf>) -> Self {
+		self.config.additional_libs.extend(additional_libs);
+		self
+	}
+}
+
+/// Configuration for what side an instance is, along with configuration
+/// specific to that side
+pub enum InstanceKind {
+	/// Client-side
+	Client {
+		/// Configuration for the client window
+		window: ClientWindowConfig,
+	},
+	/// Server-side
+	Server {
+		/// Whether to automatically agree to the server EULA and create
+		/// the eula.txt file set to true in the server directory
+		create_eula: bool,
+		/// Whether to display the default server GUI
+		show_gui: bool,
+	},
+}
+
+impl InstanceKind {
+	/// Get the side of this kind
+	pub fn get_side(&self) -> Side {
+		match self {
+			Self::Client { .. } => Side::Client,
+			Self::Server { .. } => Side::Server,
+		}
+	}
+}
+
+/// Configuration for the client window
+#[derive(Default, Clone, Debug)]
+pub struct ClientWindowConfig {
+	/// The resolution of the window
+	pub resolution: Option<WindowResolution>,
+}
+
+impl ClientWindowConfig {
+	/// Construct a new ClientWindowConfig with default settings
+	pub fn new() -> Self {
+		Self { resolution: None }
+	}
+}
+
+/// Resolution for a client window
+#[derive(Clone, Debug, Copy)]
+pub struct WindowResolution {
+	/// The width of the window
+	pub width: u32,
+	/// The height of the window
+	pub height: u32,
+}
+
+impl WindowResolution {
+	/// Construct a new WindowResolution
+	pub fn new(width: u32, height: u32) -> Self {
+		Self { width, height }
+	}
+}
+
+/// Container struct for parameters for an instance
+pub(crate) struct InstanceParameters {
+	pub version: VersionName,
+	pub version_manifest: Arc<VersionManifestAndList>,
+	pub paths: Arc<Paths>,
+	pub req_client: reqwest::Client,
+	pub persistent: Arc<Mutex<PersistentData>>,
+	pub update_manager: UpdateManager,
+	pub client_meta: Arc<ClientMeta>,
+	pub java_installations: JavaInstallationRegistry,
+	pub custom_java_fn: Option<Arc<dyn CustomJavaFunction>>,
+	pub client_assets_and_libs: ClientAssetsAndLibraries,
+	pub censor_secrets: bool,
+	pub disable_hardlinks: bool,
+	pub branding: BrandingProperties,
+}

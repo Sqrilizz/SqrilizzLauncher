@@ -1,0 +1,227 @@
+#![warn(missing_docs)]
+
+//! sqrilizz_pkg is a library for dealing with Sqrilizz Launcher packages
+//!
+//! # Features:
+//!
+//! - `schema`: Enable generation of JSON schemas using the `schemars` crate
+
+/// Addons from packages
+pub mod addon;
+/// Standard declarative package format
+pub mod declarative;
+/// Package metadata
+pub mod metadata;
+/// Package properties
+pub mod properties;
+/// Standard repository format
+pub mod repo;
+/// Standardized package dependency resolution
+pub mod resolve;
+/// Framework for evaluating script packages
+pub mod script_eval;
+
+use std::{collections::HashMap, sync::Arc};
+
+use anyhow::Context;
+use async_trait::async_trait;
+use declarative::{deserialize_declarative_package, validate_declarative_package};
+use metadata::PackageMetadata;
+use sqrilizz_shared::pkg::{ArcPkgReq, PackageID};
+use properties::PackageProperties;
+#[cfg(feature = "schema")]
+use schemars::JsonSchema;
+use serde::{Deserialize, Serialize};
+
+// Re-export
+pub use sqrilizz_parse as parse;
+pub use sqrilizz_shared::pkg::{PkgRequest, PkgRequestSource};
+
+/// Parses and validates a package
+pub fn parse_and_validate(contents: &str, content_type: PackageContentType) -> anyhow::Result<()> {
+	match content_type {
+		PackageContentType::Script => {
+			let parsed = parse::parse::lex_and_parse(contents).context("Parsing failed")?;
+			metadata::eval_metadata(&parsed).context("Metadata evaluation failed")?;
+			properties::eval_properties(&parsed).context("Properties evaluation failed")?;
+		}
+		PackageContentType::Declarative => {
+			let contents = deserialize_declarative_package(contents).context("Parsing failed")?;
+			validate_declarative_package(&contents).context("Package was invalid")?;
+		}
+	}
+
+	Ok(())
+}
+
+/// Content type of a package
+#[derive(Deserialize, Serialize, Debug, Copy, Clone, Default, PartialEq, Eq)]
+#[cfg_attr(feature = "schema", derive(JsonSchema))]
+#[serde(rename_all = "snake_case")]
+pub enum PackageContentType {
+	/// A package script
+	#[default]
+	Script,
+	/// A declarative / JSON package
+	Declarative,
+}
+
+/// A required package
+#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq, Serialize, Deserialize)]
+pub struct RequiredPackage {
+	/// The package that is required
+	pub value: PackageID,
+	/// Whether this is an explicit dependency
+	pub explicit: bool,
+}
+
+/// A recommended package
+#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq, Deserialize, Serialize)]
+#[cfg_attr(feature = "schema", derive(JsonSchema))]
+pub struct RecommendedPackage {
+	/// The package id that is required
+	pub value: PackageID,
+	/// Whether to invert this recommendation
+	#[serde(default)]
+	#[serde(skip_serializing_if = "is_false")]
+	pub invert: bool,
+}
+
+fn is_false(x: &bool) -> bool {
+	!x
+}
+
+/// Trait for a central package registry that can evaluate packages
+#[async_trait]
+pub trait PackageEvaluator<'a> {
+	/// Type passed to most functions, used for common / cached values
+	type CommonInput;
+	/// Type passed to the evaluation function
+	type EvalInput: EvalInput + Clone;
+	/// Configured package type
+	type ConfiguredPackage: ConfiguredPackage<EvalInput = Self::EvalInput>;
+
+	/// Evaluate the relationships of a package
+	async fn eval_package_relations(
+		&mut self,
+		pkg: &ArcPkgReq,
+		input: &Self::EvalInput,
+		common_input: &Self::CommonInput,
+	) -> anyhow::Result<PackageEvalRelationsResult>;
+
+	/// Get the properties of a package
+	async fn get_package_properties<'b>(
+		&'b mut self,
+		pkg: &ArcPkgReq,
+		common_input: &Self::CommonInput,
+	) -> anyhow::Result<Arc<PackageProperties>>;
+
+	/// Preload multiple packages
+	async fn preload_packages<'b>(
+		&'b mut self,
+		packages: &[ArcPkgReq],
+		common_input: &Self::CommonInput,
+	) -> anyhow::Result<()>;
+
+	/// Replaces the slug and version of a request if possible, to make it better for user display
+	async fn make_req_displayable<'b>(
+		&'b mut self,
+		req: &ArcPkgReq,
+		common_input: &Self::CommonInput,
+	) -> ArcPkgReq;
+}
+
+/// Trait for an input passed to packages when evaluating their dependencies
+pub trait EvalInput {
+	/// Set the required and preferred content versions of this input before evaluating a package
+	fn set_content_versions(
+		&mut self,
+		required_versions: Vec<String>,
+		preferred_versions: Vec<String>,
+	);
+
+	/// Set whether this package is forced to be installed at the required version
+	fn set_force(&mut self, force: bool);
+}
+
+/// Trait for a user-configured package
+pub trait ConfiguredPackage: Clone {
+	/// Type passed to your evaluation functions
+	type EvalInput: Clone;
+
+	/// Get the package ID
+	fn get_package(&self) -> ArcPkgReq;
+
+	/// Override the EvalInput for this package based on configuration
+	fn override_configured_package_input(
+		&self,
+		properties: &PackageProperties,
+		input: &mut Self::EvalInput,
+	) -> anyhow::Result<()>;
+
+	/// Gets whether this package is optional to install
+	fn is_optional(&self) -> bool {
+		false
+	}
+}
+
+/// The result from evaluating a package, used for resolution
+pub struct PackageEvalRelationsResult {
+	/// The evaluated dependencies
+	pub deps: Vec<Vec<RequiredPackage>>,
+	/// The evaluated conflicts
+	pub conflicts: Vec<PackageID>,
+	/// The evaluated recommendations
+	pub recommendations: Vec<RecommendedPackage>,
+	/// The evaluated bundled packages
+	pub bundled: Vec<PackageID>,
+	/// The evaluated compats
+	pub compats: Vec<(PackageID, PackageID)>,
+	/// The evaluated extensions
+	pub extensions: Vec<PackageID>,
+	/// The evaluated inclusions
+	pub inclusions: Vec<PackageID>,
+}
+
+/// Checks if a package is open source
+pub fn is_open_source(meta: &PackageMetadata, properties: &PackageProperties) -> bool {
+	// The property always takes precedence
+	if let Some(open_source) = &properties.open_source {
+		return *open_source;
+	}
+
+	// Infer from the license
+	if let Some(license) = &meta.license
+		&& let "ARR" | "All Rights Reserved" = license.as_str()
+	{
+		return false;
+	}
+
+	true
+}
+
+/// Metadata and properties for a package. Note that PartialEq is implemented with pointers.
+#[derive(Clone, Serialize, Deserialize, Default)]
+pub struct PackageMetaAndProps {
+	/// Metadata
+	pub meta: Arc<PackageMetadata>,
+	/// Properties
+	pub props: Arc<PackageProperties>,
+}
+
+impl PartialEq for PackageMetaAndProps {
+	fn eq(&self, other: &Self) -> bool {
+		Arc::ptr_eq(&self.meta, &other.meta) && Arc::ptr_eq(&self.props, &other.props)
+	}
+}
+
+/// Results for a package search
+#[derive(Serialize, Deserialize, Default, Clone)]
+pub struct PackageSearchResults {
+	/// The package IDs returned by the search
+	pub results: Vec<String>,
+	/// The total number of results returned by the search, that weren't limited out
+	pub total_results: usize,
+	/// Limited versions of package metadata to be used for previews
+	pub previews: HashMap<String, PackageMetaAndProps>,
+}

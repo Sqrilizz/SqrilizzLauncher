@@ -1,0 +1,284 @@
+use std::collections::HashMap;
+use std::fs::File;
+use std::path::Path;
+use std::sync::Arc;
+
+use anyhow::{Context, anyhow};
+use sqrilizz_shared::output::{MessageContents, SqrilizzOutput};
+use sqrilizz_shared::translate;
+use reqwest::Client;
+use tokio::{sync::Semaphore, task::JoinSet};
+use zip::ZipArchive;
+
+use crate::io::files;
+use crate::io::java::classpath::Classpath;
+use crate::io::java::maven::MavenLibraryParts;
+use crate::io::update::{UpdateManager, UpdateMethodResult};
+use crate::net::{download, get_transfer_limit};
+use sqrilizz_shared::skip_none;
+use sqrilizz_shared::util;
+
+use super::client_meta::libraries::ExtractionRules;
+use super::client_meta::libraries::Library;
+
+/// Downloads base client libraries.
+/// Returns a set of files to be added to the update manager.
+pub async fn get(
+	libraries: &[Library],
+	internal_dir: &Path,
+	version: &str,
+	manager: &UpdateManager,
+	client: &Client,
+	o: &mut impl SqrilizzOutput,
+) -> anyhow::Result<UpdateMethodResult> {
+	let mut out = UpdateMethodResult::new();
+	let libraries_path = internal_dir.join("libraries");
+	tokio::fs::create_dir_all(&libraries_path).await?;
+	let natives_path = internal_dir.join("versions").join(version).join("natives");
+	tokio::fs::create_dir_all(&natives_path).await?;
+	let natives_jars_path = internal_dir.join("natives");
+
+	let mut natives = Vec::new();
+
+	let libraries = get_list(libraries);
+
+	let mut libs_to_download = Vec::new();
+
+	for lib in libraries {
+		if !lib.natives.is_empty() {
+			let key = skip_none!(get_natives_classifier_key(&lib.natives));
+
+			let classifier = lib
+				.downloads
+				.native_classifiers
+				.get(&key)
+				.ok_or(anyhow!("Native lib artifact does not exist"))?;
+
+			let path = natives_jars_path.join(classifier.path.clone());
+
+			natives.push((path.clone(), &lib.name, &lib.extract));
+			if !manager.should_update_file(&path) {
+				continue;
+			}
+			libs_to_download.push((lib.name.clone(), classifier.url.clone(), path));
+			continue;
+		}
+
+		let (url, path) = if let Some(artifact) = &lib.downloads.artifact {
+			let path = libraries_path.join(&artifact.path);
+			if !manager.should_update_file(&path) {
+				continue;
+			}
+			(artifact.url.clone(), path)
+		} else {
+			let url = lib
+				.url
+				.clone()
+				.unwrap_or_else(|| "https://libraries.minecraft.net/".into());
+
+			let parts =
+				MavenLibraryParts::parse_from_str(&lib.name).context("Invalid Maven format")?;
+			let path_start = parts.orgs.join("/");
+			let path_end = format!("/{0}/{1}/{0}-{1}.jar", parts.package, parts.version);
+			let path = path_start + &path_end;
+
+			let url = url + &path;
+			(url, libraries_path.join(path))
+		};
+
+		libs_to_download.push((lib.name.clone(), url, path));
+	}
+
+	let count = libs_to_download.len();
+	if count > 0 {
+		o.display(MessageContents::StartProcess(translate!(
+			o,
+			StartDownloadingLibraries,
+			"count" = &format!("{count}")
+		)));
+
+		o.start_process();
+	}
+
+	let mut join = JoinSet::new();
+	// Used to limit the number of open file descriptors
+	let sem = Arc::new(Semaphore::new(get_transfer_limit()));
+	for (name, url, path) in libs_to_download {
+		let client = client.clone();
+		let sem = sem.clone();
+		let path_clone = path.clone();
+		let fut = async move {
+			files::create_leading_dirs_async(&path_clone).await?;
+
+			let _permit = sem.acquire().await;
+
+			let response = download::bytes(url, &client)
+				.await
+				.context("Failed to download library")?;
+			tokio::fs::write(&path_clone, response)
+				.await
+				.context("Failed to write library file")?;
+
+			Ok::<String, anyhow::Error>(name)
+		};
+		join.spawn(fut);
+		out.files_updated.insert(path.clone());
+	}
+
+	if count > 0 {
+		o.display(MessageContents::Associated(
+			Box::new(MessageContents::Progress {
+				current: 0,
+				total: count as u32,
+			}),
+			Box::new(MessageContents::Simple(String::new())),
+		));
+	}
+	let mut num_done = 0;
+	while let Some(lib) = join.join_next().await {
+		let name = lib??;
+		num_done += 1;
+		o.display(MessageContents::Associated(
+			Box::new(MessageContents::Progress {
+				current: num_done,
+				total: count as u32,
+			}),
+			Box::new(MessageContents::Simple(translate!(
+				o,
+				DownloadedLibrary,
+				"lib" = &name
+			))),
+		));
+	}
+
+	for (path, name, extract) in natives {
+		o.debug(MessageContents::StartProcess(translate!(
+			o,
+			StartExtractingNative,
+			"lib" = name
+		)));
+		let natives_result = extract_native(&path, &natives_path, extract, manager, o)
+			.with_context(|| format!("Failed to extract native library {name}"))?;
+		out.merge(natives_result);
+	}
+
+	o.display(MessageContents::Success(translate!(
+		o,
+		FinishDownloadingLibraries
+	)));
+	o.end_process();
+
+	Ok(out)
+}
+
+/// Gets the classpath from Minecraft libraries
+pub fn get_classpath(libraries: &[Library], internal_dir: &Path) -> anyhow::Result<Classpath> {
+	let natives_jars_path = internal_dir.join("natives");
+	let libraries_path = internal_dir.join("libraries");
+
+	let mut classpath = Classpath::new();
+	let libraries = get_list(libraries);
+	for lib in libraries {
+		if !lib.natives.is_empty() {
+			let key = skip_none!(get_natives_classifier_key(&lib.natives));
+
+			let classifier = lib
+				.downloads
+				.native_classifiers
+				.get(&key)
+				.ok_or(anyhow!("Native lib artifact does not exist"))?;
+
+			let path = natives_jars_path.join(classifier.path.clone());
+			classpath.add_path(&path)?;
+
+			continue;
+		}
+		if let Some(artifact) = &lib.downloads.artifact {
+			let path = libraries_path.join(artifact.path.clone());
+			classpath.add_path(&path)?;
+			continue;
+		}
+	}
+	Ok(classpath)
+}
+
+/// Get the key for the natives classifier
+fn get_natives_classifier_key(classifiers: &HashMap<String, String>) -> Option<String> {
+	let key = classifiers
+		.get(&format!("natives-{}", util::OS_STRING))
+		.or_else(|| classifiers.get(util::OS_STRING))?;
+	let key = key.replace("${arch}", util::TARGET_BITS_STR);
+
+	Some(key)
+}
+
+/// Checks the rules of a game library to see if it should be installed
+fn is_allowed(lib: &Library) -> bool {
+	for rule in &lib.rules {
+		let allowed = rule.action.is_allowed();
+		if let Some(os_name) = &rule.os.name
+			&& allowed != (os_name.to_string() == util::OS_STRING)
+		{
+			return false;
+		}
+		if let Some(os_arch) = &rule.os.arch
+			&& allowed != (os_arch.to_string() == util::ARCH_STRING)
+		{
+			return false;
+		}
+	}
+
+	true
+}
+
+/// Extract the files of a native library into the natives directory.
+fn extract_native(
+	path: &Path,
+	natives_dir: &Path,
+	extraction_rules: &ExtractionRules,
+	manager: &UpdateManager,
+	o: &mut impl SqrilizzOutput,
+) -> anyhow::Result<UpdateMethodResult> {
+	let mut out = UpdateMethodResult::new();
+	let file = File::open(path).context("Failed to open native file")?;
+	let mut zip = ZipArchive::new(file).context("Failed to unarchive native")?;
+	for i in 0..zip.len() {
+		let mut file = zip.by_index(i)?;
+		let rel_path = file
+			.enclosed_name()
+			.context("Invalid compressed file path")?;
+		if let Some(rel_path_str) = rel_path.to_str()
+			&& extraction_rules.exclude.iter().any(|x| x == rel_path_str)
+		{
+			continue;
+		}
+		if let Some(extension) = rel_path.extension() {
+			match extension.to_str() {
+				Some("so" | "dylib" | "dll") => {
+					let out_path = natives_dir.join(rel_path);
+					if !manager.should_update_file(&out_path) {
+						continue;
+					}
+					let mut out_file =
+						File::create(&out_path).context("Failed to open output file for native")?;
+					std::io::copy(&mut file, &mut out_file)
+						.context("Failed to copy compressed file")?;
+					o.debug(MessageContents::Simple(translate!(
+						o,
+						ExtractedNativeFile,
+						"file" = &out_path.to_string_lossy()
+					)));
+					out.files_updated.insert(out_path);
+				}
+				_ => continue,
+			}
+		}
+	}
+
+	Ok(out)
+}
+
+/// Gets the list of allowed libraries from the client meta
+pub fn get_list(libraries: &[Library]) -> impl Iterator<Item = &Library> {
+	libraries.iter().filter(|lib| is_allowed(lib))
+}

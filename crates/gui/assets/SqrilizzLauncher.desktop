@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Sqrilizz Launcher
+Comment=Современный быстрый лаунчер Minecraft
+Exec=sqrilizz_launcher
+Icon=sqrilizz_launcher
+Terminal=false
+Type=Application
+Categories=Game;

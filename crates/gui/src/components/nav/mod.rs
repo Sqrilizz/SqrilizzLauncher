@@ -1,0 +1,133 @@
+use crate::{
+	components::{account::AccountSelector, dialog::toast::Toasts, input::tabs::TopTabs},
+	pages::settings,
+	prelude::*,
+	routing::PageCategory,
+	state::ModalType,
+};
+
+pub mod page_buttons;
+pub mod router;
+
+#[derive(PartialEq)]
+pub struct NavBar {
+	pub show_sidebar: State<bool>,
+}
+
+impl Component for NavBar {
+	fn render(&self) -> impl IntoElement {
+		let front_state = use_front_state();
+		front_state.read().subscribe(FrontChannel::Route);
+		let theme = use_theme();
+
+
+		let front_state2 = front_state.clone();
+		let settings_button = icon_button("gear", &theme).on_press(move |_| {
+			front_state2
+				.write()
+				.set_modal(Some(ModalType::Settings(settings::Tab::General)))
+		});
+
+		let front_state_stats = front_state.clone();
+		let stats_button = icon_button("clock", &theme).on_press(move |_| {
+			front_state_stats
+				.write()
+				.set_modal(Some(ModalType::PlaytimeStats))
+		});
+
+		let front_state2 = front_state.clone();
+		let mut back_button = icon_button("arrow_left", &theme)
+			.on_press(move |_| front_state2.write().back())
+			.enabled(front_state.read().can_go_back());
+		if !front_state.read().can_go_back() {
+			back_button = back_button.color(theme.disabled);
+		}
+
+		let front_state2 = front_state.clone();
+		let mut forward_button = icon_button("arrow_right", &theme)
+			.on_press(move |_| front_state2.write().forward())
+			.enabled(front_state.read().can_go_forward());
+		if !front_state.read().can_go_forward() {
+			forward_button = forward_button.color(theme.disabled);
+		}
+
+		let left = rect()
+			.height(Size::fill())
+			.width(Size::flex(1.0))
+			.cont()
+			.cross_align(Alignment::Center)
+			.padding(3.0)
+			.child(
+				rect()
+					.margin(3.0)
+					.tip(&front_state, "Настройки")
+					.child(settings_button),
+			)
+			.child(
+				rect()
+					.margin(3.0)
+					.tip(&front_state, "Статистика времени")
+					.child(stats_button),
+			)
+			.child(rect().margin(3.0).child(back_button))
+			.child(rect().margin(3.0).child(forward_button));
+
+		let front_state2 = front_state.clone();
+		let buttons = TopTabs::new(
+			front_state.read().route().get_category(),
+			move |category: PageCategory| {
+				front_state2.write().navigate(category.get_page());
+			},
+		)
+		.child(SelectOption::new(PageCategory::Home, "Главная", Some("home")))
+		.child(SelectOption::new(
+			PageCategory::Packages,
+			"Каталог",
+			Some("honeycomb"),
+		));
+		let center = rect()
+			.height(Size::fill())
+			.width(Size::flex(1.0))
+			.horizontal()
+			.flex()
+			.cross_align(Alignment::Center)
+			.child(buttons);
+
+		let front_state_help = front_state.clone();
+		let help_button = icon_button("question_mark", &theme).on_press(move |_| {
+			front_state_help
+				.write()
+				.set_modal(Some(ModalType::Onboarding));
+		});
+
+		let right = rect()
+			.height(Size::fill())
+			.width(Size::flex(1.0))
+			.padding(Gaps::new(3.0, 6.0, 3.0, 3.0))
+			.cont()
+			.center()
+			.main_align(Alignment::End)
+			.child(AccountSelector)
+			.child(
+				rect()
+					.margin(3.0)
+					.tip(&front_state, "Помощь")
+					.child(help_button),
+			)
+			.child(Toasts);
+
+		rect()
+			.width(Size::fill())
+			.height(Size::px(theme.navbar_height))
+			.horizontal()
+			.flex()
+			.cross_align(Alignment::Center)
+			.background(theme.navbar)
+			.border(
+				border_bottom(theme.border, theme.panel_border).alignment(BorderAlignment::Outer),
+			)
+			.child(left)
+			.child(center)
+			.child(right)
+	}
+}

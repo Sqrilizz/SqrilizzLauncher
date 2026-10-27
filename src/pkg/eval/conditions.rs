@@ -1,0 +1,82 @@
+use sqrilizz_shared::versions::VersionPattern;
+
+use super::EvalData;
+use sqrilizz_parse::conditions::{ArchCondition, ConditionKind, OSCondition};
+use sqrilizz_parse::vars::VariableStore;
+
+/// Evaluates a script condition to a boolean
+pub fn eval_condition(condition: &ConditionKind, eval: &EvalData) -> anyhow::Result<bool> {
+	match condition {
+		ConditionKind::Not(condition) => eval_condition(condition.get(), eval).map(|op| !op),
+		ConditionKind::And(left, right) => {
+			Ok(eval_condition(left, eval)? && eval_condition(right.get(), eval)?)
+		}
+		ConditionKind::Or(left, right) => {
+			Ok(eval_condition(left, eval)? || eval_condition(right.get(), eval)?)
+		}
+		ConditionKind::Version(version) => {
+			let Some(actual_version) = &eval.input.constants.version else {
+				return Ok(false);
+			};
+			let version = version.get(&eval.vars)?;
+			let version = VersionPattern::from(&version);
+			Ok(version.matches_single(actual_version, &eval.input.constants.version_list))
+		}
+		ConditionKind::Side(side) => Ok(eval.input.params.side == *side.get()),
+		ConditionKind::Loader(loader) => Ok(loader.get().matches(&eval.input.constants.loader)),
+		ConditionKind::Feature(feature) => Ok(eval
+			.input
+			.params
+			.features
+			.contains(&feature.get(&eval.vars)?)),
+		ConditionKind::OS(os) => Ok(check_os_condition(os.get())),
+		ConditionKind::Arch(arch) => Ok(check_arch_condition(arch.get())),
+		ConditionKind::Stability(stability) => Ok(eval.input.params.stability == *stability.get()),
+		ConditionKind::Language(lang) => Ok(eval.input.constants.language == *lang.get()),
+		ConditionKind::ContentVersion(version) => {
+			let version = version.get(&eval.vars)?;
+
+			let matches = eval
+				.input
+				.params
+				.required_content_versions
+				.iter()
+				.any(|x| x == &version);
+
+			Ok(matches)
+		}
+		ConditionKind::Value(left, right) => Ok(left.get(&eval.vars)? == right.get(&eval.vars)?),
+		ConditionKind::Defined(var) => Ok(eval.vars.var_exists(var.get())),
+		ConditionKind::Const(val) => Ok(val.get_clone()),
+		ConditionKind::Plugin(_) => Err(anyhow::anyhow!(
+			"Plugin conditions cannot be evaluated without plugins"
+		)),
+	}
+}
+
+/// Checks an OS condition to see if it matches the current operating system
+pub fn check_os_condition(condition: &OSCondition) -> bool {
+	match condition {
+		OSCondition::Windows => cfg!(target_os = "windows"),
+		OSCondition::Linux => cfg!(target_os = "linux"),
+		OSCondition::MacOS => cfg!(target_os = "macos"),
+		OSCondition::Unix => cfg!(target_family = "unix"),
+		OSCondition::Other => {
+			!(cfg!(target_os = "windows") || cfg!(target_os = "linux") || cfg!(target_os = "macos"))
+		}
+	}
+}
+
+/// Checks an arch condition to see if it matches the current system architecture
+pub fn check_arch_condition(condition: &ArchCondition) -> bool {
+	if cfg!(target_arch = "x86") {
+		return condition == &ArchCondition::X86;
+	}
+	if cfg!(target_arch = "x86_64") {
+		return condition == &ArchCondition::X86_64;
+	}
+	if cfg!(target_arch = "arm") {
+		return condition == &ArchCondition::Arm;
+	}
+	condition == &ArchCondition::Other
+}

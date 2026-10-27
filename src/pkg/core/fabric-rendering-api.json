@@ -1,0 +1,23 @@
+{
+	"meta": {
+		"name": "Fabric Rendering API",
+		"description": "Ensures compatability with mods that use the Fabric Rendering API",
+		"authors": [
+			"Sqrilizz"
+		]
+	},
+	"properties": {
+		"supported_loaders": [ "fabriclike" ]
+	},
+	"relations": {
+		"dependencies": [
+			"fabriclike-api"
+		],
+		"compats": [
+			[
+				"sodium",
+				"indium"
+			]
+		]
+	}
+}

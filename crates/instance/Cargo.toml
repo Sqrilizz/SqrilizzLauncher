@@ -1,0 +1,33 @@
+[package]
+name = "sqrilizz_instance"
+version = "0.32.2"
+description = "Instance file and addon management for Sqrilizz"
+keywords = ["minecraft", "launcher", "game", "mc"]
+categories.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[lints]
+workspace = true
+
+[features]
+schema = ["dep:schemars"]
+net = ["dep:tokio", "dep:sqrilizz_net"]
+
+[dependencies]
+anyhow = { workspace = true }
+async-trait = { workspace = true }
+base64 = { workspace = true }
+itertools = { workspace = true }
+libflate = { workspace = true }
+named-binary-tag = { workspace = true }
+schemars = { workspace = true, optional = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+sqrilizz_shared = { workspace = true }
+sqrilizz_net = { workspace = true, optional = true }
+tokio = { workspace = true, optional = true }
+zip = { workspace = true }

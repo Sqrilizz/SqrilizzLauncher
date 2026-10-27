@@ -1,0 +1,95 @@
+use anyhow::anyhow;
+use directories::ProjectDirs;
+use sqrilizz_shared::io::config::IO_CONFIG;
+
+use std::path::{Path, PathBuf};
+
+/// Store for all of the paths that are used throughout the application
+#[derive(Debug, Clone)]
+pub struct Paths {
+	/// Config directory
+	pub config: PathBuf,
+	/// Holds data
+	pub data: PathBuf,
+	/// Holds internal data
+	pub internal: PathBuf,
+	/// Holds game assets
+	pub assets: PathBuf,
+	/// Holds game libraries
+	pub libraries: PathBuf,
+	/// Holds Java installations
+	pub java: PathBuf,
+	/// Holds game jar files
+	pub jars: PathBuf,
+	/// Holds authentication data
+	pub auth: PathBuf,
+	/// Holds log files
+	pub logs: PathBuf,
+	/// Used for temporary stdio files for instances
+	pub stdio: PathBuf,
+}
+
+impl Paths {
+	/// Create a new Paths object. This will create all of the directories
+	/// referenced in the paths if they do not already exist.
+	pub fn new() -> anyhow::Result<Paths> {
+		let out = Self::new_no_create()?;
+		out.create_dirs()?;
+
+		Ok(out)
+	}
+
+	/// Create the directories on an existing set of paths
+	pub fn create_dirs(&self) -> anyhow::Result<()> {
+		let _ = std::fs::create_dir_all(&self.config);
+		let _ = std::fs::create_dir_all(&self.data);
+		let _ = std::fs::create_dir_all(&self.internal);
+		let _ = std::fs::create_dir_all(&self.assets);
+		let _ = std::fs::create_dir_all(&self.java);
+		let _ = std::fs::create_dir_all(&self.jars);
+		let _ = std::fs::create_dir_all(&self.auth);
+		let _ = std::fs::create_dir_all(&self.logs);
+		let _ = std::fs::create_dir_all(&self.stdio);
+
+		Ok(())
+	}
+
+	/// Create the paths without creating any directories
+	pub fn new_no_create() -> anyhow::Result<Self> {
+		let project = ProjectDirs::from("", "sqrilizz", "sqrilizz")
+			.ok_or(anyhow!("Failed to create project directories"))?;
+
+		let config = if let Some(dir) = IO_CONFIG.get_string("config_path") {
+			PathBuf::from(dir)
+		} else {
+			project.config_dir().to_owned()
+		};
+		let data = if let Some(dir) = IO_CONFIG.get_string("data_path") {
+			PathBuf::from(dir)
+		} else {
+			project.data_dir().to_owned()
+		};
+
+		let internal = data.join("internal");
+		let assets = internal.join("assets");
+		let libraries = internal.join("libraries");
+		let java = internal.join("java");
+		let jars = internal.join("jars");
+		let auth = internal.join("auth");
+		let logs = data.join("logs");
+		let stdio = internal.join("stdio");
+
+		Ok(Paths {
+			config,
+			data,
+			internal,
+			assets,
+			libraries,
+			java,
+			jars,
+			auth,
+			logs,
+			stdio,
+		})
+	}
+}

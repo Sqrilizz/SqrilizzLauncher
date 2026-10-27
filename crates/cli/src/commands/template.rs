@@ -1,0 +1,323 @@
+use crate::{
+	commands::config::edit_temp_file,
+	output::{HYPHEN_POINT, INSTANCE, LOADER, PACKAGE, VERSION, icons_enabled},
+	prompt::{pick_instance_id, pick_template},
+};
+use std::ops::DerefMut;
+
+use super::CmdData;
+
+use anyhow::Context;
+use clap::Subcommand;
+use color_print::{cprint, cprintln};
+use inquire::Confirm;
+use itertools::Itertools;
+use sqrilizz::{
+	config::modifications::{ConfigModification, apply_modifications_and_write},
+	config_crate::template::{TemplateConfig, TemplateLoaderConfiguration},
+	core::util::versions::MinecraftVersion,
+	shared::{
+		Side,
+		output::{MessageContents, SqrilizzOutput},
+	},
+};
+
+#[derive(Debug, Subcommand)]
+pub enum TemplateSubcommand {
+	#[command(about = "List all templates")]
+	#[clap(alias = "ls")]
+	List {
+		/// Whether to remove formatting and warnings from the output
+		#[arg(short, long)]
+		raw: bool,
+	},
+	#[command(about = "Print useful information about a template")]
+	Info { template: Option<String> },
+	#[command(about = "Edit configuration for a template")]
+	Edit {
+		/// The template to edit
+		template: Option<String>,
+	},
+	#[command(about = "Delete a template forever")]
+	Delete {
+		/// The template to delete
+		template: Option<String>,
+	},
+	#[command(about = "Edit the base template configuration")]
+	EditBase,
+	#[command(about = "Duplicates a template into a new one")]
+	Duplicate {
+		/// The template to duplicate
+		template: Option<String>,
+		/// The ID of the new template
+		new_id: Option<String>,
+	},
+	#[command(about = "Unlink a template from its parents and combine into a single config")]
+	Consolidate {
+		/// The template to consolidate
+		template: Option<String>,
+	},
+}
+
+pub async fn run(subcommand: TemplateSubcommand, data: &mut CmdData<'_>) -> anyhow::Result<()> {
+	match subcommand {
+		TemplateSubcommand::List { raw } => list(data, raw).await,
+		TemplateSubcommand::Info { template } => info(data, template).await,
+		TemplateSubcommand::Delete { template } => delete(data, template).await,
+		TemplateSubcommand::Edit { template } => edit(data, template).await,
+		TemplateSubcommand::EditBase => edit_base(data).await,
+		TemplateSubcommand::Duplicate { template, new_id } => {
+			duplicate(data, template, new_id).await
+		}
+		TemplateSubcommand::Consolidate { template } => consolidate(data, template).await,
+	}
+}
+
+async fn list(data: &mut CmdData<'_>, raw: bool) -> anyhow::Result<()> {
+	data.ensure_config(!raw).await?;
+	let config = data.config.get_mut();
+
+	for (id, _) in config.templates.iter().sorted_by_key(|x| x.0) {
+		if raw {
+			println!("{id}");
+		} else {
+			cprintln!("{}<b>{}", HYPHEN_POINT, id);
+		}
+	}
+
+	Ok(())
+}
+
+async fn info(data: &mut CmdData<'_>, id: Option<String>) -> anyhow::Result<()> {
+	data.ensure_config(true).await?;
+	let config = data.config.get_mut();
+
+	let id = pick_template(id, config)?;
+
+	fn print_indent() {
+		print!("   ");
+	}
+
+	let template = config
+		.templates
+		.get(&id)
+		.with_context(|| format!("Unknown template '{id}'"))?;
+
+	if icons_enabled() {
+		print!("{} ", INSTANCE);
+	}
+	cprintln!("<s><g>Template <b>{}", id);
+	if let Some(version) = &template.instance.version {
+		print_indent();
+		if icons_enabled() {
+			print!("{} ", VERSION);
+		}
+		cprintln!(
+			"<s>Version:</s> <g>{}",
+			MinecraftVersion::from_deser(version)
+		);
+	}
+
+	if let Some(side) = template.instance.side {
+		print_indent();
+		cprint!("{}Type: ", HYPHEN_POINT);
+		match side {
+			Side::Client => cprintln!("<y!>Client"),
+			Side::Server => cprintln!("<c!>Server"),
+		}
+	}
+
+	print_indent();
+	if icons_enabled() {
+		print!("{} ", LOADER);
+	}
+	match &template.loader {
+		TemplateLoaderConfiguration::Simple(Some(loader)) => {
+			cprintln!("<s>Loader:</s> <g>{loader}");
+		}
+		TemplateLoaderConfiguration::Full { client, server } => {
+			if let Some(loader) = client {
+				cprintln!("<s>Client Loader:</s> <g>{loader}");
+			}
+			if let Some(loader) = server {
+				cprintln!("<s>Server Loader:</s> <g>{loader}");
+			}
+		}
+		_ => {}
+	}
+
+	print_indent();
+	if icons_enabled() {
+		print!("{} ", PACKAGE);
+	}
+	cprintln!("<s>Packages:");
+	cprintln!("   <s>Global Packages:");
+	for pkg in template.packages.iter_global() {
+		print_indent();
+		cprint!("{}", HYPHEN_POINT);
+		cprint!("<b!>{}<g!>", pkg.get_id());
+		cprintln!();
+	}
+	cprintln!("   <s>Client Packages:");
+	for pkg in template.packages.iter_side(Side::Client) {
+		print_indent();
+		cprint!("{}", HYPHEN_POINT);
+		cprint!("<b!>{}<g!>", pkg.get_id());
+		cprintln!();
+	}
+	cprintln!("   <s>Server Packages:");
+	for pkg in template.packages.iter_side(Side::Server) {
+		print_indent();
+		cprint!("{}", HYPHEN_POINT);
+		cprint!("<b!>{}<g!>", pkg.get_id());
+		cprintln!();
+	}
+
+	Ok(())
+}
+
+async fn delete(data: &mut CmdData<'_>, id: Option<String>) -> anyhow::Result<()> {
+	data.ensure_config(true).await?;
+	let mut raw_config = data.get_raw_config()?;
+	let config = data.config.get_mut();
+
+	let id = pick_template(id, config)?;
+
+	let _template = config
+		.templates
+		.get(&id)
+		.with_context(|| format!("Unknown template '{id}'"))?;
+
+	let prompt = Confirm::new("Are you SURE you want to delete this template? (y/n)");
+	if !prompt.prompt()? {
+		cprintln!("<r>Cancelled.");
+		return Ok(());
+	}
+
+	let mut process = data.output.get_process();
+	process.display(MessageContents::StartProcess("Deleting template".into()));
+
+	let modifications = vec![ConfigModification::RemoveTemplate(id)];
+	apply_modifications_and_write(
+		&mut raw_config,
+		modifications,
+		&data.paths,
+		process.deref_mut(),
+	)
+	.await
+	.context("Failed to modify and write config")?;
+
+	process.display(MessageContents::Success("Template deleted".into()));
+
+	Ok(())
+}
+
+async fn edit(data: &mut CmdData<'_>, id: Option<String>) -> anyhow::Result<()> {
+	data.ensure_config(true).await?;
+	let mut raw_config = data.get_raw_config()?;
+	let config = data.config.get_mut();
+
+	let id = pick_template(id, config)?;
+
+	let template = config
+		.templates
+		.get_mut(&id)
+		.with_context(|| format!("Unknown template '{id}'"))?;
+
+	let temp_config = template.clone();
+
+	let text = serde_json::to_string_pretty(&temp_config).context("Failed to serialize config")?;
+	let edited = edit_temp_file(&text, &format!("Editing template {id}"), &data.paths)?;
+	let new_config: TemplateConfig = serde_json::from_str(&edited)
+		.context("Failed to serialize. Make sure your config is valid JSON")?;
+
+	let modifications = vec![ConfigModification::UpdateTemplate(id, new_config)];
+	apply_modifications_and_write(
+		&mut raw_config,
+		modifications,
+		&data.paths,
+		data.output,
+	)
+	.await
+	.context("Failed to modify and write config")?;
+
+	data.output
+		.display(MessageContents::Success("Changes saved".into()));
+
+	Ok(())
+}
+
+async fn edit_base(data: &mut CmdData<'_>) -> anyhow::Result<()> {
+	data.ensure_config(true).await?;
+	let mut raw_config = data.get_raw_config()?;
+	let config = data.config.get_mut();
+
+	let text = serde_json::to_string_pretty(&config.base_template)
+		.context("Failed to serialize config")?;
+	let edited = edit_temp_file(&text, &format!("Editing base template"), &data.paths)?;
+	let new_config: TemplateConfig = serde_json::from_str(&edited)
+		.context("Failed to serialize. Make sure your config is valid JSON")?;
+
+	raw_config.base_template = Some(new_config);
+
+	apply_modifications_and_write(
+		&mut raw_config,
+		Vec::new(),
+		&data.paths,
+		data.output,
+	)
+	.await
+	.context("Failed to modify and write config")?;
+
+	data.output
+		.display(MessageContents::Success("Changes saved".into()));
+
+	Ok(())
+}
+
+async fn duplicate(
+	data: &mut CmdData<'_>,
+	template: Option<String>,
+	new_id: Option<String>,
+) -> anyhow::Result<()> {
+	data.ensure_config(true).await?;
+	let config = data.config.get();
+
+	let template = pick_template(template, config)?;
+
+	let new_id = if let Some(new_id) = new_id {
+		new_id.into()
+	} else {
+		pick_instance_id()?
+	};
+
+	config
+		.duplicate_template(
+			&template,
+			&new_id,
+			&data.paths,
+			data.output,
+		)
+		.await?;
+
+	data.output
+		.display(MessageContents::Success("Changes saved".into()));
+
+	Ok(())
+}
+
+async fn consolidate(data: &mut CmdData<'_>, template: Option<String>) -> anyhow::Result<()> {
+	data.ensure_config(true).await?;
+	let config = data.config.get();
+
+	let template = pick_template(template, config)?;
+
+	config
+		.consolidate_template(&template, &data.paths, data.output)
+		.await?;
+
+	data.output
+		.display(MessageContents::Success("Changes saved".into()));
+
+	Ok(())
+}

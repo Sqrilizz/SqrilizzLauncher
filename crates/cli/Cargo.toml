@@ -1,0 +1,45 @@
+[package]
+name = "sqrilizz_cli"
+version = "0.32.2"
+description = "The command-line interface for Sqrilizz Launcher"
+keywords = ["minecraft", "launcher", "game", "mc", "cli"]
+categories = ["games", "command-line-utilities"]
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+default-run = "sqrilizz"
+
+[[bin]]
+name = "sqrilizz"
+path = "src/main.rs"
+
+[features]
+
+[dependencies]
+anyhow = { workspace = true }
+async-trait = { workspace = true }
+clap = { workspace = true }
+color-print = { workspace = true }
+crossterm = { workspace = true }
+dashmap = { workspace = true }
+image = { workspace = true }
+inquire = { workspace = true }
+itertools = { workspace = true }
+sqrilizz = { workspace = true }
+ratatui = { workspace = true }
+ratatui-core = { workspace = true }
+ratatui-image = { workspace = true }
+ratatui-textarea = { workspace = true }
+reqwest = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tui-markdown = { workspace = true }
+tokio = { workspace = true, features = ["macros", "fs"] }
+
+[target.'cfg(target_os = "linux")'.dependencies]
+which = { workspace = true }
+
+[target.'cfg(target_os = "windows")'.build-dependencies]
+static_vcruntime = "2.0"

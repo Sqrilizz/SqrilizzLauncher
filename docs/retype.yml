@@ -1,0 +1,11 @@
+input: .
+output: .retype
+url: https://github.com/Sqrilizz/SqrilizzLauncher/tree/main/docs
+branding:
+  title: Sqrilizz
+  label: Docs
+links:
+  - text: Getting Started
+    link: /getting_started
+  - text: Packages
+    link: /packages

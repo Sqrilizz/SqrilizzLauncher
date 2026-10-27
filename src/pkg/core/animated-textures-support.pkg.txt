@@ -1,0 +1,17 @@
+@meta {
+	name "Animated Textures Support";
+	description "Installs mods to support animated textures in resource packs";
+	authors "Sqrilizz";
+}
+
+@install {
+	if loader forgelike {
+		require "optifine-support";
+		finish;
+	}
+	if loader fabriclike {
+		require "animatica";
+		finish;
+	}
+	fail unsupported_loader;
+}

@@ -1,0 +1,47 @@
+{
+  "app-id": "org.sqrilizz.Sqrilizz",
+  "runtime": "org.freedesktop.Platform",
+  "runtime-version": "24.08",
+  "sdk": "org.freedesktop.Sdk",
+  "command": "sqrilizz_launcher",
+  "finish-args": [
+    "--share=ipc",
+    "--share=network",
+    "--socket=x11",
+    "--socket=wayland",
+    "--socket=session-bus",
+    "--socket=system-bus",
+    "--socket=pulseaudio",
+    "--socket=pcsc",
+    "--device=dri",
+    "--device=all",
+    "--filesystem=home:rw",
+    "--filesystem=/tmp:rw",
+    "--filesystem=/var/tmp:rw",
+    "--filesystem=xdg-data:rw",
+    "--filesystem=xdg-config:rw",
+    "--filesystem=xdg-cache:rw",
+    "--persist=.config/sqrilizz",
+    "--persist=.local/share/sqrilizz",
+    "--talk-name=org.freedesktop.portal.*",
+    "--talk-name=org.freedesktop.secrets",
+    "--env=HOME=/home/user"
+  ],
+  "modules": [
+    {
+      "name": "sqrilizz_launcher",
+      "buildsystem": "simple",
+      "build-commands": [
+        "BIN=$(find target -type f -name sqrilizz_launcher 2>/dev/null | head -n 1); if [ -z \"$BIN\" ]; then echo 'sqrilizz_launcher binary not found in target/ (tried release/fast_release/debug)'; exit 1; fi; install -Dm755 \"$BIN\" /app/bin/sqrilizz_launcher",
+        "install -Dm644 crates/gui/assets/SqrilizzLauncher.desktop /app/share/applications/org.sqrilizz.Sqrilizz.desktop",
+        "install -Dm644 crates/gui/assets/icon_128x128.png /app/share/icons/hicolor/128x128/apps/org.sqrilizz.Sqrilizz.png"
+      ],
+      "sources": [
+        {
+          "type": "dir",
+          "path": "../../.."
+        }
+      ]
+    }
+  ]
+}

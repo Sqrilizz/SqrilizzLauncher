@@ -1,0 +1,21 @@
+@meta {
+	name "Kotlin Language Support";
+	description "Provides support for the Kotlin language for mods";
+	authors "Sqrilizz";
+}
+
+@install {
+	if loader forgelike {
+		require "kotlin-for-forge";
+		finish;
+	}
+	if loader fabric {
+		require "fabric-language-kotlin";
+		finish;
+	}
+	if loader quilt {
+		require "quilt-kotlin-libraries";
+		finish;
+	}
+	fail unsupported_loader;
+}

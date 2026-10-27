@@ -1,0 +1,31 @@
+@meta {
+	name "Optifine Resource Packs Support";
+	description "Bundles all the mods necessary to support features in Optifine resource packs";
+	long_description "It is better to require the specific support packages you need for your resource pack than all of them";
+	authors "Sqrilizz";
+}
+
+@install {
+	if loader forgelike {
+		require "optifine-support";
+		finish;
+	}
+	if loader fabriclike {
+		bundle "animated-textures-support";
+		bundle "cem-support";
+		bundle "cit-support";
+		bundle "ctm-support";
+		bundle "custom-colors-support";
+		bundle "custom-gui-support";
+		bundle "custom-sky-support";
+		bundle "emissive-blocks-support";
+		bundle "emissive-entities-support";
+		bundle "hd-fonts-support";
+		bundle "natural-textures-support";
+		bundle "random-entities-support";
+		bundle "splash-screen-support";
+		
+		finish;
+	}
+	fail unsupported_loader;
+}

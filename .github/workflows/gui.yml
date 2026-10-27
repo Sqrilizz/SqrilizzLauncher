@@ -1,0 +1,151 @@
+name: Build GUI
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - dev
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    environment: github-actions
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            package: linux-x86_64
+          - os: windows-2022
+            package: windows
+          - os: macos-latest
+            package: macos-universal
+
+    env:
+      BUILD_PROFILE: ${{ github.ref_name == 'dev' && 'fast_release' || 'release' }}
+      CARGO_TERM_COLOR: always
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache Cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            target
+            ~/.cargo/registry
+            ~/.cargo/git
+          key: ${{ runner.os }}-gui-${{ hashFiles('Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gui-
+
+      - name: Setup Rust environment
+        uses: raftario/setup-rust-action@v1.0.0
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+
+      - if: ${{ matrix.os == 'ubuntu-latest' }}
+        name: Install Linux build deps
+        run: |
+          sudo apt update
+          sudo apt install --yes \
+            libdbus-1-dev \
+            libfreetype6-dev \
+            libfontconfig1-dev \
+            libegl1-mesa-dev \
+            libgl1-mesa-dev \
+            libwayland-dev \
+            libwayland-egl1 \
+            libgles2-mesa-dev \
+            flatpak \
+            flatpak-builder
+
+      - if: ${{ matrix.os == 'windows-2022' }}
+        name: Install MSVC ARM64 Build Tools
+        shell: powershell
+        run: |
+          $installerPath = "C:\Program Files (x86)\Microsoft Visual Studio\Installer\setup.exe"
+          $installPath = "C:\Program Files\Microsoft Visual Studio\2022\Enterprise"
+          Start-Process $installerPath -ArgumentList "modify --installPath `"$installPath`" --quiet --add Microsoft.VisualStudio.Component.VC.ARM64.BuildTools.Latest" -Wait -PassThru
+
+      - if: ${{ matrix.os == 'windows-2022' }}
+        name: Add Windows ARM64 target
+        run: rustup target add aarch64-pc-windows-msvc
+
+      - if: ${{ matrix.os == 'macos-latest' }}
+        name: Add macOS targets
+        run: rustup target add aarch64-apple-darwin x86_64-apple-darwin
+
+      - name: Build native binary
+        if: ${{ matrix.os != 'macos-latest' }}
+        run: cargo build --locked -p sqrilizz_launcher --profile "${{ env.BUILD_PROFILE }}"
+
+      - if: ${{ matrix.os == 'windows-2022 SKIP' }}
+        name: Build Windows ARM64 binary
+        run: cargo build --locked -p sqrilizz_launcher --profile "${{ env.BUILD_PROFILE }}" --target aarch64-pc-windows-msvc
+
+      - if: ${{ matrix.os == 'macos-latest' }}
+        name: Build macOS binaries
+        run: |
+          cargo build --locked -p sqrilizz_launcher --profile "${{ env.BUILD_PROFILE }}" --target x86_64-apple-darwin
+          cargo build --locked -p sqrilizz_launcher --profile "${{ env.BUILD_PROFILE }}" --target aarch64-apple-darwin
+
+      - name: Package with cargo-packager (Linux)
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        run: |
+          cargo install --git https://github.com/crabnebula-dev/cargo-packager cargo-packager || true
+          cargo-packager --manifest-path crates/gui/Cargo.toml \
+            --binaries-dir target/${{ env.BUILD_PROFILE }} \
+            --profile ${{ env.BUILD_PROFILE }} \
+            --out-dir dist \
+            --formats deb,appimage
+
+      - name: Build Flatpak bundle (Linux)
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        run: |
+          flatpak --user remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+          flatpak --user install -y --noninteractive flathub org.freedesktop.Platform//24.08 org.freedesktop.Sdk//24.08
+          rm -rf builddir repo dist/*.flatpak
+          flatpak-builder --user --repo=repo --force-clean builddir crates/gui/assets/org.sqrilizz.Sqrilizz.json
+          flatpak build-bundle repo dist/Sqrilizz.flatpak org.sqrilizz.Sqrilizz
+
+      - name: Package with cargo-packager (Windows x64)
+        if: ${{ matrix.os == 'windows-2022' }}
+        shell: powershell
+        run: |
+          cargo install --git https://github.com/crabnebula-dev/cargo-packager cargo-packager | Out-Null
+          cargo-packager --manifest-path crates/gui/Cargo.toml `
+            --binaries-dir target\${{ env.BUILD_PROFILE }} `
+            --profile ${{ env.BUILD_PROFILE }} `
+            --out-dir dist `
+            --formats wix
+
+      - name: Package with cargo-packager (macOS)
+        if: ${{ matrix.os == 'macos-latest' }}
+        run: |
+          cargo install --git https://github.com/crabnebula-dev/cargo-packager cargo-packager || true
+           # Create a universal binary from both architectures
+           mkdir -p target/${{ env.BUILD_PROFILE }}
+           lipo -create \
+             target/x86_64-apple-darwin/${{ env.BUILD_PROFILE }}/sqrilizz_launcher \
+             target/aarch64-apple-darwin/${{ env.BUILD_PROFILE }}/sqrilizz_launcher \
+             -output target/${{ env.BUILD_PROFILE }}/sqrilizz_launcher
+           cargo-packager --manifest-path crates/gui/Cargo.toml \
+             --binaries-dir target/${{ env.BUILD_PROFILE }} \
+             --profile ${{ env.BUILD_PROFILE }} \
+             --out-dir dist \
+             --formats app,dmg
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.package }}
+          if-no-files-found: error
+          path: |
+            dist/*.flatpak
+            crates/gui/dist/**

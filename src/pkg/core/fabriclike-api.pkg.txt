@@ -1,0 +1,17 @@
+@meta {
+	name "Fabriclike API";
+	description "Installs the proper Fabric/Quilt API mod";
+	authors "Sqrilizz";
+}
+
+@install {
+	if loader fabric {
+		require "fabric-api";
+		finish;
+	}
+	if loader quilt {
+		require "quilted-fabric-api";
+		finish;
+	}
+	fail unsupported_loader;
+}

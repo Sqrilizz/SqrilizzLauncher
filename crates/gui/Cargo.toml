@@ -1,0 +1,74 @@
+[package]
+name = "sqrilizz_launcher"
+version = "0.32.2"
+description = "The GUI interface for Sqrilizz Launcher"
+keywords = ["minecraft", "launcher", "game", "mc", "gui"]
+categories.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+default-run = "sqrilizz_launcher"
+
+[package.metadata.packager]
+product_name = "Sqrilizz Launcher"
+version = "0.32.2"
+identifier = "org.sqrilizz.launcher"
+description = "Sqrilizz Launcher GUI"
+icons = ["assets/icon_1024x1024.png", "assets/icon.ico", "assets/icon.icns"]
+
+[[package.metadata.packager.binaries]]
+path = "sqrilizz_launcher"
+main = true
+
+[package.metadata.packager.linux]
+generate_desktop_entry = true
+
+[package.metadata.packager.deb]
+desktop_template = "assets/SqrilizzLauncher.desktop"
+
+[features]
+devtools = ["freya/devtools"]
+profiler = ["freya/performance"]
+
+[dependencies]
+anyhow = { workspace = true }
+async-trait = { workspace = true }
+base64 = { workspace = true }
+clap = { workspace = true }
+directories = { workspace = true }
+discord-rich-presence = { workspace = true }
+itertools = { workspace = true }
+freya = { workspace = true }
+freya-core = { workspace = true }
+html_parser = { workspace = true }
+image = { workspace = true }
+sqrilizz = { workspace = true }
+open = { workspace = true }
+reqwest = { workspace = true }
+rfd = { workspace = true }
+rust-embed = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+zip = { workspace = true }
+version-compare = { workspace = true }
+sha2 = { workspace = true }
+tokio = { workspace = true, features = [
+    "macros",
+    "fs",
+    "time",
+    "net",
+    "io-util",
+    "process",
+] }
+
+[target.'cfg(target_os = "linux")'.dependencies]
+which = { workspace = true }
+
+[target.'cfg(target_os = "windows")'.build-dependencies]
+static_vcruntime = "2.0"
+
+[[bin]]
+name = "sqrilizz_launcher"
+path = "src/main.rs"

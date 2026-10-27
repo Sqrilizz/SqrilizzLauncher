@@ -1,0 +1,24 @@
+[package]
+name = "sqrilizz_parse"
+version = "0.32.2"
+description = "Package script lexing, parsing, and basic evaluation for Sqrilizz"
+keywords = ["minecraft", "launcher", "game", "mc", "parse"]
+categories.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[lints]
+workspace = true
+
+[features]
+schema = ["dep:schemars", "sqrilizz_shared/schema"]
+
+[dependencies]
+anyhow = { workspace = true }
+sqrilizz_shared = { workspace = true }
+schemars = { workspace = true, optional = true }
+serde = { workspace = true }
+serde_json = { workspace = true }

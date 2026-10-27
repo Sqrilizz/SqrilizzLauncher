@@ -1,0 +1,17 @@
+@meta {
+	name "Connected Textures Support";
+	description "Installs mods to support Connected Textures in resource packs";
+	authors "Sqrilizz";
+}
+
+@install {
+	if loader forgelike {
+		require "optifine-support";
+		finish;
+	}
+	if loader fabriclike {
+		require "continuity";
+		finish;
+	}
+	fail unsupported_loader;
+}

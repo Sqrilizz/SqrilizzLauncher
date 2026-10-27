@@ -1,0 +1,438 @@
+use std::{fmt::Display, sync::Arc};
+
+#[cfg(feature = "schema")]
+use schemars::JsonSchema;
+use serde::{Deserialize, Serialize};
+
+/// Pattern matching for the version of Minecraft, a package, etc.
+#[derive(Debug, Hash, Clone, PartialEq, Eq, PartialOrd, Ord, Default)]
+#[cfg_attr(feature = "schema", derive(JsonSchema))]
+pub enum VersionPattern {
+	/// Matches a single version
+	Single(String),
+	/// Matches the latest version in the list
+	Latest(Option<String>),
+	/// Matches any version that is <= a version
+	Before(String),
+	/// Matches any version that is >= a version
+	After(String),
+	/// Matches any versions between an inclusive range
+	Range(String, String),
+	/// Special pattern for package resolution that makes the resolver prefer a version, but not require it
+	Prefer(String),
+	/// Matches any version
+	#[default]
+	Any,
+}
+
+impl VersionPattern {
+	/// Finds all match in a list of versions
+	pub fn get_matches(&self, versions: &[String]) -> Vec<String> {
+		match self {
+			Self::Single(version) => match versions.contains(version) {
+				true => vec![version.to_string()],
+				false => vec![],
+			},
+			Self::Latest(found) => match found {
+				Some(found) => vec![found.clone()],
+				None => match versions.last().cloned() {
+					Some(version) => vec![version],
+					None => vec![],
+				},
+			},
+			Self::Before(version) => match versions.iter().position(|e| e == version) {
+				Some(pos) => versions[..=pos].to_vec(),
+				None => vec![],
+			},
+			Self::After(version) => match versions.iter().position(|e| e == version) {
+				Some(pos) => versions[pos..].to_vec(),
+				None => vec![],
+			},
+			Self::Range(start, end) => match versions.iter().position(|e| e == start) {
+				Some(start_pos) => match versions.iter().position(|e| e == end) {
+					Some(end_pos) => versions[start_pos..=end_pos].to_vec(),
+					None => vec![],
+				},
+				None => vec![],
+			},
+			Self::Prefer(..) | Self::Any => versions.to_vec(),
+		}
+	}
+
+	/// Finds the newest match in a list of versions
+	pub fn get_match(&self, versions: &[String]) -> Option<String> {
+		match self {
+			Self::Any | Self::Prefer(..) => versions.last().cloned(),
+			_ => self.get_matches(versions).pop(),
+		}
+	}
+
+	/// Compares this pattern to a single string.
+	/// For some pattern types, this may return false if it is unable to deduce an
+	/// answer from the list of versions provided.
+	pub fn matches_single(&self, version: &str, versions: &[String]) -> bool {
+		match self {
+			Self::Single(vers) => version == vers,
+			Self::Latest(cached) => match cached {
+				Some(vers) => version == vers,
+				None => {
+					if let Some(latest) = versions.last() {
+						version == latest
+					} else {
+						false
+					}
+				}
+			},
+			Self::Before(vers) => {
+				if let Some(vers_pos) = versions.iter().position(|x| x == vers) {
+					if let Some(version_pos) = versions.iter().position(|x| x == version) {
+						version_pos <= vers_pos
+					} else {
+						false
+					}
+				} else {
+					false
+				}
+			}
+			Self::After(vers) => {
+				if let Some(vers_pos) = versions.iter().position(|x| x == vers) {
+					if let Some(version_pos) = versions.iter().position(|x| x == version) {
+						version_pos >= vers_pos
+					} else {
+						false
+					}
+				} else {
+					false
+				}
+			}
+			Self::Range(start, end) => {
+				if let Some(start_pos) = versions.iter().position(|x| x == start) {
+					if let Some(end_pos) = versions.iter().position(|x| x == end) {
+						if let Some(version_pos) = versions.iter().position(|x| x == version) {
+							(version_pos >= start_pos) && (version_pos <= end_pos)
+						} else {
+							false
+						}
+					} else {
+						false
+					}
+				} else {
+					false
+				}
+			}
+			Self::Prefer(..) | Self::Any => versions.contains(&version.to_string()),
+		}
+	}
+
+	/// Compares this pattern to a version supplied in a VersionInfo
+	pub fn matches_info(&self, version_info: &VersionInfo) -> bool {
+		self.matches_single(&version_info.version, &version_info.versions)
+	}
+
+	/// Returns the union of matches for multiple patterns
+	pub fn match_union(&self, other: &Self, versions: &[String]) -> Vec<String> {
+		self.get_matches(versions)
+			.iter()
+			.zip(other.get_matches(versions))
+			.filter_map(
+				|(left, right)| {
+					if *left == right { Some(right) } else { None }
+				},
+			)
+			.collect()
+	}
+
+	/// Creates a version pattern by parsing a string
+	pub fn from(text: &str) -> Self {
+		match text {
+			"latest" => Self::Latest(None),
+			"*" => Self::Any,
+			text => {
+				if let Some(prefer) = text.strip_prefix("~") {
+					return Self::Prefer(prefer.to_string());
+				}
+
+				if let Some(last) = text.chars().last() {
+					// Check for escape
+					if !(text.len() > 1
+						&& text.chars().nth(text.len() - 2).is_some_and(|x| x == '\\'))
+					{
+						match last {
+							'-' => return Self::Before(text[..text.len() - 1].to_string()),
+							'+' => return Self::After(text[..text.len() - 1].to_string()),
+							_ => {}
+						}
+					}
+				}
+
+				let range_split: Vec<_> = text.split("..").collect();
+				if range_split.len() == 2 {
+					let start = range_split
+						.first()
+						.expect("First element in range split should exist");
+					// Check for escape
+					if !start.ends_with('\\') {
+						let end = range_split
+							.get(1)
+							.expect("Second element in range split should exist");
+						return Self::Range(start.to_string(), end.to_string());
+					}
+				}
+
+				Self::Single(text.replace('\\', ""))
+			}
+		}
+	}
+
+	/// Converts Self::Any to None
+	pub fn optional(&self) -> Option<&Self> {
+		match self {
+			Self::Any => None,
+			other => Some(other),
+		}
+	}
+
+	/// Checks that a string contains no pattern-special characters
+	#[cfg(test)]
+	pub fn validate(text: &str) -> bool {
+		if text.contains('*') || text.contains("..") || text == "latest" {
+			return false;
+		}
+		if let Some(last) = text.chars().last() {
+			if last == '-' || last == '+' {
+				return false;
+			}
+		}
+		true
+	}
+}
+
+impl Display for VersionPattern {
+	fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+		write!(
+			f,
+			"{}",
+			match self {
+				Self::Single(version) => version.to_string(),
+				Self::Latest(..) => "latest".into(),
+				Self::Before(version) => version.to_string() + "-",
+				Self::After(version) => version.to_string() + "+",
+				Self::Range(start, end) => start.to_string() + ".." + end,
+				Self::Prefer(version) => format!("~{version}"),
+				Self::Any => "*".into(),
+			}
+		)
+	}
+}
+
+impl<'de> Deserialize<'de> for VersionPattern {
+	fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+	where
+		D: serde::Deserializer<'de>,
+	{
+		let string = String::deserialize(deserializer)?;
+		Ok(Self::from(&string))
+	}
+}
+
+impl Serialize for VersionPattern {
+	fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+	where
+		S: serde::Serializer,
+	{
+		let ser = self.to_string().serialize(serializer)?;
+		Ok(ser)
+	}
+}
+
+/// Utility struct that contains the version and version list
+#[derive(Debug, Default, Deserialize, Serialize, Clone)]
+pub struct VersionInfo {
+	/// The version
+	pub version: String,
+	/// The list of available versions to use for comparisons
+	pub versions: Vec<String>,
+}
+
+/// Gets the newest version from a list of versions and a list of available ones. The available versions should be ordered oldest to newest.
+pub fn get_newest_version<'versions>(
+	versions: &'versions [String],
+	available_versions: &[String],
+) -> Option<&'versions String> {
+	versions.iter().max_by_key(|version| {
+		available_versions
+			.iter()
+			.position(|available_version| available_version == *version)
+	})
+}
+
+/// Parses a string of the format foo@bar, where foo is the object and bar is the optional
+/// version pattern. The @ and version can be omitted, which will return the Any version pattern.
+pub fn parse_versioned_string(string: &str) -> (&str, VersionPattern) {
+	if let Some(index) = string.find('@') {
+		let (id, mut version) = string.split_at(index);
+		if index + 1 < string.len() {
+			// Cut off the at symbol
+			version = &version[1..];
+			(id, VersionPattern::from(version))
+		} else {
+			(id, VersionPattern::Any)
+		}
+	} else {
+		(string, VersionPattern::Any)
+	}
+}
+
+/// Parses a string of the format foo@bar, where foo is the object and bar is the optional
+/// single version. The @ and version can be omitted, which will return None
+pub fn parse_single_versioned_string(string: &str) -> (&str, Option<&str>) {
+	if let Some(index) = string.find('@') {
+		let (id, mut version) = string.split_at(index);
+		if index + 1 < string.len() {
+			// Cut off the at symbol
+			version = &version[1..];
+			(id, Some(version))
+		} else {
+			(id, None)
+		}
+	} else {
+		(string, None)
+	}
+}
+
+/// Formats a versioned string of the format object@version. If version is `any`, the @ and version will be omitted
+pub fn format_versioned_string(object: &str, version: &VersionPattern) -> String {
+	if let VersionPattern::Any = version {
+		object.to_string()
+	} else {
+		format!("{object}@{version}")
+	}
+}
+
+/// Used for deserializing a Minecraft version
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[cfg_attr(feature = "schema", derive(JsonSchema))]
+#[serde(rename_all = "snake_case")]
+#[serde(untagged)]
+pub enum MinecraftVersionDeser {
+	/// One of the latest version matchers
+	Latest(MinecraftLatestVersion),
+	/// A generic version
+	Version(VersionName),
+}
+
+/// Matches for the latest Minecraft version.
+/// We have to separate this so that deserialization works
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[cfg_attr(feature = "schema", derive(JsonSchema))]
+pub enum MinecraftLatestVersion {
+	#[serde(rename = "latest")]
+	/// A release version of Minecraft
+	Release,
+	#[serde(rename = "latest_snapshot")]
+	/// A snapshot version of Minecraft
+	Snapshot,
+}
+
+/// String name for a Minecraft version
+pub type VersionName = Arc<str>;
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+
+	#[test]
+	fn test_version_pattern() {
+		let versions = vec![
+			"1.16.5".to_string(),
+			"1.17".to_string(),
+			"1.18".to_string(),
+			"1.19.3".to_string(),
+		];
+
+		assert_eq!(
+			VersionPattern::Single("1.19.3".into()).get_match(&versions),
+			Some("1.19.3".into())
+		);
+		assert_eq!(
+			VersionPattern::Single("1.18".into()).get_match(&versions),
+			Some("1.18".into())
+		);
+		assert_eq!(
+			VersionPattern::Single(String::new()).get_match(&versions),
+			None
+		);
+		assert_eq!(
+			VersionPattern::Before("1.18".into()).get_match(&versions),
+			Some("1.18".into())
+		);
+		assert_eq!(
+			VersionPattern::After("1.16.5".into()).get_match(&versions),
+			Some("1.19.3".into())
+		);
+
+		assert_eq!(
+			VersionPattern::Before("1.17".into()).get_matches(&versions),
+			vec!["1.16.5".to_string(), "1.17".to_string()]
+		);
+		assert_eq!(
+			VersionPattern::After("1.17".into()).get_matches(&versions),
+			vec!["1.17".to_string(), "1.18".to_string(), "1.19.3".to_string()]
+		);
+		assert_eq!(
+			VersionPattern::Range("1.16.5".into(), "1.18".into()).get_matches(&versions),
+			vec!["1.16.5".to_string(), "1.17".to_string(), "1.18".to_string()]
+		);
+
+		assert!(VersionPattern::Before("1.18".into()).matches_single("1.16.5", &versions));
+		assert!(VersionPattern::After("1.18".into()).matches_single("1.19.3", &versions));
+		assert!(VersionPattern::Latest(None).matches_single("1.19.3", &versions));
+	}
+
+	#[test]
+	fn test_version_pattern_parse() {
+		assert_eq!(
+			VersionPattern::from("+1.19.5"),
+			VersionPattern::Single("+1.19.5".into())
+		);
+		assert_eq!(VersionPattern::from("latest"), VersionPattern::Latest(None));
+		assert_eq!(
+			VersionPattern::from("1.19.5-"),
+			VersionPattern::Before("1.19.5".into())
+		);
+		assert_eq!(
+			VersionPattern::from("1.19.5+"),
+			VersionPattern::After("1.19.5".into())
+		);
+		assert_eq!(
+			VersionPattern::from("1.17.1..1.19.3"),
+			VersionPattern::Range("1.17.1".into(), "1.19.3".into())
+		);
+		assert_eq!(
+			VersionPattern::from("o"),
+			VersionPattern::Single("o".into())
+		);
+	}
+
+	#[test]
+	fn test_version_pattern_parse_escape() {
+		assert_eq!(
+			VersionPattern::from("1.19.5\\+"),
+			VersionPattern::Single("1.19.5+".into())
+		);
+		assert_eq!(
+			VersionPattern::from("1.17.1\\..1.19.3"),
+			VersionPattern::Single("1.17.1..1.19.3".into())
+		);
+	}
+
+	#[test]
+	fn test_version_pattern_validation() {
+		assert!(VersionPattern::validate("hello"));
+		assert!(!VersionPattern::validate("latest"));
+		assert!(!VersionPattern::validate("foo-"));
+		assert!(!VersionPattern::validate("foo+"));
+		assert!(!VersionPattern::validate("f*o"));
+		assert!(!VersionPattern::validate("f..o"));
+	}
+}
