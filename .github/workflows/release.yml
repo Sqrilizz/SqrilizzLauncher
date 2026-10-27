@@ -106,6 +106,9 @@ jobs:
 
           for platform in linux windows macos; do
             while IFS= read -r file; do
+              case "$file" in
+                *.d|*.pdb) continue ;;
+              esac
               cp "$file" "release-assets/Sqrilizz_cli_${SQRILIZZ_VERSION}_${platform}${file##*sqrilizz}"
             done < <(find "artifacts/cli/$platform" -type f -name 'sqrilizz*' 2>/dev/null || true)
           done
