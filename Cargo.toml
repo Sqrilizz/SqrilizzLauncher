@@ -139,7 +139,7 @@ rsa = { version = "0.9.10", default-features = false, features = [
 	"u64_digit",
 ] }
 rust-embed = "8.11.0"
-schemars = { version = "0.8.20" }
+schemars = { version = "1.2.3" }
 serde = { version = "1.0.202", features = ["derive", "rc"] }
 serde_json = "1.0.117"
 sha2 = "0.10.8"
