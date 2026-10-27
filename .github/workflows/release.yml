@@ -88,58 +88,11 @@ jobs:
           name: macos-latest
           path: artifacts/cli/macos
 
-      - name: Download latest plugin artifacts
-        uses: dawidd6/action-download-artifact@v11
-        with:
-          workflow: build_plugins.yml
-          workflow_conclusion: success
-          branch: main
-          name: universal
-          path: artifacts/plugins/universal
-
-      - name: Download latest Linux plugin artifacts
-        uses: dawidd6/action-download-artifact@v11
-        with:
-          workflow: build_plugins.yml
-          workflow_conclusion: success
-          branch: main
-          name: x86_64-unknown-linux-gnu
-          path: artifacts/plugins/linux
-
-      - name: Download latest Windows plugin artifacts
-        uses: dawidd6/action-download-artifact@v11
-        with:
-          workflow: build_plugins.yml
-          workflow_conclusion: success
-          branch: main
-          name: x86_64-pc-windows-gnu
-          path: artifacts/plugins/windows
-
-      - name: Download latest ARM64 macOS plugin artifacts
-        uses: dawidd6/action-download-artifact@v11
-        with:
-          workflow: build_plugins.yml
-          workflow_conclusion: success
-          branch: main
-          name: aarch64-apple-darwin
-          path: artifacts/plugins/macos-aarch64
-
-      - name: Download latest x86_64 macOS plugin artifacts
-        uses: dawidd6/action-download-artifact@v11
-        with:
-          workflow: build_plugins.yml
-          workflow_conclusion: success
-          branch: main
-          name: x86_64-apple-darwin
-          path: artifacts/plugins/macos-x86_64
-
       - name: Prepare release assets
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p release-assets/plugins
-
-          find artifacts/plugins -type f -name '*.zip' -exec cp '{}' release-assets/plugins/ ';'
+          mkdir -p release-assets
 
           while IFS= read -r file; do
             case "$file" in
@@ -154,10 +107,9 @@ jobs:
           for platform in linux windows macos; do
             while IFS= read -r file; do
               cp "$file" "release-assets/Sqrilizz_cli_${SQRILIZZ_VERSION}_${platform}${file##*sqrilizz}"
-            done < <(find "artifacts/cli/$platform" -type f -name 'sqrilizz*')
+            done < <(find "artifacts/cli/$platform" -type f -name 'sqrilizz*' 2>/dev/null || true)
           done
 
-          test -n "$(find release-assets/plugins -type f -name '*.zip' -print -quit)"
           test -n "$(find release-assets -maxdepth 1 -type f -print -quit)"
 
       - name: Extract changelog entry
@@ -179,13 +131,3 @@ jobs:
           body_path: release-notes.md
           make_latest: true
           files: release-assets/*
-
-      - name: Publish plugin release
-        uses: softprops/action-gh-release@v2
-        with:
-          repository: Sqrilizz/plugins
-          token: ${{ secrets.PLUGINS_TOKEN }}
-          tag_name: plugin-all-v${{ env.SQRILIZZ_VERSION }}
-          name: Plugin Release v${{ env.SQRILIZZ_VERSION }}
-          make_latest: true
-          files: release-assets/plugins/*.zip

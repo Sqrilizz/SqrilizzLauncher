@@ -52,6 +52,9 @@ impl ModalBase {
 
 impl Component for ModalBase {
 	fn render(&self) -> impl IntoElement {
+		let Some(child) = &self.child else {
+			return rect().into_element();
+		};
 		let theme = use_theme();
 
 		let on_close = self.on_close.clone();
@@ -61,17 +64,16 @@ impl Component for ModalBase {
 			.color(theme.fg)
 			.background(theme.panel)
 			.padding(0.0)
-			.maybe(self.child.is_some(), |this| {
-				this.child(
-					rect()
-						.width(Size::fill())
-						.height(Size::px(self.size.1))
-						.border(theme.border(theme.panel_border))
-						.corner_radius(theme.round2)
-						.child(self.child.clone().unwrap()),
-				)
-			})
+			.child(
+				rect()
+					.width(Size::fill())
+					.height(Size::px(self.size.1))
+					.border(theme.border(theme.panel_border))
+					.corner_radius(theme.round2)
+					.child(child.clone()),
+			)
 			.on_close_request(move |_| on_close.call(()))
+			.into_element()
 	}
 }
 
@@ -157,17 +159,17 @@ impl Modal {
 	pub fn cancel_button(self) -> Self {
 		let on_close = self.on_close.clone();
 		self.button(ModalButton {
-			title: "Cancel".into(),
-			icon: "delete".into(),
-			on_click: on_close,
+			title: "Отмена".into(),
+			icon: "cross".into(),
+			on_click: (move |_| on_close.call(())).into(),
 			active: false,
 			danger: false,
 		})
 	}
 
 	pub fn simple_confirm(
-		title: &str,
-		icon: &str,
+		title: impl Into<String>,
+		icon: impl Into<String>,
 		body: impl IntoElement,
 		is_open: bool,
 		on_close: impl Into<EventHandler<()>>,
@@ -177,7 +179,7 @@ impl Modal {
 			.on_close(on_close)
 			.cancel_button()
 			.button(ModalButton {
-				title: "Confirm".into(),
+				title: "Подтвердить".into(),
 				icon: "check".into(),
 				on_click: on_confirm.into(),
 				active: true,
@@ -189,108 +191,109 @@ impl Modal {
 
 impl Component for Modal {
 	fn render(&self) -> impl IntoElement {
-		let theme = use_theme();
-		let mut close_button_hovered = use_state(|| false);
-		if self.child.is_none() {
-			close_button_hovered.set(false);
-		}
+		let Some(child) = &self.child else {
+			return rect().into_element();
+		};
 
+		let theme = use_theme();
+		let close_button_hovered = use_state(|| false);
 		let on_close = self.on_close.clone();
+
+		let close_button_bg = if *close_button_hovered.read() {
+			theme.item_hover
+		} else {
+			theme.panel
+		};
+
+		let close_button = rect()
+			.width(Size::px(32.0))
+			.height(Size::px(32.0))
+			.center()
+			.hover(close_button_hovered)
+			.clickable()
+			.background(close_button_bg)
+			.corner_radius(theme.round2)
+			.on_press(move |_| on_close.call(()))
+			.child(icon("delete", 16.0));
+
+		let titlebar = rect()
+			.width(Size::fill())
+			.height(Size::px(40.0))
+			.cont()
+			.border(border_bottom(theme.border, theme.panel_border))
+			.child(rect().width(Size::px(40.0)))
+			.child(
+				rect()
+					.width(Size::flex(1.0))
+					.height(Size::fill())
+					.cont()
+					.center()
+					.font_weight(FontWeight::BOLD)
+					.maybe(!self.title_icon.is_empty(), |this| {
+						this.child(icon(&self.title_icon, 16.0))
+					})
+					.child(self.title.as_str()),
+			)
+			.child(
+				rect()
+					.width(Size::px(40.0))
+					.height(Size::fill())
+					.center()
+					.child(close_button),
+			);
+
+		let buttons = self.buttons.iter().map(|x| {
+			let on_click = x.on_click.clone();
+
+			let (fg, bg, border) = if x.danger {
+				(theme.error, theme.error_bg, theme.error)
+			} else {
+				(theme.primary, theme.primary_bg, theme.primary)
+			};
+
+			icon_text_button(&x.icon, &x.title, &theme)
+				.width(Size::px(180.0))
+				.maybe(x.active || x.danger, |this| {
+					this.color(fg)
+						.background(bg)
+						.hover_background(bg)
+						.border_fill(border)
+				})
+				.on_press(move |_| on_click.call(()))
+				.into_element()
+		});
+
+		let bottom_bar = rect()
+			.width(Size::fill())
+			.padding(theme.gap)
+			.horizontal()
+			.main_align(Alignment::SpaceAround)
+			.cross_align(Alignment::Center)
+			.border(border_top(theme.border, theme.panel_border))
+			.children(buttons);
+
+		let content = rect()
+			.fill()
+			.flex()
+			.vertical()
+			.maybe(!self.hide_titlebar, |this| this.child(titlebar))
+			.child(
+				rect()
+					.width(Size::fill())
+					.height(Size::flex(1.0))
+					.child(child.clone()),
+			)
+			.child(bottom_bar);
 
 		ModalBase::new()
 			.on_close(self.on_close.clone())
 			.size(self.size.0, self.size.1)
-			.maybe_child(self.child.is_some(), move || {
-				let on_close = on_close.clone();
-
-				let close_button_bg = if *close_button_hovered.read() {
-					theme.item_hover
-				} else {
-					theme.panel
-				};
-
-				let close_button = rect()
-					.width(Size::px(32.0))
-					.height(Size::px(32.0))
-					.center()
-					.hover(close_button_hovered)
-					.clickable()
-					.background(close_button_bg)
-					.corner_radius(theme.round2)
-					.on_press(move |_| on_close.call(()))
-					.child(icon("delete", 16.0));
-
-				let titlebar = rect()
-					.width(Size::fill())
-					.height(Size::px(40.0))
-					.cont()
-					.border(border_bottom(theme.border, theme.panel_border))
-					.child(rect().width(Size::px(40.0)))
-					.child(
-						rect()
-							.width(Size::flex(1.0))
-							.height(Size::fill())
-							.cont()
-							.center()
-							.font_weight(FontWeight::BOLD)
-							.maybe(!self.title_icon.is_empty(), |this| {
-								this.child(icon(&self.title_icon, 16.0))
-							})
-							.child(self.title.as_str()),
-					)
-					.child(
-						rect()
-							.width(Size::px(40.0))
-							.height(Size::fill())
-							.center()
-							.child(close_button),
-					);
-
-				let buttons = self.buttons.iter().map(|x| {
-					let on_click = x.on_click.clone();
-
-					let (fg, bg, border) = if x.danger {
-						(theme.error, theme.error_bg, theme.error)
-					} else {
-						(theme.primary, theme.primary_bg, theme.primary)
-					};
-
-					icon_text_button(&x.icon, &x.title, &theme)
-						.width(Size::px(180.0))
-						.maybe(x.active || x.danger, |this| {
-							this.color(fg)
-								.background(bg)
-								.hover_background(bg)
-								.border_fill(border)
-						})
-						.on_press(move |_| on_click.call(()))
-						.into_element()
-				});
-				let bottom_bar = rect()
-					.width(Size::fill())
-					.padding(theme.gap)
-					.horizontal()
-					.main_align(Alignment::SpaceAround)
-					.cross_align(Alignment::Center)
-					.border(border_top(theme.border, theme.panel_border))
-					.children(buttons);
-
-				rect()
-					.fill()
-					.flex()
-					.vertical()
-					.maybe(!self.hide_titlebar, |this| this.child(titlebar))
-					.child(
-						rect()
-							.width(Size::fill())
-							.height(Size::flex(1.0))
-							.child(self.child.clone().unwrap()),
-					)
-					.child(bottom_bar)
-			})
+			.child(content)
+			.into_element()
 	}
 }
 
+/// A button to be displayed in a modal
 #[derive(PartialEq)]
 pub struct ModalButton {
 	pub title: String,

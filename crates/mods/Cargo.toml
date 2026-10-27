@@ -1,6 +1,6 @@
 [package]
 name = "sqrilizz_mods"
-version = "0.32.2"
+version = "1.0.4"
 description = "Installation of loaders for use with sqrilizz_core"
 keywords = ["minecraft", "launcher", "game", "mc", "modification"]
 categories.workspace = true

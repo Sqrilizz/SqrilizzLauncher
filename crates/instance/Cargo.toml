@@ -1,6 +1,6 @@
 [package]
 name = "sqrilizz_instance"
-version = "0.32.2"
+version = "1.0.4"
 description = "Instance file and addon management for Sqrilizz"
 keywords = ["minecraft", "launcher", "game", "mc"]
 categories.workspace = true

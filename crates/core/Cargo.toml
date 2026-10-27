@@ -1,6 +1,6 @@
 [package]
 name = "sqrilizz_core"
-version = "0.32.2"
+version = "1.0.4"
 description = "Core functionality for launching Minecraft"
 keywords = ["minecraft", "launcher", "game", "mc"]
 categories.workspace = true

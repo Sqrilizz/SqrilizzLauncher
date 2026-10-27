@@ -1,3 +1,4 @@
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::{
 	sync::{
 		LazyLock,
@@ -6,16 +7,16 @@ use std::{
 	thread,
 	time::Duration,
 };
-use std::sync::atomic::{AtomicBool, Ordering};
 
 use discord_rich_presence::{
 	DiscordIpc, DiscordIpcClient,
-	activity::{Activity, ActivityType, Assets, Button, StatusDisplayType, Timestamps},
+	activity::{Activity, ActivityType, Assets, Button, Timestamps},
 };
 use sqrilizz::shared::util::utc_timestamp;
 
 pub static DISCORD_CLIENT_ID: &str = "1454150579629588684";
-pub static DISCORD_LARGE_IMAGE: &str = "sqrilizz";
+pub static DISCORD_LARGE_IMAGE: &str =
+	"https://raw.githubusercontent.com/Sqrilizz/SqrilizzLauncher/main/docs/assets/rpc.gif";
 static DISCORD_ENABLED: AtomicBool = AtomicBool::new(true);
 
 #[derive(Clone, Debug)]
@@ -79,11 +80,16 @@ fn rpc_worker(rx: Receiver<DiscordAction>) {
 }
 
 fn apply_action(client: &mut DiscordIpcClient, action: &DiscordAction) -> Result<(), ()> {
+	let download_btn = Button::new(
+		"Скачать лаунчер",
+		"https://github.com/Sqrilizz/SqrilizzLauncher/releases/latest",
+	);
+	let website_btn = Button::new("Официальный сайт", "https://sqrilizz.tech");
+
 	match action {
 		DiscordAction::SetInLauncher => {
 			let now = utc_timestamp().unwrap_or_default() as i64;
 			let payload = Activity::new()
-				.status_display_type(StatusDisplayType::Name)
 				.state("В лаунчере")
 				.details("В главном меню")
 				.activity_type(ActivityType::Playing)
@@ -93,10 +99,7 @@ fn apply_action(client: &mut DiscordIpcClient, action: &DiscordAction) -> Result
 						.large_image(DISCORD_LARGE_IMAGE)
 						.large_text("Sqrilizz Launcher"),
 				)
-				.buttons(vec![Button::new(
-					"Дискорд сообщество",
-					"https://discord.gg/25fhkjeTvW",
-				)]);
+				.buttons(vec![download_btn, website_btn]);
 			client.set_activity(payload).map_err(|_| ())?;
 		}
 		DiscordAction::SetInGame {
@@ -106,7 +109,6 @@ fn apply_action(client: &mut DiscordIpcClient, action: &DiscordAction) -> Result
 		} => {
 			let state_text = format!("Играет в {}", instance_name);
 			let mut payload = Activity::new()
-				.status_display_type(StatusDisplayType::Name)
 				.state(&state_text)
 				.activity_type(ActivityType::Playing)
 				.timestamps(Timestamps::new().start(*start_time))
@@ -115,10 +117,7 @@ fn apply_action(client: &mut DiscordIpcClient, action: &DiscordAction) -> Result
 						.large_image(DISCORD_LARGE_IMAGE)
 						.large_text("Sqrilizz Launcher"),
 				)
-				.buttons(vec![Button::new(
-					"Дискорд сообщество",
-					"https://discord.gg/25fhkjeTvW",
-				)]);
+				.buttons(vec![download_btn, website_btn]);
 			if let Some(d) = details {
 				payload = payload.details(d);
 			}
@@ -150,16 +149,17 @@ pub fn set_instance_presence(instance_name: &str, details: Option<&str>) {
 	if !DISCORD_ENABLED.load(Ordering::Relaxed) {
 		return;
 	}
-	let start_time = utc_timestamp().unwrap_or_default() as i64;
+	let now = utc_timestamp().unwrap_or_default() as i64;
 	let _ = DISCORD_TX.send(DiscordAction::SetInGame {
 		instance_name: instance_name.to_string(),
 		details: details.map(|s| s.to_string()),
-		start_time,
+		start_time: now,
 	});
 }
 
 pub fn clear_presence() {
-	if DISCORD_ENABLED.load(Ordering::Relaxed) {
-		let _ = DISCORD_TX.send(DiscordAction::SetInLauncher);
+	if !DISCORD_ENABLED.load(Ordering::Relaxed) {
+		return;
 	}
+	let _ = DISCORD_TX.send(DiscordAction::SetInLauncher);
 }

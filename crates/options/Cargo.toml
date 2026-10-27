@@ -1,6 +1,6 @@
 [package]
 name = "sqrilizz_options"
-version = "0.32.2"
+version = "1.0.4"
 description = "Game options generation for Minecraft"
 keywords = ["minecraft", "launcher", "game", "mc", "options"]
 categories.workspace = true

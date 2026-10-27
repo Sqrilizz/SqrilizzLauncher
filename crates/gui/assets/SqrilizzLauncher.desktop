@@ -1,8 +1,9 @@
 [Desktop Entry]
 Name=Sqrilizz Launcher
 Comment=Современный быстрый лаунчер Minecraft
-Exec=sqrilizz_launcher
-Icon=sqrilizz_launcher
+Exec=sqrilizz-launcher
+Icon=sqrilizz-launcher
 Terminal=false
 Type=Application
 Categories=Game;
+StartupWMClass=sqrilizz-launcher

@@ -1,7 +1,5 @@
 use std::sync::Arc;
 
-use sqrilizz::config::preferences::ConfigPreferences;
-
 use crate::{
 	components::{
 		console::{Console, ConsoleImpl},
@@ -36,13 +34,17 @@ impl Component for SettingsPage {
 			None
 		};
 
+		let Some(tab) = tab else {
+			return rect().into_element();
+		};
+
 		let on_submit = use_state::<PtrEq<dyn Fn() -> bool>>(|| PtrEq(Arc::new(|| true)));
 		let is_dirty = use_state(|| false);
 
 		let front_state2 = front_state.clone();
 		Modal::new("Настройки".into(), "gear".into())
-			.maybe_child(tab.is_some(), || SettingsModal {
-				tab: tab.unwrap_or(Tab::General),
+			.child(SettingsModal {
+				tab,
 				on_submit,
 				is_dirty,
 			})
@@ -61,6 +63,7 @@ impl Component for SettingsPage {
 				active: *is_dirty.read(),
 				danger: false,
 			})
+			.into_element()
 	}
 }
 
@@ -77,34 +80,26 @@ impl Component for SettingsModal {
 		let front_state = use_front_state();
 		let back_state = use_consume::<BackState>();
 		let prefs_query = use_query(Query::new((), FetchPreferences::new(back_state.clone())));
-		let data = use_hook(|| Arc::new(back_state.data()));
+		let initial_data = use_hook(|| back_state.data());
 		let save_prefs = use_mutation(Mutation::new(
 			SavePreferences::new(back_state.clone()).toast(
 				&back_state,
-				Some("Saved"),
-				"Failed to save config",
+				Some("Сохранено"),
+				"Не удалось сохранить настройки",
 			),
 		));
 		let show_directory = use_mutation(Mutation::new(ShowDirectory::new(back_state.clone())));
 
-		let settings_state = SettingsState::new(self.is_dirty);
+		let settings_state = SettingsState::new(&initial_data, self.is_dirty);
 
-		let front_state2 = front_state.clone();
-		let back_state2 = back_state.clone();
-		let settings_state2 = settings_state.clone();
 		let mut on_submit_state = self.on_submit;
-		use_side_effect(move || {
-			let prefs = prefs_query.read().state().ok().cloned().unwrap_or_default();
-
-			let _original_prefs = prefs.clone();
-			let original_data = data.clone();
-			settings_state2.update(prefs.clone(), (*data).clone());
-
-			let settings_state3 = settings_state2.clone();
-			let back_state2 = back_state2.clone();
-			let front_state = front_state2.clone();
+		let mut is_init = use_state(|| false);
+		if !*is_init.read() {
+			let settings_state3 = settings_state.clone();
+			let back_state2 = back_state.clone();
+			let front_state = front_state.clone();
 			let on_submit = move || {
-				let mut data = (*original_data).clone();
+				let mut data = back_state2.data();
 				if settings_state3.apply(&mut data).is_err() {
 					return false;
 				};
@@ -112,9 +107,10 @@ impl Component for SettingsModal {
 				if let Err(e) = data.write(&back_state2.paths) {
 					front_state
 						.write()
-						.toast(Toast::from_error("Failed to write launcher data", e));
+						.toast(Toast::from_error("Не удалось сохранить настройки", e));
 					return false;
 				}
+				let prefs = prefs_query.read().state().ok().cloned().unwrap_or_default();
 				save_prefs.mutate(NotEq(prefs.clone()));
 
 				front_state.write().invalidate(FrontChannel::Data);
@@ -122,7 +118,8 @@ impl Component for SettingsModal {
 				true
 			};
 			on_submit_state.set(PtrEq(Arc::new(on_submit)));
-		});
+			is_init.set(true);
+		}
 
 		let tab = use_state(|| self.tab.clone());
 		let show_directory2 = show_directory;
@@ -139,7 +136,7 @@ impl Component for SettingsModal {
 
 		let front_state2 = front_state.clone();
 		let left_panel = rect()
-			.width(Size::flex(1.0))
+			.width(Size::px(180.0))
 			.border(border_right(theme.border, theme.panel_border))
 			.cont()
 			.vertical()
@@ -199,6 +196,7 @@ impl Component for SettingsModal {
 		rect()
 			.width(Size::fill())
 			.height(Size::fill())
+			.horizontal()
 			.child(left_panel)
 			.child(right_panel)
 	}
@@ -217,10 +215,10 @@ pub struct SettingsState {
 	pub overlay_themes: State<Vec<String>>,
 	pub zoom: State<f64>,
 	pub discord_rpc: State<bool>,
-	orig: State<PtrEq<OrigSettings>>,
+	orig: State<OrigSettings>,
 }
 
-#[derive(PartialEq, Default, Clone)]
+#[derive(PartialEq, Clone)]
 struct OrigSettings {
 	base_theme: String,
 	overlay_themes: Vec<String>,
@@ -229,12 +227,17 @@ struct OrigSettings {
 }
 
 impl SettingsState {
-	pub fn new(mut on_dirty: State<bool>) -> Self {
-		let base_theme = use_state(String::new);
-		let overlay_themes = use_state(Vec::new);
-		let zoom = use_state(|| 1.0);
-		let discord_rpc = use_state(|| true);
-		let orig = use_state(|| PtrEq(Arc::new(OrigSettings::default())));
+	pub fn new(data: &LauncherData, mut on_dirty: State<bool>) -> Self {
+		let base_theme = use_state(|| data.base_theme.clone().unwrap_or_default());
+		let overlay_themes = use_state(|| data.overlay_themes.clone());
+		let zoom = use_state(|| data.zoom);
+		let discord_rpc = use_state(|| data.discord_rpc);
+		let orig = use_state(|| OrigSettings {
+			base_theme: data.base_theme.clone().unwrap_or_default(),
+			overlay_themes: data.overlay_themes.clone(),
+			zoom: data.zoom,
+			discord_rpc: data.discord_rpc,
+		});
 
 		let st = Self {
 			base_theme,
@@ -246,40 +249,20 @@ impl SettingsState {
 
 		let st2 = st.clone();
 		use_side_effect(move || {
-			let orig = (*st2.orig.read().0).clone();
+			let orig = st2.orig.read().clone();
 			let current = OrigSettings {
 				base_theme: (*st2.base_theme.read()).clone(),
 				overlay_themes: st2.overlay_themes.read().clone(),
 				zoom: *st2.zoom.read(),
 				discord_rpc: *st2.discord_rpc.read(),
 			};
-			if current != orig {
-				on_dirty.set(true);
+			let dirty = current != orig;
+			if *on_dirty.read() != dirty {
+				on_dirty.set(dirty);
 			}
 		});
 
 		st
-	}
-
-	pub fn update(&self, _prefs: ConfigPreferences, data: LauncherData) {
-		let mut base_theme = self.base_theme.clone();
-		base_theme.set_if_modified(data.base_theme.clone().unwrap_or_default());
-
-		let mut overlay_themes = self.overlay_themes.clone();
-		overlay_themes.set_if_modified(data.overlay_themes.clone());
-
-		let mut zoom = self.zoom.clone();
-		zoom.set_if_modified(data.zoom);
-		let mut discord_rpc = self.discord_rpc.clone();
-		discord_rpc.set_if_modified(data.discord_rpc);
-
-		let mut orig = self.orig.clone();
-		orig.set_if_modified(PtrEq(Arc::new(OrigSettings {
-			base_theme: data.base_theme.clone().unwrap_or_default(),
-			overlay_themes: data.overlay_themes.clone(),
-			zoom: data.zoom,
-			discord_rpc: data.discord_rpc,
-		})));
 	}
 
 	pub fn apply(&self, data: &mut LauncherData) -> anyhow::Result<()> {
@@ -306,12 +289,7 @@ impl Component for SettingsConsole {
 		));
 		let logs = use_query(Query::new((), FetchGlobalLogs::new(back_state.clone())));
 
-		let contents = contents_query
-			.read()
-			.state()
-			.ok()
-			.cloned()
-			.map(PtrEq);
+		let contents = contents_query.read().state().ok().cloned().map(PtrEq);
 		let logs = logs.read().state().ok().cloned().unwrap_or_default();
 
 		let console = Impl {

@@ -44,7 +44,7 @@ const SPINNER_INTERVAL_MS: u64 = 300;
 pub fn print_banner() {
 	cprintln!("\n<m,s>╭─────────────────────────────────────────────────────────────╮</>");
 	cprintln!(
-		"<m,s>│</>  <m,s>◆ Sqrilizz Launcher CLI v0.32.2</>             <c,u>sqrilizz.tech</>  <m,s>│</>"
+		"<m,s>│</>  <m,s>◆ Sqrilizz Launcher CLI v1.0.4</>             <c,u>sqrilizz.tech</>  <m,s>│</>"
 	);
 	cprintln!("<m,s>│</>  <k!>Быстрый нативный лаунчер Minecraft на Rust</>            <m,s>│</>");
 	cprintln!("<m,s>╰─────────────────────────────────────────────────────────────╯</>\n");

@@ -424,7 +424,7 @@ fn about_view(theme: &Theme) -> impl IntoElement {
 		)
 		.child(
 			label()
-				.text("Версия 0.32.2 (Release)")
+				.text("Версия 1.0.4 (Release)")
 				.font_size(14.0)
 				.color(theme.primary),
 		)

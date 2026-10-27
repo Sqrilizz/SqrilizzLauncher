@@ -122,7 +122,7 @@ pub enum Command {
 #[command(
 	name = "sqrilizz",
 	author = "Sqrilizz Team",
-	version = "0.32.2",
+	version = "1.0.4",
 	about = "Sqrilizz Launcher CLI — консольный интерфейс для Minecraft",
 	long_about = "Sqrilizz Launcher CLI — быстрый и удобный консольный лаунчер Minecraft на Rust.\nОфициальный сайт: https://sqrilizz.tech\nРепозиторий: https://github.com/Sqrilizz"
 )]

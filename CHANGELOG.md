@@ -1,3 +1,9 @@
+# Sqrilizz 1.0.4
+- Исправлена критическая утечка памяти и бесконечный цикл перерисовки модальных окон
+- Исправлена работа меню настроек лаунчера и сохранение параметров
+- Исправлено отображение иконки окна в Wayland (установлен app_id sqrilizz-launcher)
+- Обновлен Discord Rich Presence (анимированная иконка и кнопки перехода)
+
 # Sqrilizz 0.32.2
 - Fixes issue where zoom would be set to zero on first launch, messing up the UI
 
