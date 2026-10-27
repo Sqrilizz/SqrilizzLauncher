@@ -42,4 +42,4 @@ tokio = { workspace = true, features = ["macros", "fs"] }
 which = { workspace = true }
 
 [target.'cfg(target_os = "windows")'.build-dependencies]
-static_vcruntime = "2.0"
+static_vcruntime = "3.0"
