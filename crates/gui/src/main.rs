@@ -87,7 +87,7 @@ fn main() {
 	let window = WindowConfig::new(move || app(back_state.clone(), event_rx.resubscribe()))
 		.with_size(1400.0, 900.0)
 		.with_title("Sqrilizz Launcher")
-		.with_app_id("sqrilizz-launcher")
+		.with_app_id("sqrilizz_launcher")
 		.with_icon(LaunchConfig::window_icon(ICON));
 	let config = LaunchConfig::new().with_window(window);
 	#[cfg(feature = "profiler")]
