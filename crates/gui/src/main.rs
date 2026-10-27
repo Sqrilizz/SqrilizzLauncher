@@ -42,13 +42,39 @@ mod util;
 static ICON: &[u8] = include_bytes!("../assets/icon_128x128.png");
 
 fn main() {
+	std::panic::set_hook(Box::new(|info| {
+		let msg = format!("Критическая ошибка Sqrilizz Launcher:\n\n{info}");
+		eprintln!("{msg}");
+		let _ = std::fs::write("sqrilizz_crash.log", &msg);
+		if let Some(proj) = directories::ProjectDirs::from("", "sqrilizz", "sqrilizz") {
+			let _ = std::fs::create_dir_all(proj.data_dir());
+			let _ = std::fs::write(proj.data_dir().join("crash.log"), &msg);
+		}
+		rfd::MessageDialog::new()
+			.set_title("Sqrilizz Launcher Error")
+			.set_description(&msg)
+			.set_level(rfd::MessageLevel::Error)
+			.show();
+	}));
+
 	let rt = Builder::new_multi_thread().enable_all().build().unwrap();
 	let _rt = rt.enter();
 
 	let (event_tx, mut event_rx) = broadcast::channel(100);
-	let back_state = rt
-		.block_on(BackState::new(event_tx, event_rx.resubscribe()))
-		.unwrap();
+	let back_state = match rt.block_on(BackState::new(event_tx, event_rx.resubscribe())) {
+		Ok(state) => state,
+		Err(e) => {
+			let msg = format!("Не удалось инициализировать лаунчер:\n\n{e:#}");
+			eprintln!("{msg}");
+			let _ = std::fs::write("sqrilizz_startup_error.log", &msg);
+			rfd::MessageDialog::new()
+				.set_title("Sqrilizz Launcher Startup Error")
+				.set_description(&msg)
+				.set_level(rfd::MessageLevel::Error)
+				.show();
+			return;
+		}
+	};
 
 	if let Ok(mut exec_registry) = SqrilizzExecutableRegistry::open(&back_state.paths.internal) {
 		let _ = exec_registry.add_this(SqrilizzClientId::Gui);
@@ -86,6 +112,7 @@ fn main() {
 
 	let window = WindowConfig::new(move || app(back_state.clone(), event_rx.resubscribe()))
 		.with_size(1400.0, 900.0)
+		.with_min_size(950.0, 600.0)
 		.with_title("Sqrilizz Launcher")
 		.with_app_id("sqrilizz_launcher")
 		.with_icon(LaunchConfig::window_icon(ICON));

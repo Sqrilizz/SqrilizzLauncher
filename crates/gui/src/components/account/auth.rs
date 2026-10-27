@@ -36,7 +36,7 @@ impl Component for MicrosoftAuthPrompt {
 
 		let on_close = self.on_close.clone();
 		Modal::new("Авторизация Microsoft".into(), "lock".into())
-			.size(520.0, 310.0)
+			.size(560.0, 420.0)
 			.on_close(move |_| {
 				on_close.call(());
 				kill_task_mutation.mutate(Task::LoginAccount);
@@ -50,7 +50,7 @@ pub fn ms_auth_info(url: String, device_code: String, theme: &Theme) -> Rect {
 	let device_code_copy = device_code.clone();
 	let code_box = rect()
 		.width(Size::fill())
-		.height(Size::px(48.0))
+		.height(Size::px(52.0))
 		.background(theme.bg)
 		.border(theme.border(theme.primary))
 		.corner_radius(theme.round)
@@ -58,23 +58,33 @@ pub fn ms_auth_info(url: String, device_code: String, theme: &Theme) -> Rect {
 		.cross_align(Alignment::Center)
 		.padding(Gaps::new(0.0, theme.gap2, 0.0, theme.gap2))
 		.child(
-			rect().width(Size::flex(1.0)).child(
-				label()
-					.text(device_code)
-					.font_size(20.0)
-					.font_weight(FontWeight::BOLD)
-					.color(theme.fg),
-			),
+			rect()
+				.width(Size::flex(1.0))
+				.height(Size::fill())
+				.horizontal()
+				.cross_align(Alignment::Center)
+				.main_align(Alignment::Start)
+				.padding(Gaps::new(0.0, theme.gap, 0.0, theme.gap))
+				.child(
+					label()
+						.text(device_code)
+						.font_size(22.0)
+						.font_weight(FontWeight::BOLD)
+						.color(theme.primary),
+				),
 		)
 		.child(
-			icon_text_button("copy", "Копировать", theme).on_press(move |_| {
-				let _ = Clipboard::set(device_code_copy.clone());
-			}),
+			icon_text_button("copy", "Копировать", theme)
+				.width(Size::px(140.0))
+				.on_press(move |_| {
+					let _ = Clipboard::set(device_code_copy.clone());
+				}),
 		);
 	let code_copy = field("Скопируйте этот код", "copy", theme, code_box);
 
 	let url2 = url.clone();
 	let button = icon_text_button("globe", "Открыть страницу входа", theme)
+		.width(Size::px(220.0))
 		.color(theme.primary)
 		.border_fill(theme.primary)
 		.background(theme.primary_bg)
@@ -98,6 +108,7 @@ pub fn ms_auth_info(url: String, device_code: String, theme: &Theme) -> Rect {
 
 	rect()
 		.expanded()
+		.vertical()
 		.padding(theme.gap2)
 		.child(code_copy)
 		.child(open_login_page)

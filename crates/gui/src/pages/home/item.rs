@@ -96,7 +96,7 @@ impl Component for InstanceListItem {
 					.horizontal()
 					.cross_align(Alignment::Center)
 					.font_weight(FontWeight::BOLD)
-					.child(name.as_str()),
+					.child(label().text(name.to_string()).max_lines(1)),
 			);
 
 		let side = if let Some(side) = &self.info.side {
@@ -107,7 +107,7 @@ impl Component for InstanceListItem {
 			rect()
 				.cont()
 				.child(icon(ico, 16.0))
-				.child(side.to_string_pretty())
+				.child(clip_text(&side.to_string_pretty()).width(Size::auto()))
 		} else {
 			rect()
 		};
@@ -116,7 +116,7 @@ impl Component for InstanceListItem {
 			rect()
 				.cont()
 				.child(icon("box_highlight", 16.0))
-				.child(loader.to_string())
+				.child(clip_text(&loader.to_string()).width(Size::auto()))
 		} else {
 			rect()
 		};

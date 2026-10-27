@@ -124,6 +124,7 @@ jobs:
             --profile ${{ env.BUILD_PROFILE }} `
             --out-dir dist `
             --formats wix
+          Compress-Archive -Path target\${{ env.BUILD_PROFILE }}\sqrilizz_launcher.exe -DestinationPath dist\Sqrilizz-Launcher-windows-x64.zip -Force
 
       - name: Package with cargo-packager (macOS)
         if: ${{ matrix.os == 'macos-latest' }}
@@ -148,4 +149,5 @@ jobs:
           if-no-files-found: error
           path: |
             dist/*.flatpak
+            dist/*.zip
             crates/gui/dist/**

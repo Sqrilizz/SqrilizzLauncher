@@ -47,7 +47,6 @@ impl Component for HomePage {
 		});
 
 		let items_gap = 20.0;
-		let items_side_padding = 0.0;
 		let items = items_query.read();
 		let items = match &*items.state() {
 			QueryStateData::Pending
@@ -112,15 +111,15 @@ impl Component for HomePage {
 						})))
 				}
 				AddOption::ModrinthModpack => {
-						front_state2
-							.write()
-							.navigate(Page::Packages(Some(BrowseFilters {
-								instance_id: None,
-								mc_versions: Vec::new(),
-								loader: Loader::Any,
-								kind: Some(PackageKind::Modpack),
-								repo: Some("modrinth".into()),
-							})));
+					front_state2
+						.write()
+						.navigate(Page::Packages(Some(BrowseFilters {
+							instance_id: None,
+							mc_versions: Vec::new(),
+							loader: Loader::Any,
+							kind: Some(PackageKind::Modpack),
+							repo: Some("modrinth".into()),
+						})));
 				}
 				AddOption::ImportLauncher => {
 					front_state2
@@ -142,11 +141,12 @@ impl Component for HomePage {
 						front_state2
 							.write()
 							.toast(Toast::info("Импорт модпака...", None));
-						match crate::ops::modpack_io::import_modpack_file(&path, &back_state2).await {
+						match crate::ops::modpack_io::import_modpack_file(&path, &back_state2).await
+						{
 							Ok(name) => {
-								front_state2
-									.write()
-									.toast(Toast::success(&format!("Модпак «{name}» успешно импортирован!")));
+								front_state2.write().toast(Toast::success(&format!(
+									"Модпак «{name}» успешно импортирован!"
+								)));
 							}
 							Err(e) => {
 								front_state2
@@ -168,7 +168,7 @@ impl Component for HomePage {
 			}),
 		)
 		.custom_header(SelectOption::new(AddOption::Add, "Создать", Some("plus")))
-		.header_width(Size::px(80.0))
+		.header_width(Size::px(112.0))
 		.options_width(210.0)
 		.hide_arrow()
 		.panel_colorway()
@@ -218,7 +218,10 @@ impl Component for HomePage {
 			.child(add_dropdown)
 			.child(segment(tabs, 1.0));
 
-		let search_bar = search_bar(TextInput::new(search).placeholder("Поиск инстансов..."), &theme);
+		let search_bar = search_bar(
+			TextInput::new(search).placeholder("Поиск инстансов..."),
+			&theme,
+		);
 
 		let bar_center = rect()
 			.width(Size::flex(1.0))
@@ -258,12 +261,7 @@ impl Component for HomePage {
 
 		let view = ScrollView::new().expanded().child(view);
 
-		rect().fill().child(view).padding(Gaps::new(
-			theme.gap2,
-			items_side_padding,
-			0.0,
-			items_side_padding,
-		))
+		rect().expanded().padding(items_gap).child(view)
 	}
 }
 

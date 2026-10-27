@@ -119,6 +119,8 @@ impl Component for SettingsModal {
 				save_prefs.mutate(NotEq(prefs.clone()));
 
 				front_state.write().invalidate(FrontChannel::Data);
+				front_state.write().invalidate(FrontChannel::ThemeConfig);
+				front_state.write().invalidate(FrontChannel::Zoom);
 
 				true
 			};
@@ -140,7 +142,7 @@ impl Component for SettingsModal {
 
 		let front_state2 = front_state.clone();
 		let left_panel = rect()
-			.width(Size::px(180.0))
+			.width(Size::px(210.0))
 			.border(border_right(theme.border, theme.panel_border))
 			.cont()
 			.vertical()
@@ -153,9 +155,11 @@ impl Component for SettingsModal {
 			.child(
 				rect()
 					.width(Size::fill())
+					.border(border_top(theme.border, theme.panel_border))
 					.cont()
 					.vertical()
-					.padding(theme.gap2)
+					.padding(theme.gap)
+					.spacing(theme.gap)
 					.child(crate::components::input::tabs::Tab {
 						option: SelectOption::new("", "Папка данных", Some("folder")),
 						is_selected: false,
@@ -332,9 +336,5 @@ impl ConsoleImpl for Impl {
 
 	fn set_log_file(&self, file: Option<String>) {
 		self.selected_log.clone().set(file);
-	}
-
-	fn input_fn(&self) -> Option<impl Fn(String) -> bool + 'static> {
-		None::<Box<dyn Fn(String) -> bool>>
 	}
 }

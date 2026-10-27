@@ -95,10 +95,12 @@ async fn check_self_update(_data: &mut CmdData<'_>) -> anyhow::Result<()> {
 		.user_agent("SqrilizzLauncher")
 		.build()?;
 
-	let url = "https://api.github.com/repos/Sqrilizz/SqrilizzLauncher/releases/latest";
+	let url = "https://api.github.com/repos/Sqrilizz/SqrilizzLauncher/releases?per_page=5";
 	match client.get(url).send().await {
 		Ok(resp) if resp.status().is_success() => {
-			if let Ok(json) = resp.json::<serde_json::Value>().await {
+			if let Ok(json_arr) = resp.json::<Vec<serde_json::Value>>().await
+				&& let Some(json) = json_arr.into_iter().next()
+			{
 				let tag = json.get("tag_name").and_then(|x| x.as_str()).unwrap_or("unknown");
 				let tag_clean = tag.trim_start_matches('v');
 				if tag_clean != current && tag != "unknown" {

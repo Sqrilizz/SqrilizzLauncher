@@ -54,11 +54,22 @@ impl Component for Global {
 			let available_themes = back_state2.themes();
 			back_state2.output().debug("Applying theme".into());
 
-			let mut theme = ThemeDeser::dark();
-			for new_theme in data.base_theme.into_iter().chain(data.overlay_themes) {
-				if new_theme == "light" {
-					theme = theme.merge(ThemeDeser::light());
-				} else if let Some(data) = available_themes.iter().find(|x| x.id == new_theme)
+			let mut theme = if data.base_theme.as_deref() == Some("light") {
+				ThemeDeser::light()
+			} else {
+				ThemeDeser::dark()
+			};
+			if let Some(base_id) = &data.base_theme {
+				if base_id != "light" && base_id != "dark" {
+					if let Some(data) = available_themes.iter().find(|x| &x.id == base_id)
+						&& let Ok(new_theme) = serde_json::from_str::<ThemeDeser>(&data.settings)
+					{
+						theme = theme.merge(new_theme);
+					}
+				}
+			}
+			for new_theme in data.overlay_themes {
+				if let Some(data) = available_themes.iter().find(|x| x.id == new_theme)
 					&& let Ok(new_theme) = serde_json::from_str::<ThemeDeser>(&data.settings)
 				{
 					theme = theme.merge(new_theme);

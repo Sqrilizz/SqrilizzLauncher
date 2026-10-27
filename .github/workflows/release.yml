@@ -100,9 +100,10 @@ jobs:
               *.deb) cp "$file" "release-assets/Sqrilizz_app_${SQRILIZZ_VERSION}_amd64.deb" ;;
               *.flatpak) cp "$file" "release-assets/Sqrilizz_app_${SQRILIZZ_VERSION}.flatpak" ;;
               *.msi) cp "$file" "release-assets/Sqrilizz_app_${SQRILIZZ_VERSION}_x64_en-US.msi" ;;
+              *.zip) cp "$file" "release-assets/Sqrilizz_app_${SQRILIZZ_VERSION}_windows-x64.zip" ;;
               *.dmg) cp "$file" "release-assets/Sqrilizz_app_${SQRILIZZ_VERSION}_universal.dmg" ;;
             esac
-          done < <(find artifacts/gui -type f \( -name '*.AppImage' -o -name '*.deb' -o -name '*.flatpak' -o -name '*.msi' -o -name '*.dmg' \))
+          done < <(find artifacts/gui -type f \( -name '*.AppImage' -o -name '*.deb' -o -name '*.flatpak' -o -name '*.msi' -o -name '*.zip' -o -name '*.dmg' \))
 
           for platform in linux windows macos; do
             while IFS= read -r file; do
@@ -132,5 +133,6 @@ jobs:
           tag_name: ${{ github.ref_name }}
           name: Sqrilizz v${{ env.SQRILIZZ_VERSION }}
           body_path: release-notes.md
-          make_latest: true
+          prerelease: true
+          make_latest: false
           files: release-assets/*

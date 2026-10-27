@@ -83,7 +83,7 @@ pub async fn check_for_updates() -> anyhow::Result<Option<UpdateInfo>> {
 		.build()
 		.context("Failed to build HTTP client")?;
 
-	let url = "https://api.github.com/repos/Sqrilizz/SqrilizzLauncher/releases/latest";
+	let url = "https://api.github.com/repos/Sqrilizz/SqrilizzLauncher/releases?per_page=5";
 	let resp = match client.get(url).send().await {
 		Ok(r) if r.status().is_success() => r,
 		Ok(r) => {
@@ -98,7 +98,8 @@ pub async fn check_for_updates() -> anyhow::Result<Option<UpdateInfo>> {
 		}
 	};
 
-	let release: GhRelease = resp.json().await.context("Failed to parse release JSON")?;
+	let releases: Vec<GhRelease> = resp.json().await.context("Failed to parse release JSON")?;
+	let release = releases.into_iter().next().context("No releases found")?;
 	let tag = release.tag_name.clone();
 	let latest_ver = tag.trim_start_matches('v').to_string();
 

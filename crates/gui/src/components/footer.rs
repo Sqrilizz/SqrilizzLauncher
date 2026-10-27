@@ -47,7 +47,7 @@ impl Component for Footer {
 
 		let center = rect()
 			.height(Size::fill())
-			.width(Size::flex(1.0))
+			.width(Size::auto())
 			.child(FooterButton {
 				item: state.read().footer().clone(),
 			});
