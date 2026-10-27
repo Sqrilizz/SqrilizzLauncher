@@ -119,7 +119,7 @@ sqrilizz_shared = { path = "crates/shared", version = "1.0.7" }
 oauth2 = "4.4.2"
 open = "5.4.1"
 pin-project-lite = "0.2.16"
-rand = "0.8.5"
+rand = "0.10.3"
 rand_chacha = "0.3.1"
 ratatui = { version = "0.30.0", default-features = false, features = ["crossterm", "layout-cache", "underline-color"] }
 ratatui-core = "=0.1.2"
