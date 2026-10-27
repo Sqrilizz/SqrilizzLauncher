@@ -26,6 +26,8 @@ pub struct SettingsPage;
 
 impl Component for SettingsPage {
 	fn render(&self) -> impl IntoElement {
+		let on_submit = use_state::<PtrEq<dyn Fn() -> bool>>(|| PtrEq(Arc::new(|| true)));
+		let is_dirty = use_state(|| false);
 		let front_state = use_front_state();
 		front_state.read().subscribe(FrontChannel::Modal);
 		let tab = if let Some(ModalType::Settings(tab)) = front_state.read().modal() {
@@ -37,9 +39,6 @@ impl Component for SettingsPage {
 		let Some(tab) = tab else {
 			return rect().into_element();
 		};
-
-		let on_submit = use_state::<PtrEq<dyn Fn() -> bool>>(|| PtrEq(Arc::new(|| true)));
-		let is_dirty = use_state(|| false);
 
 		let front_state2 = front_state.clone();
 		Modal::new("Настройки".into(), "gear".into())
@@ -93,18 +92,24 @@ impl Component for SettingsModal {
 		let settings_state = SettingsState::new(&initial_data, self.is_dirty);
 
 		let mut on_submit_state = self.on_submit;
-		let mut is_init = use_state(|| false);
-		if !*is_init.read() {
-			let settings_state3 = settings_state.clone();
-			let back_state2 = back_state.clone();
-			let front_state = front_state.clone();
+		let settings_state3 = settings_state.clone();
+		let back_state2 = back_state.clone();
+		let front_state2 = front_state.clone();
+		let prefs_query2 = prefs_query.clone();
+		let save_prefs2 = save_prefs.clone();
+		use_side_effect(move || {
+			let settings_state = settings_state3.clone();
+			let back_state = back_state2.clone();
+			let front_state = front_state2.clone();
+			let prefs_query = prefs_query2.clone();
+			let save_prefs = save_prefs2.clone();
 			let on_submit = move || {
-				let mut data = back_state2.data();
-				if settings_state3.apply(&mut data).is_err() {
+				let mut data = back_state.data();
+				if settings_state.apply(&mut data).is_err() {
 					return false;
 				};
 
-				if let Err(e) = data.write(&back_state2.paths) {
+				if let Err(e) = data.write(&back_state.paths) {
 					front_state
 						.write()
 						.toast(Toast::from_error("Не удалось сохранить настройки", e));
@@ -118,8 +123,7 @@ impl Component for SettingsModal {
 				true
 			};
 			on_submit_state.set(PtrEq(Arc::new(on_submit)));
-			is_init.set(true);
-		}
+		});
 
 		let tab = use_state(|| self.tab.clone());
 		let show_directory2 = show_directory;

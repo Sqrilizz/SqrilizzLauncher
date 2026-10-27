@@ -52,10 +52,11 @@ impl ModalBase {
 
 impl Component for ModalBase {
 	fn render(&self) -> impl IntoElement {
+		let theme = use_theme();
+
 		let Some(child) = &self.child else {
 			return rect().into_element();
 		};
-		let theme = use_theme();
 
 		let on_close = self.on_close.clone();
 
@@ -191,12 +192,13 @@ impl Modal {
 
 impl Component for Modal {
 	fn render(&self) -> impl IntoElement {
+		let theme = use_theme();
+		let close_button_hovered = use_state(|| false);
+
 		let Some(child) = &self.child else {
 			return rect().into_element();
 		};
 
-		let theme = use_theme();
-		let close_button_hovered = use_state(|| false);
 		let on_close = self.on_close.clone();
 
 		let close_button_bg = if *close_button_hovered.read() {
