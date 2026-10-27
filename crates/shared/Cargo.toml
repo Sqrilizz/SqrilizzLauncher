@@ -1,6 +1,6 @@
 [package]
 name = "sqrilizz_shared"
-version = "1.0.5"
+version = "1.0.6"
 description = "Shared libraries and utilities for Sqrilizz crates"
 keywords = ["minecraft", "launcher", "game", "mc"]
 categories.workspace = true

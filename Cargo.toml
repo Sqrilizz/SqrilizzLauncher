@@ -1,6 +1,6 @@
 [package]
 name = "sqrilizz"
-version = "1.0.5"
+version = "1.0.6"
 description = "A fast, extensible, and powerful Minecraft launcher"
 keywords = ["minecraft", "launcher", "game", "mc"]
 exclude = ["/docs", "/tools"]
@@ -104,18 +104,18 @@ libflate = "2.1.0"
 lnk = { version = "0.6.3", features = ["unstable-save", "binwrite"] }
 memchr = "2.8.0"
 named-binary-tag = "0.6.0"
-sqrilizz = { path = ".", version = "1.0.5" }
-sqrilizz_auth = { path = "crates/auth", version = "1.0.5" }
-sqrilizz_core = { path = "crates/core", version = "1.0.5" }
-sqrilizz_config = { path = "crates/config", version = "1.0.5" }
-sqrilizz_instance = { path = "crates/instance", version = "1.0.5" }
-sqrilizz_mods = { path = "crates/mods", version = "1.0.5" }
-sqrilizz_net = { path = "crates/net", version = "1.0.5" }
-sqrilizz_options = { path = "crates/options", version = "1.0.5" }
-sqrilizz_parse = { path = "crates/parse", version = "1.0.5" }
-sqrilizz_pkg = { path = "crates/pkg", version = "1.0.5" }
-sqrilizz_pkg_gen = { path = "crates/pkg_gen", version = "1.0.5" }
-sqrilizz_shared = { path = "crates/shared", version = "1.0.5" }
+sqrilizz = { path = ".", version = "1.0.6" }
+sqrilizz_auth = { path = "crates/auth", version = "1.0.6" }
+sqrilizz_core = { path = "crates/core", version = "1.0.6" }
+sqrilizz_config = { path = "crates/config", version = "1.0.6" }
+sqrilizz_instance = { path = "crates/instance", version = "1.0.6" }
+sqrilizz_mods = { path = "crates/mods", version = "1.0.6" }
+sqrilizz_net = { path = "crates/net", version = "1.0.6" }
+sqrilizz_options = { path = "crates/options", version = "1.0.6" }
+sqrilizz_parse = { path = "crates/parse", version = "1.0.6" }
+sqrilizz_pkg = { path = "crates/pkg", version = "1.0.6" }
+sqrilizz_pkg_gen = { path = "crates/pkg_gen", version = "1.0.6" }
+sqrilizz_shared = { path = "crates/shared", version = "1.0.6" }
 oauth2 = "4.4.2"
 open = "5.4.1"
 pin-project-lite = "0.2.16"

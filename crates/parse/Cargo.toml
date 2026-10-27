@@ -1,6 +1,6 @@
 [package]
 name = "sqrilizz_parse"
-version = "1.0.5"
+version = "1.0.6"
 description = "Package script lexing, parsing, and basic evaluation for Sqrilizz"
 keywords = ["minecraft", "launcher", "game", "mc", "parse"]
 categories.workspace = true

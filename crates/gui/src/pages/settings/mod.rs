@@ -276,7 +276,7 @@ impl SettingsState {
 	pub fn apply(&self, data: &mut LauncherData) -> anyhow::Result<()> {
 		data.base_theme = Some((*self.base_theme.read()).clone()).filter(|x| !x.is_empty());
 		data.overlay_themes = self.overlay_themes.read().clone();
-		data.zoom = *self.zoom.read();
+		data.zoom = 1.0;
 		data.discord_rpc = *self.discord_rpc.read();
 		crate::ops::discord::set_enabled(data.discord_rpc);
 

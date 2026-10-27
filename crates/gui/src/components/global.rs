@@ -82,9 +82,9 @@ impl Component for Global {
 		let radio = use_radio(FrontChannel::Zoom);
 		use_side_effect(move || {
 			radio.read();
-			let data = back_state.data();
+			let _ = back_state.data();
 			let platform = Platform::get();
-			platform.set_custom_scale_factor(data.zoom);
+			platform.set_custom_scale_factor(1.0);
 		});
 
 		let is_onboarding = matches!(front_state.read().modal(), Some(ModalType::Onboarding))

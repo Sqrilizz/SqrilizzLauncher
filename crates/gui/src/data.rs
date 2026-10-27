@@ -66,7 +66,9 @@ impl LauncherData {
 	pub fn open(paths: &Paths) -> anyhow::Result<Self> {
 		let path = Self::path(paths);
 		if path.exists() {
-			json_from_file(path)
+			let mut data: Self = json_from_file(path)?;
+			data.zoom = 1.0;
+			Ok(data)
 		} else {
 			Ok(Self::default())
 		}

@@ -3,9 +3,7 @@ use std::{rc::Rc, sync::LazyLock};
 use crate::theme::{ThemeInfo as Theme, ThemeType};
 
 use crate::{
-	components::input::{slider, switch::Switch},
-	pages::settings::SettingsState,
-	prelude::*,
+	components::input::switch::Switch, pages::settings::SettingsState, prelude::*,
 	theme::ThemeDeser,
 };
 
@@ -71,17 +69,6 @@ impl Component for GeneralSettings {
 		let overlay_themes = field("Дополнительные эффекты", "palette", &theme, overlay_themes)
 			.tip(&front_state, "Визуальные оверлеи поверх основной темы.");
 
-		let zoom = slider(
-			*self.state.zoom.read(),
-			0.5,
-			1.75,
-			0.1,
-			self.state.zoom.setter(),
-			&theme,
-			&front_state,
-		);
-		let zoom = field("Масштаб интерфейса", "search", &theme, zoom)
-			.tip(&front_state, "Изменяет масштаб всего интерфейса лаунчера");
 		let discord_rpc = field(
 			"Discord Rich Presence",
 			"controller",
@@ -130,7 +117,6 @@ impl Component for GeneralSettings {
 			.padding(theme.gap3)
 			.child(base_themes)
 			.child(overlay_themes)
-			.child(zoom)
 			.child(discord_rpc)
 			.child(update_field);
 
@@ -149,68 +135,105 @@ impl Component for SelectableTheme {
 	fn render(&self) -> impl IntoElement {
 		let theme = use_theme();
 		let is_hovered = use_state(|| false);
+		let on_select = self.on_select.clone();
+		let id = self.theme.0.id.clone();
 
-		let calculated: Rc<crate::prelude::Theme> = use_hook(|| {
-			Rc::new(
-				serde_json::from_str::<ThemeDeser>(&self.theme.0.settings)
-					.unwrap_or_else(|_| ThemeDeser::dark())
-					.into(),
-			)
-		});
-
-		let fg = if calculated.fg == Color::TRANSPARENT {
-			theme.fg
+		let round = theme.round2;
+		let border_color = if self.is_selected {
+			theme.primary
 		} else {
-			calculated.fg
+			theme.panel_border
 		};
 
-		let preview = rect()
+		let mut preview_colors: Vec<Color> = Vec::new();
+		if let Ok(theme_deser) = serde_json::from_str::<ThemeDeser>(&self.theme.0.settings) {
+			if let Some(bg) = theme_deser.bg {
+				preview_colors.push(bg.into());
+			}
+			if let Some(primary) = theme_deser.primary {
+				preview_colors.push(primary.into());
+			}
+			if let Some(fg) = theme_deser.fg {
+				preview_colors.push(fg.into());
+			}
+		}
+
+		let preview_dots = preview_colors.into_iter().map(|color| {
+			rect()
+				.width(Size::px(10.0))
+				.height(Size::px(10.0))
+				.corner_radius(5.0)
+				.background(color)
+				.margin(Gaps::new(0.0, 4.0, 0.0, 4.0))
+		});
+
+		let title = self.theme.0.name.clone();
+		let desc = self.theme.0.description.clone();
+
+		let is_dark_bg = self.theme.0.id == "dark";
+		let mini_preview_bg = if is_dark_bg {
+			Color::from_rgb(18, 18, 20)
+		} else if self.theme.0.id == "light" {
+			Color::from_rgb(245, 245, 247)
+		} else {
+			theme.bg
+		};
+
+		let mini_preview_fg = if self.theme.0.id == "light" {
+			Color::from_rgb(30, 30, 30)
+		} else {
+			Color::from_rgb(240, 240, 240)
+		};
+
+		rect()
 			.width(Size::fill())
-			.height(Size::px(128.0))
-			.background(calculated.bg)
-			.color(fg)
-			.corner_radius(theme.round)
-			.main_align(Alignment::SpaceEvenly)
-			.cross_align(Alignment::Center)
-			.padding(theme.gap3)
-			.spacing(theme.gap3)
+			.height(Size::px(160.0))
+			.border(Border {
+				width: if self.is_selected {
+					2.0.into()
+				} else {
+					theme.border.into()
+				},
+				fill: border_color.into(),
+				alignment: BorderAlignment::Inner,
+			})
+			.corner_radius(round)
+			.padding(theme.gap2)
+			.background(theme.item)
+			.hover(is_hovered)
+			.clickable()
+			.on_press(move |_| on_select.call(id.clone()))
+			.child(
+				label()
+					.text(title)
+					.font_size(14.0)
+					.font_weight(FontWeight::BOLD)
+					.color(if self.is_selected {
+						theme.primary
+					} else {
+						theme.fg
+					}),
+			)
 			.child(
 				rect()
 					.width(Size::fill())
-					.horizontal()
-					.main_align(Alignment::SpaceEvenly)
-					.cross_align(Alignment::Center)
-					.child(swatch(calculated.item))
-					.child(swatch(calculated.primary))
-					.child(swatch(calculated.secondary)),
+					.height(Size::px(80.0))
+					.margin(Gaps::new(theme.gap, 0.0, theme.gap, 0.0))
+					.corner_radius(theme.round)
+					.background(mini_preview_bg)
+					.center()
+					.child(rect().horizontal().children(preview_dots))
+					.maybe(desc.is_some(), |this| {
+						this.child(
+							rect().margin(Gaps::new(theme.gap, 0.0, 0.0, 0.0)).child(
+								label()
+									.text(desc.unwrap())
+									.font_size(11.0)
+									.color(mini_preview_fg),
+							),
+						)
+					}),
 			)
-			.maybe_child(self.theme.0.description.clone());
-
-		let id = self.theme.0.id.clone();
-		let on_select = self.on_select.clone();
-		rect()
-			.panel_colorway(&theme, *is_hovered.read(), self.is_selected)
-			.corner_radius(theme.round)
-			.padding(theme.gap3)
-			.spacing(theme.gap3)
-			.hover(is_hovered)
-			.clickable()
-			.on_press(move |_| {
-				on_select.call(id.clone());
-			})
-			.child(
-				label()
-					.text(self.theme.0.name.clone())
-					.font_weight(FontWeight::BOLD),
-			)
-			.child(preview)
+			.into_element()
 	}
-}
-
-fn swatch(color: Color) -> Rect {
-	rect()
-		.width(Size::px(12.0))
-		.height(Size::px(12.0))
-		.background(color)
-		.corner_radius(6.0)
 }

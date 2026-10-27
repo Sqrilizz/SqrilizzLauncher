@@ -1,6 +1,6 @@
 [package]
 name = "sqrilizz_pkg_gen"
-version = "1.0.5"
+version = "1.0.6"
 description = "Sqrilizz package generation from existing platforms"
 keywords = ["minecraft", "launcher", "game", "mc"]
 categories.workspace = true
