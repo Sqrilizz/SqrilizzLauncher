@@ -1,13 +1,13 @@
 use crate::prelude::*;
 
-pub const MODAL_DEFAULT_WIDTH: f32 = 600.0;
-pub const MODAL_DEFAULT_HEIGHT: f32 = 400.0;
-pub const MODAL_MEDIUM_WIDTH: f32 = 800.0;
-pub const MODAL_MEDIUM_HEIGHT: f32 = 600.0;
-pub const MODAL_LARGE_WIDTH: f32 = 1000.0;
-pub const MODAL_LARGE_HEIGHT: f32 = 750.0;
-pub const MODAL_XLARGE_WIDTH: f32 = 1200.0;
-pub const MODAL_XLARGE_HEIGHT: f32 = 750.0;
+pub const MODAL_DEFAULT_WIDTH: f32 = 560.0;
+pub const MODAL_DEFAULT_HEIGHT: f32 = 380.0;
+pub const MODAL_MEDIUM_WIDTH: f32 = 720.0;
+pub const MODAL_MEDIUM_HEIGHT: f32 = 480.0;
+pub const MODAL_LARGE_WIDTH: f32 = 780.0;
+pub const MODAL_LARGE_HEIGHT: f32 = 500.0;
+pub const MODAL_XLARGE_WIDTH: f32 = 780.0;
+pub const MODAL_XLARGE_HEIGHT: f32 = 500.0;
 
 /// Base modal with no title or buttons
 #[derive(PartialEq)]

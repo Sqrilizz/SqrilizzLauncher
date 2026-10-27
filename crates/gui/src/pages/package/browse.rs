@@ -321,10 +321,6 @@ impl Component for BrowsePackagesPage {
 			total_results: 0,
 		});
 
-		if back_state.repos().is_empty() {
-			return placeholder("No package repositories available", &theme).font_size(18.0);
-		}
-
 		let results_query2 = results_query;
 		let mut search_session2 = search_session;
 		let mut results2 = results;
@@ -357,6 +353,10 @@ impl Component for BrowsePackagesPage {
 				front_state_footer.write().set_footer(FooterItem::None);
 			}
 		});
+
+		if back_state.repos().is_empty() {
+			return placeholder("No package repositories available", &theme).font_size(18.0);
+		}
 
 		let mut page2 = search_state.page;
 		let page_buttons = PageButtons {

@@ -84,7 +84,8 @@ pub fn loader_tag(loader: &Loader, compact: bool, theme: &Theme) -> Rect {
 	let ico = get_loader_icon(loader)
 		.width(Size::px(14.0))
 		.height(Size::px(14.0));
-	let fg = if compact { theme.fg } else { theme.bg };
+	let is_light = theme.bg.r() > 180;
+	let fg = if compact || is_light { theme.fg } else { theme.bg };
 	let bg = if compact {
 		Color::TRANSPARENT
 	} else {
@@ -102,7 +103,13 @@ fn get_loader_color(loader: &Loader, theme: &Theme) -> Color {
 		Loader::NeoForged => Color::from_hex("#d6732f").unwrap(),
 		Loader::Sponge => Color::from_hex("#f8ce0f").unwrap(),
 		Loader::SpongeForge => Color::from_hex("#f8ce0f").unwrap(),
-		Loader::Paper => Color::from_hex("#fbfbfb").unwrap(),
+		Loader::Paper => {
+			if theme.bg.r() > 180 {
+				Color::from_hex("#94a3b8").unwrap()
+			} else {
+				Color::from_hex("#fbfbfb").unwrap()
+			}
+		}
 		Loader::Folia => Color::from_hex("#ff6576").unwrap(),
 		_ => theme.fg2,
 	}

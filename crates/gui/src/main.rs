@@ -112,7 +112,7 @@ fn main() {
 
 	let window = WindowConfig::new(move || app(back_state.clone(), event_rx.resubscribe()))
 		.with_size(1400.0, 900.0)
-		.with_min_size(950.0, 600.0)
+		.with_min_size(800.0, 540.0)
 		.with_title("Sqrilizz Launcher")
 		.with_app_id("sqrilizz_launcher")
 		.with_icon(LaunchConfig::window_icon(ICON));

@@ -242,20 +242,21 @@ impl Component for ServerInstancePage {
 				.cross_align(Alignment::Center)
 				.spacing(6.0)
 				.padding(Gaps::new(2.0, 8.0, 2.0, 8.0))
-				.background(Color::from_argb(20, 255, 255, 255))
+				.background(theme.item)
+				.border(theme.border(theme.item_border))
 				.corner_radius(4.0)
 				.child(
 					rect()
 						.width(Size::px(8.0))
 						.height(Size::px(8.0))
 						.corner_radius(4.0)
-						.background(Color::from_rgb(156, 163, 175)),
+						.background(theme.fg3),
 				)
 				.child(
 					label()
 						.text("Остановлен")
 						.font_size(11.0)
-						.color(Color::from_rgb(156, 163, 175)),
+						.color(theme.fg2),
 				)
 		};
 

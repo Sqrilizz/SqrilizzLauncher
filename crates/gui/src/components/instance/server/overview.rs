@@ -37,6 +37,65 @@ fn format_filesize(bytes: u64) -> String {
 }
 
 #[derive(PartialEq)]
+struct QuickActionChip {
+	id: String,
+	cmd: &'static str,
+	label_text: &'static str,
+	icon_name: &'static str,
+}
+
+impl Component for QuickActionChip {
+	fn render(&self) -> impl IntoElement {
+		let theme = use_theme();
+		let back_state = use_consume::<BackState>();
+		let front_state = use_front_state();
+		let is_hovered = use_state(|| false);
+
+		let id = self.id.clone();
+		let cmd = self.cmd;
+		rect()
+			.height(Size::px(26.0))
+			.padding(Gaps::new(0.0, 10.0, 0.0, 10.0))
+			.background(if *is_hovered.read() {
+				theme.item_hover
+			} else {
+				theme.item
+			})
+			.border(theme.border(theme.item_border))
+			.corner_radius(theme.round)
+			.horizontal()
+			.cross_align(Alignment::Center)
+			.spacing(6.0)
+			.hover(is_hovered)
+			.clickable()
+			.on_press(move |_| {
+				let id = id.clone();
+				let bs = back_state.clone();
+				let fs = front_state.clone();
+				spawn(async move {
+					match write_console_command(&bs, &id, cmd).await {
+						Ok(_) => {
+							fs.write()
+								.toast(Toast::success(&format!("Отправлено: /{cmd}")));
+						}
+						Err(e) => {
+							fs.write()
+								.toast(Toast::error(&format!("Ошибка: {e}"), None));
+						}
+					}
+				});
+			})
+			.child(icon(self.icon_name, 12.0).color(theme.primary))
+			.child(
+				label()
+					.text(format!("/{}", self.label_text))
+					.font_size(theme.font0)
+					.color(theme.fg),
+			)
+	}
+}
+
+#[derive(PartialEq)]
 pub struct ServerOverview {
 	pub id: String,
 }
@@ -413,60 +472,6 @@ impl Component for ServerOverview {
 				});
 
 		// --- 3. Pterodactyl Quick Actions Chips Bar ---
-		let id_chip = self.id.clone();
-		let bs_chip = back_state.clone();
-		let fs_chip = front_state.clone();
-		let theme_chip = theme.clone();
-
-		let make_chip =
-			move |cmd: &'static str, label_text: &'static str, icon_name: &'static str| {
-				let id = id_chip.clone();
-				let bs = bs_chip.clone();
-				let fs = fs_chip.clone();
-				let th = theme_chip.clone();
-				let is_hovered = use_state(|| false);
-
-				rect()
-					.height(Size::px(26.0))
-					.padding(Gaps::new(0.0, 10.0, 0.0, 10.0))
-					.background(if *is_hovered.read() {
-						th.item_hover
-					} else {
-						th.item
-					})
-					.border(th.border(th.item_border))
-					.corner_radius(th.round)
-					.horizontal()
-					.cross_align(Alignment::Center)
-					.spacing(6.0)
-					.hover(is_hovered)
-					.clickable()
-					.on_press(move |_| {
-						let id = id.clone();
-						let bs = bs.clone();
-						let fs = fs.clone();
-						spawn(async move {
-							match write_console_command(&bs, &id, cmd).await {
-								Ok(_) => {
-									fs.write()
-										.toast(Toast::success(&format!("Отправлено: /{cmd}")));
-								}
-								Err(e) => {
-									fs.write()
-										.toast(Toast::error(&format!("Ошибка: {e}"), None));
-								}
-							}
-						});
-					})
-					.child(icon(icon_name, 12.0).color(th.primary))
-					.child(
-						label()
-							.text(format!("/{label_text}"))
-							.font_size(th.font0)
-							.color(th.fg),
-					)
-			};
-
 		let quick_bar = rect()
 			.width(Size::fill())
 			.height(Size::px(30.0))
@@ -481,13 +486,48 @@ impl Component for ServerOverview {
 					.font_weight(FontWeight::BOLD)
 					.color(theme.fg3),
 			)
-			.child(make_chip("list", "list", "text"))
-			.child(make_chip("tps", "tps", "lightning"))
-			.child(make_chip("save-all", "save-all", "box"))
-			.child(make_chip("time set day", "time set day", "sun"))
-			.child(make_chip("weather clear", "weather clear", "feather"))
-			.child(make_chip("whitelist on", "whitelist on", "key"))
-			.child(make_chip("reload confirm", "reload confirm", "cycle"));
+			.child(QuickActionChip {
+				id: self.id.clone(),
+				cmd: "list",
+				label_text: "list",
+				icon_name: "text",
+			})
+			.child(QuickActionChip {
+				id: self.id.clone(),
+				cmd: "tps",
+				label_text: "tps",
+				icon_name: "lightning",
+			})
+			.child(QuickActionChip {
+				id: self.id.clone(),
+				cmd: "save-all",
+				label_text: "save-all",
+				icon_name: "box",
+			})
+			.child(QuickActionChip {
+				id: self.id.clone(),
+				cmd: "time set day",
+				label_text: "time set day",
+				icon_name: "sun",
+			})
+			.child(QuickActionChip {
+				id: self.id.clone(),
+				cmd: "weather clear",
+				label_text: "weather clear",
+				icon_name: "feather",
+			})
+			.child(QuickActionChip {
+				id: self.id.clone(),
+				cmd: "whitelist on",
+				label_text: "whitelist on",
+				icon_name: "key",
+			})
+			.child(QuickActionChip {
+				id: self.id.clone(),
+				cmd: "reload confirm",
+				label_text: "reload confirm",
+				icon_name: "cycle",
+			});
 
 		// Overall Pterodactyl Dashboard Root Container
 		rect()
