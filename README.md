@@ -12,6 +12,7 @@
   <a href="https://github.com/Sqrilizz/SqrilizzLauncher/releases/latest"><img src="https://img.shields.io/github/v/release/Sqrilizz/SqrilizzLauncher?style=flat-square&color=6366f1" alt="Release"></a>
   <a href="https://github.com/Sqrilizz/SqrilizzLauncher/actions"><img src="https://img.shields.io/github/actions/workflow/status/Sqrilizz/SqrilizzLauncher/gui.yml?branch=main&style=flat-square" alt="Build Status"></a>
   <a href="https://github.com/Sqrilizz/SqrilizzLauncher/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Sqrilizz/SqrilizzLauncher?style=flat-square" alt="License"></a>
+  <img src="https://img.shields.io/badge/status-currently%20in%20development-orange?style=flat-square" alt="Currently in Development">
 </p>
 
 ---
