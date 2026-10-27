@@ -52,8 +52,8 @@ jobs:
       - if: ${{ matrix.os == 'ubuntu-latest' }}
         name: Install Linux build deps
         run: |
-          sudo apt update
-          sudo apt install --yes \
+          sudo apt-get update
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
             libdbus-1-dev \
             libfreetype6-dev \
             libfontconfig1-dev \
