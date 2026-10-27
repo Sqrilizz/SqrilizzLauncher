@@ -35,7 +35,7 @@ jobs:
         run: echo "SQRILIZZ_VERSION=${SQRILIZZ_VERSION#v}" >> "$GITHUB_ENV"
 
       - name: Download latest GUI artifacts
-        uses: dawidd6/action-download-artifact@v11
+        uses: dawidd6/action-download-artifact@v27
         with:
           workflow: gui.yml
           workflow_conclusion: success
@@ -44,7 +44,7 @@ jobs:
           path: artifacts/gui/linux
 
       - name: Download latest Windows GUI artifacts
-        uses: dawidd6/action-download-artifact@v11
+        uses: dawidd6/action-download-artifact@v27
         with:
           workflow: gui.yml
           workflow_conclusion: success
@@ -53,7 +53,7 @@ jobs:
           path: artifacts/gui/windows
 
       - name: Download latest macOS GUI artifacts
-        uses: dawidd6/action-download-artifact@v11
+        uses: dawidd6/action-download-artifact@v27
         with:
           workflow: gui.yml
           workflow_conclusion: success
@@ -62,7 +62,7 @@ jobs:
           path: artifacts/gui/macos
 
       - name: Download latest CLI artifacts
-        uses: dawidd6/action-download-artifact@v11
+        uses: dawidd6/action-download-artifact@v27
         with:
           workflow: build.yml
           workflow_conclusion: success
@@ -71,7 +71,7 @@ jobs:
           path: artifacts/cli/linux
 
       - name: Download latest Windows CLI artifacts
-        uses: dawidd6/action-download-artifact@v11
+        uses: dawidd6/action-download-artifact@v27
         with:
           workflow: build.yml
           workflow_conclusion: success
@@ -80,7 +80,7 @@ jobs:
           path: artifacts/cli/windows
 
       - name: Download latest macOS CLI artifacts
-        uses: dawidd6/action-download-artifact@v11
+        uses: dawidd6/action-download-artifact@v27
         with:
           workflow: build.yml
           workflow_conclusion: success
